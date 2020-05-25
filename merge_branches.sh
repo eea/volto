@@ -10,7 +10,7 @@ git pull
 git merge volto/export_components
 git merge origin/sync_update
 git merge origin/navigation-refactoring
-git merge origin/eea-default-blocks
+git merge volto/eea-default-blocks
 git merge volto/master
 
 # To come:

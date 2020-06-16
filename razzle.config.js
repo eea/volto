@@ -5,7 +5,6 @@
 /* eslint no-param-reassign: 0 */
 /* eslint no-unused-vars: 0 */
 
-const logger = require('razzle-dev-utils/logger');
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const makeLoaderFinder = require('razzle-dev-utils/makeLoaderFinder');
@@ -19,7 +18,6 @@ const { map, has } = require('lodash');
 const glob = require('glob').sync;
 const RootResolverPlugin = require('./webpack-root-resolver');
 const createAddonsLoader = require('./create-addons-loader');
-const AddonConfigurationRegistry = require('./addon-registry');
 
 const fileLoaderFinder = makeLoaderFinder('file-loader');
 const eslintLoaderFinder = makeLoaderFinder('eslint-loader');
@@ -241,26 +239,64 @@ const defaultModify = (config, { target, dev }, webpack) => {
 
   const addonsLoaderPath = createAddonsLoader(packageJson.addons || []);
 
-  config.resolve.plugins = [new RootResolverPlugin()];
+    const jsconfigPaths = {};
+    if (fs.existsSync(`${projectRootPath}/jsconfig.json`)) {
+      const jsConfig = require(`${projectRootPath}/jsconfig`).compilerOptions;
+      const pathsConfig = jsConfig.paths;
+      Object.keys(pathsConfig).forEach((packageName) => {
+        const packagePath = `${projectRootPath}/${jsConfig.baseUrl}/${pathsConfig[packageName][0]}`;
+        jsconfigPaths[packageName] = packagePath;
+        if (packageName === '@plone/volto') {
+          voltoPath = packagePath;
+        }
+      });
+    }
 
-  config.resolve.alias = {
-    ...customizations,
-    ...config.resolve.alias,
-    '../../theme.config$': `${projectRootPath}/theme/theme.config`,
-    'volto-themes': `${registry.voltoPath}/theme/themes`,
-    'load-volto-addons': addonsLoaderPath,
-    ...registry.getResolveAliases(),
-    '@plone/volto': `${registry.voltoPath}/src`,
-    // to be able to reference path uncustomized by webpack
-    '@plone/volto-original': `${registry.voltoPath}/src`,
-    // be able to reference current package from customized package
-    '@package': `${projectRootPath}/src`,
-  };
+    // If there's any addon, add the alias for the `src` folder
+    const addonsAliases = {};
+    if (packageJson.addons) {
+      const addons = packageJson.addons;
+      addons.forEach((addon) => {
+        const addonName = addon.split(':')[0];
+        if (!(addonName in jsconfigPaths)) {
+          const addonPath = `${projectRootPath}/node_modules/${addonName}/src`;
+          addonsAliases[addonName] = addonPath;
+        }
+      });
+    }
 
-  config.performance = {
-    maxAssetSize: 10000000,
-    maxEntrypointSize: 10000000,
-  };
+    // console.debug(`Generated addon loader code at ${io.name}`);
+    const addonsLoaderPath = createAddonsLoader(packageJson.addons || []);
+
+    const customizations = {};
+    let { customizationPaths } = packageJson;
+    if (!customizationPaths) {
+      customizationPaths = ['src/customizations/'];
+    }
+    customizationPaths.forEach((customizationPath) => {
+      map(
+        glob(
+          `${customizationPath}**/*.*(svg|png|jpg|jpeg|gif|ico|less|js|jsx)`,
+        ),
+        (filename) => {
+          const targetPath = filename.replace(
+            customizationPath,
+            `${voltoPath}/src/`,
+          );
+          if (fs.existsSync(targetPath)) {
+            customizations[
+              filename
+                .replace(customizationPath, '@plone/volto/')
+                .replace(/\.(js|jsx)$/, '')
+            ] = path.resolve(filename);
+          } else {
+            console.log(
+              `The file ${filename} doesn't exist in the volto package (${targetPath}), unable to customize.`,
+            );
+          }
+        },
+      );
+    });
 
   const babelRuleIndex = config.module.rules.findIndex(
     (rule) =>
@@ -279,40 +315,51 @@ const defaultModify = (config, { target, dev }, webpack) => {
     );
   }
 
-  config.module.rules[babelRuleIndex] = Object.assign(
-    config.module.rules[babelRuleIndex],
-    {
-      include,
-    },
-  );
+    config.resolve.alias = {
+      ...customizations,
+      ...config.resolve.alias,
+      '../../theme.config$': `${projectRootPath}/theme/theme.config`,
+      'load-volto-addons': addonsLoaderPath,
+      ...addonsAliases,
+      ...jsconfigPaths,
+      '@plone/volto': `${voltoPath}/src`,
+      // to be able to reference path uncustomized by webpack
+      '@plone/volto-original': `${voltoPath}/src`,
+      // be able to reference current package from customized package
+      '@package': `${projectRootPath}/src`,
+    };
 
   let addonsAsExternals = [];
   if (packageJson.addons) {
     addonsAsExternals = registry.addonNames.map((addon) => new RegExp(addon));
   }
 
-  config.externals =
-    target === 'node'
-      ? [
-          nodeExternals({
-            whitelist: [
-              dev ? 'webpack/hot/poll?300' : null,
-              /\.(eot|woff|woff2|ttf|otf)$/,
-              /\.(svg|png|jpg|jpeg|gif|ico)$/,
-              /\.(mp4|mp3|ogg|swf|webp)$/,
-              /\.(css|scss|sass|sss|less)$/,
-              // Add support for whitelist external (ie. node_modules npm published packages)
-              ...addonsAsExternals,
-              /^@plone\/volto/,
-            ].filter(Boolean),
-          }),
-        ]
-      : [];
+    const babelRuleIndex = config.module.rules.findIndex(
+      (rule) =>
+        rule.use &&
+        rule.use[0].loader &&
+        rule.use[0].loader.includes('babel-loader'),
+    );
+    const { include } = config.module.rules[babelRuleIndex];
+    if (packageJson.name !== '@plone/volto') {
+      include.push(fs.realpathSync(`${voltoPath}/src`));
+    }
+    // Add babel support external (ie. node_modules npm published packages)
+    if (packageJson.addons) {
+      packageJson.addons.forEach((addon) =>
+        include.push(
+          fs.realpathSync(`${projectRootPath}/node_modules/${addon}/src`),
+        ),
+      );
+    }
 
   return config;
 };
 
-const addonExtenders = registry.getAddonExtenders().map((m) => require(m));
+    let addonsAsExternals = [];
+    if (packageJson.addons) {
+      addonsAsExternals = packageJson.addons.map((addon) => new RegExp(addon));
+    }
 
 const plugins = addonExtenders.reduce(
   (acc, extender) => extender.plugins(acc),

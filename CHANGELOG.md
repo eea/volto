@@ -117,6 +117,8 @@
 - Allow custom express middleware declared with `settings.expressMiddleware`. See [Customizing Express](docs/source/customizing/express.md) @tiberiuichim
 - Allow custom express middleware declared with ``settings.expressMiddleware``. See [Customizing Express](docs/customizing/express.md) @tiberiuichim
 
+- New `object` and `object_list` widgets (classes `ObjectWidget`, `ObjectListWidget`) @silviubogan
+
 ### Bugfix
 
 - Fix the toolbar dropdown to add content types if isMultilingual is enabled

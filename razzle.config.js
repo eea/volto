@@ -265,7 +265,6 @@ const defaultModify = (config, { target, dev }, webpack) => {
       });
     }
 
-    // console.debug(`Generated addon loader code at ${io.name}`);
     const addonsLoaderPath = createAddonsLoader(packageJson.addons || []);
 
     const customizations = {};

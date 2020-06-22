@@ -4,6 +4,7 @@
  */
 
 import { endsWith, find, keys } from 'lodash';
+import { blocks } from '~/config';
 
 /**
  * Get blocks field.
@@ -50,17 +51,20 @@ export function hasBlocksData(props) {
   );
 }
 
-/**
- * Get block pairs of [id, block] from content properties
- * @function getBlocks
- * @param {Object} properties
- * @return {Array} a list of block [id, value] pairs, in order from layout
+/*
+ * Pluggable method to test if a block has a set value (any non-empty value)
+ * @function blockHasValue
+ * @param {Object} data Block data
+ * @return {boolean} True if block has a non-empty value
  */
-export const getBlocks = (properties) => {
-  const blocksFieldName = getBlocksFieldname(properties);
-  const blocksLayoutFieldname = getBlocksLayoutFieldname(properties);
-  return properties[blocksLayoutFieldname].items.map((n) => [
-    n,
-    properties[blocksFieldName][n],
-  ]);
-};
+export function blockHasValue(data) {
+  const blockType = data['@type'];
+  const check = blocks.blocksConfig[blockType]?.blockHasValue;
+  if (!check) {
+    console.error(
+      `No valid blockHasValue implementation for block type '${blockType}'!`,
+    );
+    return false;
+  }
+  return check(data);
+}

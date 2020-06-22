@@ -3,6 +3,7 @@ import {
   getBlocksFieldname,
   getBlocksLayoutFieldname,
   hasBlocksData,
+  blockHasValue,
 } from './Blocks';
 
 describe('Blocks', () => {
@@ -67,33 +68,53 @@ describe('Blocks', () => {
     });
   });
 
-  describe('getBlock', () => {
-    it('returns empty when there is no block content', () => {
-      expect(
-        getBlocks({ blocks: {}, blocks_layout: { items: [] } }),
-      ).toStrictEqual([]);
+  describe('blockHasValue', () => {
+    it('warns when block checker is not defined', () => {
+      const consoleSpy = jest
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
+      blockHasValue({ '@type': 'not-defined' });
+      expect(consoleSpy).toHaveBeenCalled();
     });
 
-    it('returns ordered pairs', () => {
-      expect(
-        getBlocks({
-          blocks: { a: { value: 1 }, b: { value: 2 } },
-          blocks_layout: { items: ['a', 'b'] },
-        }),
-      ).toStrictEqual([
-        ['a', { value: 1 }],
-        ['b', { value: 2 }],
-      ]);
+    it('returns true for text blocks with valid text', () => {
+      const textBlock = {
+        '@type': 'text',
+        text: {
+          blocks: [
+            {
+              data: {},
+              depth: 0,
+              entityRanges: [],
+              inlineStyleRanges: [],
+              key: 'cnh5c',
+              text: 'The block text content',
+              type: 'unstyled',
+            },
+          ],
+        },
+      };
+      expect(blockHasValue(textBlock)).toBe(true);
+    });
 
-      expect(
-        getBlocks({
-          blocks: { a: { value: 1 }, b: { value: 2 } },
-          blocks_layout: { items: ['b', 'a'] },
-        }),
-      ).toStrictEqual([
-        ['b', { value: 2 }],
-        ['a', { value: 1 }],
-      ]);
+    it('returns false for text blocks with empty text', () => {
+      const textBlock = {
+        '@type': 'text',
+        text: {
+          blocks: [
+            {
+              data: {},
+              depth: 0,
+              entityRanges: [],
+              inlineStyleRanges: [],
+              key: 'cnh5c',
+              text: '',
+              type: 'unstyled',
+            },
+          ],
+        },
+      };
+      expect(blockHasValue(textBlock)).toBe(false);
     });
   });
 });

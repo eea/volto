@@ -104,6 +104,8 @@
 
 - Fix formatting of `src/server.jsx` @tiberiuichim
 
+- Fix formatting of ``src/server.jsx`` @tiberiuichim
+
 ## 6.4.0 (2020-06-29)
 
 ### Feature

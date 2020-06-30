@@ -83,6 +83,7 @@
 - Fix datepicker z-index @giuliaghisini
 
 - Remove unneeded class in ``InlineForm.jsx`` @tiberiuichim
+- Fix styling and use of csss classes in ``InlineForm.jsx`` @tiberiuichim
 
 ### Internal
 

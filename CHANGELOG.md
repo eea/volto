@@ -82,6 +82,8 @@
 - Center aligned Images are now displayed like they are center aligned in the View @steffenri
 - Fix datepicker z-index @giuliaghisini
 
+- Remove unneeded class in ``InlineForm.jsx`` @tiberiuichim
+
 ### Internal
 
 - Upgrade insecure packages `http-proxy`, `http-proxy-middleware` and `handlebars` @tiberiuichim

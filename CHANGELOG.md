@@ -8,6 +8,8 @@
 
 - Added Placeholder attribute to Textwidget and TextAreaWidget @iFlameing
 
+- Allow JSON API calls to made to third-party servers @tiberiuichim
+
 ### Bugfix
 
 ### Internal

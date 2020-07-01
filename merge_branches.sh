@@ -10,7 +10,8 @@ git pull
 git merge volto/export_components
 git merge origin/sync_update
 git merge origin/navigation-refactoring
-git merge volto/eea-default-blocks
+git merge volto/eea-dx-fields-validation
+git merge volto/eea-dx-cpanel-layout
 git merge volto/master
 
 # To come:

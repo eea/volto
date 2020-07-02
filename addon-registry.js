@@ -9,20 +9,13 @@ const fs = require('fs');
 // - packageContent (customizable files)
 // - extraConfigLoaders (function references)
 // - razzleExtender ({plugins, modify})
+// - serverConfig (function reference)
 
 function getPackageBasePath(base) {
   while (!fs.existsSync(`${base}/package.json`)) {
     base = path.join(base, '../');
   }
   return path.resolve(base);
-}
-
-function fromEntries(pairs) {
-  const res = {};
-  pairs.forEach((p) => {
-    res[p[0]] = p[1];
-  });
-  return res;
 }
 
 class AddonConfigurationRegistry {
@@ -63,7 +56,6 @@ class AddonConfigurationRegistry {
           modulePath: packagePath,
           packageJson: `${getPackageBasePath(packagePath)}/package.json`,
           isAddon: false,
-          name,
         };
 
         this.packages[name] = Object.assign(this.packages[name] || {}, pkg);
@@ -78,15 +70,14 @@ class AddonConfigurationRegistry {
    * default.
    */
   initPublishedPackages() {
-    this.addonNames.forEach((name) => {
-      if (!(name in this.packages)) {
-        const basePath = `${this.projectRootPath}/node_modules/${name}`;
+    this.addonNames.forEach((addonName) => {
+      if (!(addonName in this.packages)) {
+        const basePath = `${this.projectRootPath}/node_modules/${addonName}`;
         const packageJson = `${basePath}/package.json`;
         const pkg = require(packageJson);
         const main = pkg.main || 'src/index.js';
         const modulePath = path.dirname(require.resolve(`${basePath}/${main}`));
-        this.packages[name] = {
-          name,
+        this.packages[addonName] = {
           isAddon: true,
           modulePath,
           packageJson,
@@ -114,6 +105,7 @@ class AddonConfigurationRegistry {
   /*
    * Maps extra configuration loaders for addons:
    * - extra loaders (from the addon loader string in package.addons
+   * - the server.config.js files
    */
   initAddonLoaders() {
     (this.packageJson.addons || []).forEach((addonConfigString) => {
@@ -126,6 +118,11 @@ class AddonConfigurationRegistry {
 
       const addon = this.packages[pkgName];
       addon.extraConfigLoaders = extras;
+
+      // const serverModule = path.resolve(`${addon.modulePath}/server.config.js`);
+      // if (fs.existsSync(serverModule)) {
+      //   addon.serverConfig = serverModule;
+      // }
     });
   }
 
@@ -152,7 +149,7 @@ class AddonConfigurationRegistry {
       o,
       this.packages[o].modulePath,
     ]);
-    return fromEntries(pairs);
+    return Object.fromEntries(pairs);
   }
 }
 

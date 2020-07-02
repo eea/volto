@@ -27,3 +27,4 @@ git merge volto/master
 # git merge volto/fix_querystring_child_warning
 # git merge tiberiuichim/navigation-refactoring
 # git merge volto/eea-controlpanel-dx
+# git merge origin/eea-default-blocks

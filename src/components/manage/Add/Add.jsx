@@ -110,7 +110,7 @@ class Add extends Component {
     this.onSubmit = this.onSubmit.bind(this);
 
     if (blocks?.initialBlocks[props.type]) {
-      this.initialBlocksLayout = blocks.initialBlocks[props.type].map(item =>
+      this.initialBlocksLayout = blocks.initialBlocks[props.type].map((item) =>
         uuid(),
       );
       this.initialBlocks = this.initialBlocksLayout.reduce(
@@ -217,11 +217,14 @@ class Add extends Component {
       if (!isEmpty(schemaBlocksLayout) && !isEmpty(schemaBlocks)) {
         initialBlocks = {};
         initialBlocksLayout = [];
-        schemaBlocksLayout.forEach(value => {
+        schemaBlocksLayout.forEach((value) => {
           if (!isEmpty(schemaBlocks[value])) {
             let newUid = uuid();
             initialBlocksLayout.push(newUid);
             initialBlocks[newUid] = schemaBlocks[value];
+
+            // Ref ID - keep a reference to the original block id
+            initialBlocks[newUid]['rid'] = value;
           }
         });
       }
@@ -237,16 +240,31 @@ class Add extends Component {
             ref={this.form}
             schema={this.props.schema}
             formData={{
-              [blocksFieldname]: initialBlocks,
-              [blocksLayoutFieldname]: { items: initialBlocksLayout },
+              ...(blocksFieldname && {
+                [blocksFieldname]:
+                  initialBlocks ||
+                  this.props.schema.properties[blocksFieldname]?.default,
+              }),
+              ...(blocksLayoutFieldname && {
+                [blocksLayoutFieldname]: {
+                  items:
+                    initialBlocksLayout ||
+                    this.props.schema.properties[blocksLayoutFieldname]?.default
+                      ?.items,
+                },
+              }),
             }}
             onSubmit={this.onSubmit}
             hideActions
             pathname={this.props.pathname}
             visual={visual}
-            title={this.props.intl.formatMessage(messages.add, {
-              type: this.props.type,
-            })}
+            title={
+              this.props?.schema?.title
+                ? this.props.intl.formatMessage(messages.add, {
+                    type: this.props.schema.title,
+                  })
+                : null
+            }
             loading={this.props.createRequest.loading}
           />
           <Portal node={__CLIENT__ && document.getElementById('toolbar')}>

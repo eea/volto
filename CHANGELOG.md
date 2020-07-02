@@ -4,7 +4,10 @@
 
 ### Breaking
 
-* Add possibility to get initialBlocks and initialBlocksLayout from backend @avoinea
+### Feature
+
+- Added Blocks Layout Editor within Dexterity Content-Types Controlpanel @avoinea #1517
+### Bugfix
 
 ### Changes
 ### Feature

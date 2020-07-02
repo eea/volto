@@ -40,6 +40,10 @@ import listBulletSVG from '@plone/volto/icons/list-bullet.svg';
 import tocSVG from '@plone/volto/icons/list-bullet.svg';
 
 import ImageGalleryListingBlockTemplate from '@plone/volto/components/manage/Blocks/Listing/ImageGallery';
+import BlockSettingsSchema from '@plone/volto/components/manage/Blocks/Block/Schema';
+import TextSettingsSchema from '@plone/volto/components/manage/Blocks/Text/Schema';
+import ImageSettingsSchema from '@plone/volto/components/manage/Blocks/Image/Schema';
+import ToCSettingsSchema from '@plone/volto/components/manage/Blocks/ToC/Schema';
 
 defineMessages({
   title: {
@@ -120,6 +124,7 @@ const blocksConfig = {
     group: 'text',
     view: ViewTitleBlock,
     edit: EditTitleBlock,
+    schema: BlockSettingsSchema,
     restricted: true,
     mostUsed: false,
     blockHasOwnFocusManagement: true,
@@ -136,6 +141,7 @@ const blocksConfig = {
     group: 'text',
     view: ViewDescriptionBlock,
     edit: EditDescriptionBlock,
+    schema: BlockSettingsSchema,
     restricted: true,
     mostUsed: false,
     blockHasOwnFocusManagement: true,
@@ -152,6 +158,7 @@ const blocksConfig = {
     group: 'text',
     view: ViewTextBlock,
     edit: EditTextBlock,
+    schema: TextSettingsSchema,
     restricted: false,
     mostUsed: false,
     blockHasOwnFocusManagement: true,
@@ -168,6 +175,7 @@ const blocksConfig = {
     group: 'media',
     view: ViewImageBlock,
     edit: EditImageBlock,
+    schema: ImageSettingsSchema,
     restricted: false,
     mostUsed: true,
     sidebarTab: 1,
@@ -183,6 +191,7 @@ const blocksConfig = {
     group: 'media',
     view: ViewLeadImageBlock,
     edit: EditLeadImageBlock,
+    schema: BlockSettingsSchema,
     restricted: false,
     mostUsed: false,
     sidebarTab: 1,
@@ -198,6 +207,7 @@ const blocksConfig = {
     group: 'common',
     view: ViewListingBlock,
     edit: EditListingBlock,
+    schema: BlockSettingsSchema,
     restricted: false,
     mostUsed: true,
     sidebarTab: 1,
@@ -220,6 +230,7 @@ const blocksConfig = {
     group: 'media',
     view: ViewVideoBlock,
     edit: EditVideoBlock,
+    schema: BlockSettingsSchema,
     restricted: false,
     mostUsed: true,
     sidebarTab: 1,
@@ -235,6 +246,7 @@ const blocksConfig = {
     group: 'common',
     view: ViewToCBlock,
     edit: EditToCBlock,
+    schema: ToCSettingsSchema,
     restricted: false,
     mostUsed: false,
     sidebarTab: 0,
@@ -250,6 +262,7 @@ const blocksConfig = {
     group: 'common',
     view: ViewHeroImageLeftBlock,
     edit: EditHeroImageLeftBlock,
+    schema: BlockSettingsSchema,
     restricted: false,
     mostUsed: false,
     blockHasOwnFocusManagement: true,
@@ -266,6 +279,7 @@ const blocksConfig = {
     group: 'common',
     view: ViewMapBlock,
     edit: EditMapBlock,
+    schema: BlockSettingsSchema,
     restricted: false,
     mostUsed: false,
     sidebarTab: 1,
@@ -281,6 +295,7 @@ const blocksConfig = {
     group: 'common',
     view: ViewHTMLBlock,
     edit: EditHTMLBlock,
+    schema: BlockSettingsSchema,
     restricted: false,
     mostUsed: false,
     sidebarTab: 0,
@@ -296,6 +311,7 @@ const blocksConfig = {
     group: 'common',
     view: ViewTableBlock,
     edit: EditTableBlock,
+    schema: BlockSettingsSchema,
     restricted: false,
     mostUsed: false,
     blockHasOwnFocusManagement: true,

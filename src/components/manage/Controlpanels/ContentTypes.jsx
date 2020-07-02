@@ -14,7 +14,13 @@ import { last } from 'lodash';
 import { Confirm, Container, Table, Button, Dropdown } from 'semantic-ui-react';
 import { toast } from 'react-toastify';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import { Icon, ModalForm, Toolbar, Toast } from '@plone/volto/components';
+import {
+  Error,
+  Icon,
+  ModalForm,
+  Toolbar,
+  Toast,
+} from '@plone/volto/components';
 import {
   getControlpanel,
   postControlpanel,
@@ -26,6 +32,7 @@ import addSVG from '@plone/volto/icons/add-document.svg';
 import backSVG from '@plone/volto/icons/back.svg';
 import editSVG from '@plone/volto/icons/pen.svg';
 import trashSVG from '@plone/volto/icons/delete.svg';
+import layoutSVG from '@plone/volto/icons/file.svg';
 
 const messages = defineMessages({
   add: {
@@ -95,14 +102,7 @@ class ContentTypes extends Component {
     postControlpanel: PropTypes.func.isRequired,
     deleteControlpanel: PropTypes.func.isRequired,
     pathname: PropTypes.string.isRequired,
-    postRequest: PropTypes.shape({
-      loading: PropTypes.bool,
-      loaded: PropTypes.bool,
-    }).isRequired,
-    deleteRequest: PropTypes.shape({
-      loading: PropTypes.bool,
-      loaded: PropTypes.bool,
-    }).isRequired,
+    cpanelRequest: PropTypes.objectOf(PropTypes.any).isRequired,
     controlpanel: PropTypes.shape({
       '@id': PropTypes.string,
       items: PropTypes.arrayOf(
@@ -128,6 +128,7 @@ class ContentTypes extends Component {
     this.onAddTypeError = this.onAddTypeError.bind(this);
     this.onAddTypeSuccess = this.onAddTypeSuccess.bind(this);
     this.onEdit = this.onEdit.bind(this);
+    this.onLayout = this.onLayout.bind(this);
     this.onDelete = this.onDelete.bind(this);
     this.onDeleteCancel = this.onDeleteCancel.bind(this);
     this.onDeleteOk = this.onDeleteOk.bind(this);
@@ -138,6 +139,7 @@ class ContentTypes extends Component {
       addTypeError: '',
       showDelete: false,
       typeToDelete: undefined,
+      error: null,
     };
   }
 
@@ -151,17 +153,36 @@ class ContentTypes extends Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
+    // Get
+    if (
+      this.props.cpanelRequest.get.loading &&
+      nextProps.cpanelRequest.get.error
+    ) {
+      this.setState({
+        error: nextProps.cpanelRequest.get.error,
+      });
+    }
+
     // Create
-    if (this.props.postRequest.loading && nextProps.postRequest.loaded) {
+    if (
+      this.props.cpanelRequest.post.loading &&
+      nextProps.cpanelRequest.post.loaded
+    ) {
       this.props.getControlpanel(this.props.id);
       this.onAddTypeSuccess();
     }
-    if (this.props.postRequest.loading && nextProps.postRequest.error) {
-      this.onAddTypeError(nextProps.postRequest.error);
+    if (
+      this.props.cpanelRequest.post.loading &&
+      nextProps.cpanelRequest.post.error
+    ) {
+      this.onAddTypeError(nextProps.cpanelRequest.post.error);
     }
 
     // Delete
-    if (this.props.deleteRequest.loading && nextProps.deleteRequest.loaded) {
+    if (
+      this.props.cpanelRequest.delete.loading &&
+      nextProps.cpanelRequest.delete.loaded
+    ) {
       this.props.getControlpanel(this.props.id);
       this.onDeleteTypeSuccess();
     }
@@ -228,10 +249,18 @@ class ContentTypes extends Component {
     this.props.history.push(value);
   }
 
+  /**
+   * Layout button click
+   * @param {*} event
+   * @param {string} value
+   * @returns {undefined}
+   */
+  onLayout(event, { value }) {
+    this.props.history.push(value);
+  }
+
   /** Delete */
   /**
-   *
-   *
    * @param {*} event Event object.
    * @param {*} { value }
    * @memberof ContentTypes
@@ -296,6 +325,11 @@ class ContentTypes extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
+    // Error
+    if (this.state.error) {
+      return <Error error={this.state.error} />;
+    }
+
     if (!this.props.controlpanel) {
       return <div />;
     }
@@ -330,7 +364,7 @@ class ContentTypes extends Component {
             submitError={this.state.addTypeError}
             onCancel={() => this.setState({ showAddType: false })}
             title={this.props.intl.formatMessage(messages.addTypeFormTitle)}
-            loading={this.props.postRequest.loading}
+            loading={this.props.cpanelRequest.post.loading}
             schema={{
               fieldsets: [
                 {
@@ -398,11 +432,15 @@ class ContentTypes extends Component {
                       <Table.Cell>{item.description}</Table.Cell>
                       <Table.Cell>{item.count}</Table.Cell>
                       <Table.Cell textAlign="right">
-                        <Dropdown icon="ellipsis horizontal">
+                        <Dropdown
+                          icon="ellipsis horizontal"
+                          className={`actions-${item.id}`}
+                        >
                           <Dropdown.Menu className="left">
                             <Dropdown.Item
                               onClick={this.onEdit}
                               value={`${this.props.pathname}/${item['id']}`}
+                              className={`edit-${item.id}`}
                             >
                               <Icon name={editSVG} size="15px" />
                               <FormattedMessage
@@ -411,8 +449,20 @@ class ContentTypes extends Component {
                               />
                             </Dropdown.Item>
                             <Dropdown.Item
+                              onClick={this.onLayout}
+                              value={`${this.props.pathname}/${item.id}/layout`}
+                              className={`layout-${item.id}`}
+                            >
+                              <Icon name={layoutSVG} size="15px" />
+                              <FormattedMessage
+                                id="Layout"
+                                defaultMessage="Layout"
+                              />
+                            </Dropdown.Item>
+                            <Dropdown.Item
                               onClick={this.onDelete}
                               value={item['@id']}
+                              className={`delete-${item.id}`}
                             >
                               <Icon name={trashSVG} size="15px" />
                               <FormattedMessage
@@ -474,8 +524,7 @@ export default compose(
   connect(
     (state, props) => ({
       controlpanel: state.controlpanels.controlpanel,
-      postRequest: state.controlpanels.post,
-      deleteRequest: state.controlpanels.delete,
+      cpanelRequest: state.controlpanels,
       pathname: props.location.pathname,
       id: last(props.location.pathname.split('/')),
     }),

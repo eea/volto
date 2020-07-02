@@ -7,12 +7,12 @@ git remote add volto https://github.com/plone/volto.git
 
 git fetch --all
 git pull
-git merge volto/export_components
-git merge origin/sync_update
-git merge origin/navigation-refactoring
-git merge volto/eea-dx-fields-validation
-git merge volto/eea-dx-cpanel-layout
-git merge volto/master
+git merge --no-ff volto/export_components
+git merge --no-ff origin/sync_update
+git merge --no-ff origin/navigation-refactoring
+git merge --no-ff volto/eea-dx-fields-validation
+git merge --no-ff volto/eea-dx-cpanel-layout
+git merge --no-ff volto/master
 
 # To come:
 

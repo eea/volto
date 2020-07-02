@@ -121,7 +121,7 @@ class Breadcrumbs extends Component {
 export default compose(
   injectIntl,
   connect(
-    state => ({
+    (state) => ({
       items: state.breadcrumbs.items,
     }),
     { getBreadcrumbs },

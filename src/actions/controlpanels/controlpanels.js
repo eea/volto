@@ -9,6 +9,8 @@ import {
   DELETE_CONTROLPANEL,
   LIST_CONTROLPANELS,
   UPDATE_CONTROLPANEL,
+  SYSTEM_INFORMATION,
+  DATABASE_INFORMATION,
 } from '@plone/volto/constants/ActionTypes';
 /**
  * Get controlpanel function.
@@ -90,6 +92,26 @@ export function updateControlpanel(url, data) {
       op: 'patch',
       path: url,
       data,
+    },
+  };
+}
+
+export function getSystemInformation() {
+  return {
+    type: SYSTEM_INFORMATION,
+    request: {
+      op: 'get',
+      path: '/@system',
+    },
+  };
+}
+
+export function getDatabaseInformation() {
+  return {
+    type: DATABASE_INFORMATION,
+    request: {
+      op: 'get',
+      path: '/@database',
     },
   };
 }

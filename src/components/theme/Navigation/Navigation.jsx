@@ -72,7 +72,10 @@ class Navigation extends Component {
    */
   UNSAFE_componentWillMount() {
     if (!settings.contentExpand.includes('navigation'))
-      this.props.getNavigation(getBaseUrl(this.props.pathname));
+      this.props.getNavigation(
+        getBaseUrl(this.props.pathname),
+        settings.navDepth,
+      );
   }
 
   /**
@@ -86,7 +89,10 @@ class Navigation extends Component {
       !settings.contentExpand.includes('navigation') &&
       nextProps.pathname !== this.props.pathname
     ) {
-      this.props.getNavigation(getBaseUrl(nextProps.pathname));
+      this.props.getNavigation(
+        getBaseUrl(nextProps.pathname),
+        settings.navDepth,
+      );
     }
   }
 
@@ -163,7 +169,7 @@ class Navigation extends Component {
           }
           onClick={this.closeMobileMenu}
         >
-          {this.props.items.map(item => (
+          {this.props.items.map((item) => (
             <NavLink
               to={item.url === '' ? '/' : item.url}
               key={item.url}
@@ -187,7 +193,7 @@ class Navigation extends Component {
 export default compose(
   injectIntl,
   connect(
-    state => ({
+    (state) => ({
       items: state.navigation.items,
       lang: state.intl.locale,
     }),

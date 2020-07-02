@@ -48,12 +48,12 @@ import backSVG from '@plone/volto/icons/back.svg';
 
 const messages = defineMessages({
   searchUsers: {
-    id: 'Search users...',
-    defaultMessage: 'Search users...',
+    id: 'Search users…',
+    defaultMessage: 'Search users…',
   },
   searchGroups: {
-    id: 'Search group...',
-    defaultMessage: 'Search group...',
+    id: 'Search group…',
+    defaultMessage: 'Search group…',
   },
   save: {
     id: 'Save',
@@ -281,14 +281,14 @@ class UsersControlpanel extends Component {
       this.onAddGroupError(nextProps.createRequest.error);
     }
     this.setState({
-      entries: map(nextProps.users, entry => {
+      entries: map(nextProps.users, (entry) => {
         const values = find(this.state.entries, { id: entry.id });
         return {
           ...entry,
           roles: values ? values.roles : entry.roles,
         };
       }),
-      groupEntries: map(nextProps.groups, entry => {
+      groupEntries: map(nextProps.groups, (entry) => {
         const values = find(this.state.groupEntries, { id: entry.id });
         return {
           ...entry,
@@ -413,9 +413,7 @@ class UsersControlpanel extends Component {
    * @returns {undefined}
    */
   onAddUserSubmit(data, callback) {
-    const newData = { ...data };
-    newData.roles = [data.roles];
-    this.props.createUser(newData);
+    this.props.createUser(data);
     this.setState({
       addUserSetFormDataCallback: callback,
     });
@@ -430,13 +428,13 @@ class UsersControlpanel extends Component {
    */
   updateUserRole(name, value) {
     this.setState({
-      entries: map(this.state.entries, entry => ({
+      entries: map(this.state.entries, (entry) => ({
         ...entry,
         roles:
           entry.id === name
             ? entry.roles.includes(value) === false
               ? entry.roles.concat([value])
-              : [].concat(entry.roles.filter(e => e !== value))
+              : [].concat(entry.roles.filter((e) => e !== value))
             : entry.roles,
       })),
     });
@@ -449,13 +447,13 @@ class UsersControlpanel extends Component {
    */
   updateGroupRole(name, value) {
     this.setState({
-      groupEntries: map(this.state.groupEntries, entry => ({
+      groupEntries: map(this.state.groupEntries, (entry) => ({
         ...entry,
         roles:
           entry.id === name
             ? entry.roles.includes(value) === false
               ? entry.roles.concat([value])
-              : [].concat(entry.roles.filter(e => e !== value))
+              : [].concat(entry.roles.filter((e) => e !== value))
             : entry.roles,
       })),
     });
@@ -470,9 +468,7 @@ class UsersControlpanel extends Component {
    * @returns {undefined}
    */
   onAddGroupSubmit(data, callback) {
-    const newData = { ...data };
-    newData.roles = [data.roles];
-    this.props.createGroup(newData);
+    this.props.createGroup(data);
     this.setState({
       addGroupSetFormDataCallback: callback,
     });
@@ -556,7 +552,7 @@ class UsersControlpanel extends Component {
     event.preventDefault();
     for (let i = 0; i < this.props.users.length; i += 1) {
       if (!isEqual(this.props.users[i].roles, this.state.entries[i].roles)) {
-        this.state.entries[i].roles.forEach(item => {
+        this.state.entries[i].roles.forEach((item) => {
           userData.roles[item] = true;
         });
         userData.id = this.state.entries[i].id;
@@ -567,7 +563,7 @@ class UsersControlpanel extends Component {
       if (
         !isEqual(this.props.groups[i].roles, this.state.groupEntries[i].roles)
       ) {
-        this.state.groupEntries[i].roles.forEach(item => {
+        this.state.groupEntries[i].roles.forEach((item) => {
           groupData.roles[item] = true;
         });
         groupData.id = this.state.groupEntries[i].id;
@@ -703,7 +699,7 @@ class UsersControlpanel extends Component {
                     messages.addUserFormRolesTitle,
                   ),
                   type: 'array',
-                  choices: this.props.roles.map(role => [role.id, role.id]),
+                  choices: this.props.roles.map((role) => [role.id, role.id]),
                   description: '',
                 },
                 groups: {
@@ -711,7 +707,10 @@ class UsersControlpanel extends Component {
                     messages.addUserGroupNameTitle,
                   ),
                   type: 'array',
-                  choices: this.props.groups.map(group => [group.id, group.id]),
+                  choices: this.props.groups.map((group) => [
+                    group.id,
+                    group.id,
+                  ]),
                   description: '',
                 },
               },
@@ -774,7 +773,7 @@ class UsersControlpanel extends Component {
                     messages.addGroupsFormRolesTitle,
                   ),
                   type: 'array',
-                  choices: this.props.roles.map(role => [role.id, role.id]),
+                  choices: this.props.roles.map((role) => [role.id, role.id]),
                   description: '',
                 },
               },
@@ -818,7 +817,7 @@ class UsersControlpanel extends Component {
                         defaultMessage="User name"
                       />
                     </Table.HeaderCell>
-                    {this.props.roles.map(role => (
+                    {this.props.roles.map((role) => (
                       <Table.HeaderCell key={role.id}>
                         {role.id}
                       </Table.HeaderCell>
@@ -829,7 +828,7 @@ class UsersControlpanel extends Component {
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                  {this.state.entries.map(user => (
+                  {this.state.entries.map((user) => (
                     <UsersControlpanelUser
                       key={user.id}
                       onDelete={this.delete}
@@ -891,7 +890,7 @@ class UsersControlpanel extends Component {
                         defaultMessage="Groupname"
                       />
                     </Table.HeaderCell>
-                    {this.props.roles.map(role => (
+                    {this.props.roles.map((role) => (
                       <Table.HeaderCell key={role.id}>
                         {role.id}
                       </Table.HeaderCell>
@@ -902,7 +901,7 @@ class UsersControlpanel extends Component {
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                  {this.state.groupEntries.map(groups => (
+                  {this.state.groupEntries.map((groups) => (
                     <UsersControlpanelGroups
                       key={groups.id}
                       user={this.props.users}
@@ -945,10 +944,10 @@ class UsersControlpanel extends Component {
                 <Link to="/controlpanel" className="item">
                   <Icon
                     name={backSVG}
-                    aria-label={this.props.intl.formatMessage(messages.cancel)}
+                    aria-label={this.props.intl.formatMessage(messages.back)}
                     className="contents circled"
                     size="30px"
-                    title={this.props.intl.formatMessage(messages.cancel)}
+                    title={this.props.intl.formatMessage(messages.back)}
                   />
                 </Link>
               </>
@@ -974,7 +973,7 @@ export default compose(
       deleteGroupRequest: state.groups.delete,
       createGroupRequest: state.groups.create,
     }),
-    dispatch =>
+    (dispatch) =>
       bindActionCreators(
         {
           listRoles,

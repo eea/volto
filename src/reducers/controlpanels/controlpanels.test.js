@@ -36,6 +36,8 @@ describe('Controlpanels reducer', () => {
       },
       controlpanel: null,
       controlpanels: [],
+      systeminformation: null,
+      databaseinformation: null,
     });
   });
 

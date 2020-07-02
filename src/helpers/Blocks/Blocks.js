@@ -15,8 +15,8 @@ export function getBlocksFieldname(props) {
   return (
     find(
       keys(props),
-      key => key !== 'volto.blocks' && endsWith(key, 'blocks'),
-    ) || 'blocks'
+      (key) => key !== 'volto.blocks' && endsWith(key, 'blocks'),
+    ) || null
   );
 }
 
@@ -30,8 +30,8 @@ export function getBlocksLayoutFieldname(props) {
   return (
     find(
       keys(props),
-      key => key !== 'volto.blocks' && endsWith(key, 'blocks_layout'),
-    ) || 'blocks_layout'
+      (key) => key !== 'volto.blocks' && endsWith(key, 'blocks_layout'),
+    ) || null
   );
 }
 
@@ -45,7 +45,7 @@ export function hasBlocksData(props) {
   return (
     find(
       keys(props),
-      key => key !== 'volto.blocks' && endsWith(key, 'blocks'),
+      (key) => key !== 'volto.blocks' && endsWith(key, 'blocks'),
     ) !== undefined
   );
 }

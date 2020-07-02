@@ -254,6 +254,9 @@ class Add extends Component {
                 },
               }),
             }}
+            requestError={
+              this.props.createRequest.error?.response?.body?.message
+            }
             onSubmit={this.onSubmit}
             hideActions
             pathname={this.props.pathname}

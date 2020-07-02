@@ -3,30 +3,28 @@
  * @module components/manage/Widgets/SelectWidget
  */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Icon as IconOld } from 'semantic-ui-react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { map, find, isBoolean, isObject, intersection } from 'lodash';
-import { defineMessages, injectIntl } from 'react-intl';
 import loadable from '@loadable/component';
-
+import { getVocabulary, getVocabularyTokenTitle } from '@plone/volto/actions';
+import { FormFieldWrapper } from '@plone/volto/components';
+import {
+  customSelectStyles,
+  DropdownIndicator,
+  Option,
+  selectTheme,
+} from '@plone/volto/components/manage/Widgets/SelectStyling';
 import {
   getBoolean,
-  getVocabFromHint,
   getVocabFromField,
+  getVocabFromHint,
   getVocabFromItems,
 } from '@plone/volto/helpers';
-import { FormFieldWrapper } from '@plone/volto/components';
-import { getVocabulary, getVocabularyTokenTitle } from '@plone/volto/actions';
-
-import {
-  Option,
-  DropdownIndicator,
-  selectTheme,
-  customSelectStyles,
-} from '@plone/volto/components/manage/Widgets/SelectStyling';
+import { find, intersection, isBoolean, isObject, map } from 'lodash';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { defineMessages, injectIntl } from 'react-intl';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { Icon as IconOld } from 'semantic-ui-react';
 
 const Select = loadable(() => import('react-select'));
 const AsyncPaginate = loadable(() => import('react-select-async-paginate'));
@@ -138,12 +136,12 @@ export class SelectWidget extends Component {
     widgetOptions: PropTypes.shape({
       vocabulary: PropTypes.object,
     }),
-    value: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.string,
-      PropTypes.bool,
-    ]),
+    value: PropTypes.arrayOf(
+      PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.bool]),
+    ),
     onChange: PropTypes.func.isRequired,
+    onBlur: PropTypes.func,
+    onClick: PropTypes.func,
     onEdit: PropTypes.func,
     onDelete: PropTypes.func,
     itemsTotal: PropTypes.number,
@@ -168,6 +166,9 @@ export class SelectWidget extends Component {
     choices: [],
     loading: false,
     value: null,
+    onChange: () => {},
+    onBlur: () => {},
+    onClick: () => {},
     onEdit: null,
     onDelete: null,
   };

@@ -15,7 +15,6 @@ import split from 'lodash/split';
 import join from 'lodash/join';
 import trim from 'lodash/trim';
 import cx from 'classnames';
-import { settings } from '~/config';
 import loadable from '@loadable/component';
 
 import { settings, views } from '~/config';

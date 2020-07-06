@@ -122,6 +122,7 @@
 - Added Italian translations and translated array, token and select widget. @giuliaghisini
 - Added Italian translations and translated array, token and select widget.
   @giuliaghisini
+- Added Italian translations and translated array, token and select widget.  @giuliaghisini
 - Added uploading image preview in FileWidget @iFlameing
 - Allow custom express middleware declared with `settings.expressMiddleware`. See [Customizing Express](docs/source/customizing/express.md) @tiberiuichim
 - Allow custom express middleware declared with ``settings.expressMiddleware``. See [Customizing Express](docs/customizing/express.md) @tiberiuichim
@@ -182,8 +183,6 @@
   override route children defined for the ``App`` component.
 - Support loading additional reducers from the ``config.addonReducers`` key,
   to allow addons to provide their own reducers @tiberiuichim
-- Added param 'wrapped' for widgets, to use widgets without form wrappers. @giuliaghisini
-- Added internationalization for Romanian language @alecghica #1521
 - Add a no brainer image sizing option, using scales. This will be vastly improved when
   we adopt srcsets. @sneridagh
 

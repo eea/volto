@@ -86,8 +86,13 @@ export const FormProvider = (props) => {
   const { formData } = props;
   const [contextData, setContextData] = React.useState(formData);
 
+  const logger = (val) => {
+    console.log('val', val);
+    return setContextData(val);
+  };
+
   return (
-    <FormContext.Provider value={{ contextData, setContextData }}>
+    <FormContext.Provider value={{ contextData, setContextData: logger }}>
       {props.children}
     </FormContext.Provider>
   );
@@ -750,7 +755,8 @@ class Form extends Component {
     return (
       <FormProvider formData={formData}>
         <FormContext.Consumer>
-          {({ form, setForm }) => {
+          {({ contextData, setContextData }) => {
+            console.log('contextData', contextData.blocks);
             return this.props.visual ? (
               // Removing this from SSR is important, since react-beautiful-dnd supports SSR,
               // but draftJS don't like it much and the hydration gets messed up
@@ -805,7 +811,13 @@ class Form extends Component {
                                       onAddBlock={this.onAddBlock}
                                       onChangeBlock={this.onChangeBlock}
                                       onMutateBlock={this.onMutateBlock}
-                                      onChangeField={this.onChangeField}
+                                      onChangeField={(id, value) => {
+                                        setContextData({
+                                          ...this.state.formData,
+                                          [id]: value,
+                                        });
+                                        this.onChangeField(id, value);
+                                      }}
                                       onDeleteBlock={this.onDeleteBlock}
                                       onSelectBlock={this.onSelectBlock}
                                       onMoveBlock={this.onMoveBlock}
@@ -871,7 +883,13 @@ class Form extends Component {
                                   required={
                                     schema.required.indexOf(field) !== -1
                                   }
-                                  onChange={this.onChangeField}
+                                  onChangeField={(id, value) => {
+                                    setContextData({
+                                      ...this.state.formData,
+                                      [id]: value,
+                                    });
+                                    this.onChangeField(id, value);
+                                  }}
                                   key={field}
                                   error={this.state.errors[field]}
                                 />
@@ -920,7 +938,13 @@ class Form extends Component {
                                 focus={index === 0}
                                 value={this.state.formData[field]}
                                 required={schema.required.indexOf(field) !== -1}
-                                onChange={this.onChangeField}
+                                onChangeField={(id, value) => {
+                                  setContextData({
+                                    ...this.state.formData,
+                                    [id]: value,
+                                  });
+                                  this.onChangeField(id, value);
+                                }}
                                 key={field}
                                 error={this.state.errors[field]}
                               />
@@ -969,7 +993,13 @@ class Form extends Component {
                             id={field}
                             value={this.state.formData?.[field]}
                             required={schema.required.indexOf(field) !== -1}
-                            onChange={this.onChangeField}
+                            onChangeField={(id, value) => {
+                              setContextData({
+                                ...this.state.formData,
+                                [id]: value,
+                              });
+                              this.onChangeField(id, value);
+                            }}
                             key={field}
                             error={this.state.errors[field]}
                           />

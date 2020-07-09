@@ -1,6 +1,6 @@
 # Change Log
 
-## 6.4.2 (unreleased)
+## 7.1.1 (unreleased)
 
 ### Breaking
 
@@ -22,11 +22,54 @@
 
 - Full screen right sidebar @rexalex #1345
 - Added Dexterity Types Controlpanel @avoinea #1285
+### Bugfix
+
+### Internal
+
+## 7.1.0 (2020-07-09)
+
+### Feature
+
+- Addons can optionally include a `razzle.extend.js` file in their root. This module needs to follow the same rules as the `razzle.config.js`. They change the default Volto Razzle configuration, before it is passed to the Volto project @tiberiuichim @sneridagh
+
+### Bugfix
+
+- Managed hidden fields @giuliaghisini
+- Fix bug in addon loading with namespaced packages @tiberiuichim
+- Japanese translation updated @terapyon
+
+
+- Upgrade razzle to `^3.1.5`. @tiberiuichim
+
+## 7.0.1 (2020-07-07)
+
+### Bugfix
+
+- Adding absolute url in ObjectBrowser for image type @iFlameing
+
+## 7.0.0 (2020-07-06)
+
+### Breaking
+
+- Fix filename of strickthrough.svg to strikethrough.svg @tiberiuichim
+
+### Feature
+
+- Addons configuration loading. You can now declare addons in the addons key of
+  package.json and they'll be automatically loaded. @tiberiuichim @sneridagh
+
+## 6.5.0 (2020-07-03)
+
+### Feature
+
 - Added default Export for the QuerystringWidget for the ListingBlock @steffenri
 
 ### Bugfix
 
+- Fix text overflow in pastanaga-menu header if title is too long. @giuliaghisini
 - Fixing bug to correctly assign classes to image sizes in View @steffenri
+- Center aligned Images are now displayed like they are center aligned in the View @steffenri
+- Fix datepicker z-index @giuliaghisini
 
 ### Internal
 
@@ -56,7 +99,7 @@
 
 - Translated workflow state in contents @nzambello
 - Added item type as a tooltip in contents @nzambello
-- Added italian translations and translated array, token and select widget. @giuliaghisini
+- Added Italian translations and translated array, token and select widget. @giuliaghisini
 - Added uploading image preview in FileWidget @iFlameing
 - Allow custom express middleware declared with `settings.expressMiddleware`. See [Customizing Express](docs/source/customizing/express.md) @tiberiuichim
 
@@ -74,9 +117,10 @@
 
 ### Feature
 
-- Added Italian translations and translated array, token and select widget. @giuliaghisini
 - Added internationalization for French language @bsuttor #1588
+- use of maximumSelectionSize from plone in ObjectBrowserWidget. @giuliaghisini
 - Added selectableTypes in ObjectBrowserWidget @giuliaghisini
+
 
 ### Bugfix
 

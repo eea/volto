@@ -1,69 +1,155 @@
 {
-  "name": "@plone/volto",
-  "description": "Volto",
-  "maintainers": [
-    {
-      "name": "Plone Foundation",
-      "email": "plone-developers@lists.sourceforge.net",
-      "url": "http://plone.org"
-    }
+  "_args": [
+    [
+      "github:eea/volto#5.2-eea",
+      "/opt/frontend"
+    ]
   ],
-  "license": "MIT",
-  "version": "5.1.0",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:plone/volto.git"
+  "_from": "github:eea/volto#5.2-eea",
+  "_id": "@plone/volto@github:eea/volto#cb11499bafe63e0fa51fd967ad13c993a44216f3",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/@plone/volto",
+  "_phantomChildren": {
+    "@babel/code-frame": "7.8.3",
+    "@babel/generator": "7.9.5",
+    "@babel/helper-create-class-features-plugin": "7.9.5",
+    "@babel/helper-plugin-utils": "7.8.3",
+    "@babel/helper-wrap-function": "7.8.3",
+    "@babel/helpers": "7.9.2",
+    "@babel/parser": "7.9.4",
+    "@babel/plugin-syntax-decorators": "7.8.3",
+    "@babel/plugin-syntax-do-expressions": "7.8.3",
+    "@babel/plugin-syntax-export-default-from": "7.8.3",
+    "@babel/plugin-syntax-export-namespace-from": "7.8.3",
+    "@babel/plugin-syntax-function-bind": "7.8.3",
+    "@babel/plugin-syntax-function-sent": "7.8.3",
+    "@babel/plugin-syntax-logical-assignment-operators": "7.8.3",
+    "@babel/plugin-syntax-numeric-separator": "7.8.3",
+    "@babel/plugin-syntax-pipeline-operator": "7.8.3",
+    "@babel/plugin-syntax-throw-expressions": "7.8.3",
+    "@babel/runtime": "7.9.2",
+    "@babel/template": "7.8.6",
+    "@babel/traverse": "7.9.5",
+    "@babel/types": "7.9.5",
+    "@cypress/listr-verbose-renderer": "0.4.1",
+    "@cypress/xvfb": "1.2.4",
+    "@types/sizzle": "2.3.2",
+    "ajv": "6.12.2",
+    "ansi-regex": "4.1.0",
+    "arch": "2.1.1",
+    "aws-sign2": "0.7.0",
+    "aws4": "1.9.1",
+    "bluebird": "3.7.2",
+    "cachedir": "2.3.0",
+    "caseless": "0.12.0",
+    "chalk": "2.4.2",
+    "check-more-types": "2.24.0",
+    "classnames": "2.2.6",
+    "combined-stream": "1.0.8",
+    "common-tags": "1.8.0",
+    "convert-source-map": "1.7.0",
+    "cross-spawn": "6.0.5",
+    "csstype": "2.6.10",
+    "debug": "4.1.1",
+    "doctrine": "3.0.0",
+    "eslint-scope": "5.1.0",
+    "eslint-utils": "1.4.3",
+    "eslint-visitor-keys": "1.1.0",
+    "espree": "6.2.1",
+    "esquery": "1.3.1",
+    "esutils": "2.0.3",
+    "eventemitter2": "4.1.2",
+    "execa": "1.0.0",
+    "executable": "4.1.1",
+    "extend": "3.0.2",
+    "extract-zip": "1.6.7",
+    "file-entry-cache": "5.0.1",
+    "forever-agent": "0.6.1",
+    "form-data": "2.3.3",
+    "fs-extra": "8.1.0",
+    "functional-red-black-tree": "1.0.1",
+    "getos": "3.1.4",
+    "glob-parent": "5.1.1",
+    "har-validator": "5.1.3",
+    "http-signature": "1.2.0",
+    "ignore": "4.0.6",
+    "imurmurhash": "0.1.4",
+    "inquirer": "7.3.0",
+    "is-ci": "2.0.0",
+    "is-glob": "4.0.1",
+    "is-installed-globally": "0.1.0",
+    "is-typedarray": "1.0.0",
+    "isstream": "0.1.2",
+    "js-yaml": "3.13.1",
+    "json-stable-stringify-without-jsonify": "1.0.1",
+    "json-stringify-safe": "5.0.1",
+    "json5": "2.1.3",
+    "lazy-ass": "1.6.0",
+    "levn": "0.3.0",
+    "listr": "0.14.3",
+    "lodash": "4.17.15",
+    "log-symbols": "3.0.0",
+    "loose-envify": "1.4.0",
+    "mime-types": "2.1.27",
+    "minimatch": "3.0.4",
+    "mkdirp": "0.5.5",
+    "moment": "2.24.0",
+    "natural-compare": "1.4.0",
+    "oauth-sign": "0.9.0",
+    "object-assign": "4.1.1",
+    "optionator": "0.8.3",
+    "ospath": "1.2.2",
+    "parent-module": "1.0.1",
+    "performance-now": "2.1.0",
+    "prettier-linter-helpers": "1.0.0",
+    "pretty-bytes": "5.3.0",
+    "progress": "2.0.3",
+    "prop-types": "15.7.2",
+    "psl": "1.8.0",
+    "qs": "6.5.2",
+    "ramda": "0.26.1",
+    "regexpp": "2.0.1",
+    "request-progress": "3.0.0",
+    "resolve": "1.17.0",
+    "safe-buffer": "5.1.2",
+    "scheduler": "0.18.0",
+    "semver": "5.6.0",
+    "source-map": "0.5.7",
+    "table": "5.4.6",
+    "text-table": "0.2.0",
+    "tmp": "0.1.0",
+    "tunnel-agent": "0.6.0",
+    "type-fest": "0.8.1",
+    "untildify": "4.0.0",
+    "url": "0.11.0",
+    "uuid": "3.4.0",
+    "v8-compile-cache": "2.1.1",
+    "yauzl": "2.10.0"
   },
-  "customizationPaths": [
-    "src/customizations/"
+  "_requested": {
+    "type": "git",
+    "raw": "github:eea/volto#5.2-eea",
+    "rawSpec": "github:eea/volto#5.2-eea",
+    "saveSpec": "github:eea/volto#5.2-eea",
+    "fetchSpec": null,
+    "gitCommittish": "5.2-eea"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "github:eea/volto#cb11499bafe63e0fa51fd967ad13c993a44216f3",
+  "_spec": "github:eea/volto#5.2-eea",
+  "_where": "/opt/frontend",
+  "browserslist": [
+    ">1%",
+    "last 4 versions",
+    "Firefox ESR",
+    "not ie < 9"
   ],
   "bugs": {
     "url": "https://github.com/plone/volto/issues",
     "email": "plone-developers@lists.sourceforge.net"
-  },
-  "homepage": "https://plone.org",
-  "keywords": [
-    "volto",
-    "plone",
-    "react"
-  ],
-  "scripts": {
-    "postinstall": "yarn patches",
-    "analyze": "BUNDLE_ANALYZE=true razzle build",
-    "start": "razzle start",
-    "build": "razzle build",
-    "test": "razzle test --env=jsdom",
-    "test:ci": "CI=true razzle test --env=jsdom",
-    "test:husky": "CI=true yarn test --bail --findRelatedTests",
-    "test:debug": "node --inspect node_modules/.bin/jest --runInBand",
-    "start:prod": "NODE_ENV=production node build/server.js",
-    "prettier": "./node_modules/.bin/prettier --single-quote --check 'src/**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
-    "prettier:fix": "./node_modules/.bin/prettier --single-quote --write 'src/**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
-    "stylelint": "./node_modules/.bin/stylelint 'theme/**/*.{css,less}' 'src/**/*.{css,less}'",
-    "stylelint:overrides": "./node_modules/.bin/stylelint --syntax less 'theme/**/*.overrides' 'src/**/*.overrides'",
-    "stylelint:fix": "yarn stylelint --fix && yarn stylelint:overrides --fix",
-    "lint": "./node_modules/eslint/bin/eslint.js --max-warnings=0 'src/**/*.{js,jsx,json}'",
-    "lint:fix": "./node_modules/eslint/bin/eslint.js --fix 'src/**/*.{js,jsx,json}'",
-    "i18n": "rm -rf build/messages && NODE_ENV=production node src/i18n.js",
-    "code-analysis:i18n": "yarn i18n && git diff -G'^[^\"POT]' --exit-code",
-    "stylelint:patches": "patch -p0 -N node_modules/stylelint/lib/getPostcssResult.js < patches/fixstylelint.patch || true",
-    "patches": "/bin/bash patches/patchit.sh > /dev/null 2>&1 ||true",
-    "cypress:open": "CYPRESS_API=plone cypress open",
-    "cypress:open:guillotina": "CYPRESS_API=guillotina cypress open",
-    "cypress:run": "CYPRESS_API=plone CYPRESS_RETRIES=2 cypress run",
-    "cypress:run:guillotina": "CYPRESS_API=guillotina cypress run",
-    "cy:install": "cypress install",
-    "cy:test:fixture:setup": "node cypress/support/reset-fixture.js",
-    "cy:test:fixture:teardown": "node cypress/support/reset-fixture.js teardown",
-    "ci:start-api-plone": "make test-acceptance-server",
-    "ci:start-api-guillotina": "make test-acceptance-guillotina",
-    "ci:start-frontend": "RAZZLE_API_PATH=http://localhost:55001/plone yarn build && start-test start:prod http-get://localhost:3000 cypress:run",
-    "ci:start-frontend-guillotina": "RAZZLE_API_PATH=http://localhost:8081/db/container yarn build && start-test start:prod http-get://localhost:3000 cypress:run:guillotina",
-    "ci:cypress:run": "start-test ci:start-api-plone http-get://localhost:55001/plone ci:start-frontend",
-    "ci:cypress:run:guillotina": "start-test ci:start-api-guillotina http-get://localhost:8081 ci:start-frontend-guillotina",
-    "dry-release": "release-it --dry-run",
-    "release": "release-it",
-    "release-alpha": "release-it major --preRelease=alpha"
   },
   "bundlesize": [
     {
@@ -79,130 +165,9 @@
       }
     ]
   },
-  "jest": {
-    "modulePathIgnorePatterns": [
-      "api"
-    ],
-    "transform": {
-      "^.+\\.js(x)?$": "babel-jest",
-      "^.+\\.css$": "jest-css-modules",
-      "^.+\\.scss$": "jest-css-modules",
-      "^.+\\.(png)$": "jest-file",
-      "^.+\\.(jpg)$": "jest-file",
-      "^.+\\.(svg)$": "./jest-svgsystem-transform.js"
-    },
-    "moduleNameMapper": {
-      "@plone/volto/(.*)$": "<rootDir>/src/$1",
-      "~/config": "<rootDir>/src/config",
-      "~/../locales/${lang}.json": "<rootDir>/locales/en.json",
-      "(.*)/locales/(.*)": "<rootDir>/locales/$2"
-    },
-    "coverageThreshold": {
-      "global": {
-        "branches": 10,
-        "functions": 10,
-        "lines": 10,
-        "statements": 10
-      }
-    },
-    "setupFiles": [
-      "./test-setup.js"
-    ],
-    "globalSetup": "./global-test-setup.js",
-    "globals": {
-      "__DEV__": true
-    }
-  },
-  "prettier": {
-    "trailingComma": "all",
-    "singleQuote": true,
-    "overrides": [
-      {
-        "files": "*.overrides",
-        "options": {
-          "parser": "less"
-        }
-      }
-    ]
-  },
-  "stylelint": {
-    "extends": [
-      "stylelint-config-idiomatic-order"
-    ],
-    "plugins": [
-      "stylelint-prettier"
-    ],
-    "rules": {
-      "prettier/prettier": true,
-      "rule-empty-line-before": [
-        "always-multi-line",
-        {
-          "except": [
-            "first-nested"
-          ],
-          "ignore": [
-            "after-comment"
-          ]
-        }
-      ]
-    },
-    "ignoreFiles": "theme/themes/default/**/*.overrides"
-  },
-  "browserslist": [
-    ">1%",
-    "last 4 versions",
-    "Firefox ESR",
-    "not ie < 9"
+  "customizationPaths": [
+    "src/customizations/"
   ],
-  "release-it": {
-    "hooks": {
-      "after:bump": "node changelogupdater.js bump ${version}",
-      "after:release": "node changelogupdater.js back ${version} && git add . && git ci -am 'Back to development' && git push"
-    },
-    "git": {
-      "changelog": "node changelogupdater.js excerpt",
-      "requireUpstream": false,
-      "requireCleanWorkingDir": false
-    },
-    "github": {
-      "release": true,
-      "releaseName": "${version}",
-      "releaseNotes": "node changelogupdater.js excerpt"
-    }
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "post-checkout": "yarnhook",
-      "post-merge": "yarnhook",
-      "post-rebase": "yarnhook"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,md}": [
-      "npx eslint --max-warnings=0 --fix",
-      "npx prettier --single-quote --write",
-      "yarn test:husky"
-    ],
-    "src/**/*.{jsx}": [
-      "yarn i18n"
-    ],
-    "theme/**/*.{css,less}": [
-      "npx stylelint --fix"
-    ],
-    "src/**/*.{css,less}": [
-      "npx stylelint --fix"
-    ],
-    "theme/**/*.overrides": [
-      "npx stylelint --fix --syntax less"
-    ],
-    "src/**/*.overrides": [
-      "npx stylelint --fix --syntax less"
-    ]
-  },
-  "engines": {
-    "node": "^10 || ^12"
-  },
   "dependencies": {
     "@babel/core": "7.7.4",
     "@babel/plugin-proposal-decorators": "7.7.4",
@@ -359,8 +324,185 @@
     "xmlrpc": "1.3.2",
     "yarnhook": "0.4.3"
   },
+  "description": "Volto",
   "devDependencies": {},
+  "engines": {
+    "node": "^10 || ^12"
+  },
+  "homepage": "https://plone.org",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "post-checkout": "yarnhook",
+      "post-merge": "yarnhook",
+      "post-rebase": "yarnhook"
+    }
+  },
+  "jest": {
+    "modulePathIgnorePatterns": [
+      "api"
+    ],
+    "transform": {
+      "^.+\\.js(x)?$": "babel-jest",
+      "^.+\\.css$": "jest-css-modules",
+      "^.+\\.scss$": "jest-css-modules",
+      "^.+\\.(png)$": "jest-file",
+      "^.+\\.(jpg)$": "jest-file",
+      "^.+\\.(svg)$": "./jest-svgsystem-transform.js"
+    },
+    "moduleNameMapper": {
+      "@plone/volto/(.*)$": "<rootDir>/src/$1",
+      "~/config": "<rootDir>/src/config",
+      "~/../locales/${lang}.json": "<rootDir>/locales/en.json",
+      "(.*)/locales/(.*)": "<rootDir>/locales/$2"
+    },
+    "coverageThreshold": {
+      "global": {
+        "branches": 10,
+        "functions": 10,
+        "lines": 10,
+        "statements": 10
+      }
+    },
+    "setupFiles": [
+      "./test-setup.js"
+    ],
+    "globalSetup": "./global-test-setup.js",
+    "globals": {
+      "__DEV__": true
+    }
+  },
+  "keywords": [
+    "volto",
+    "plone",
+    "react"
+  ],
+  "license": "MIT",
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,md}": [
+      "npx eslint --max-warnings=0 --fix",
+      "npx prettier --single-quote --write",
+      "yarn test:husky"
+    ],
+    "src/**/*.{jsx}": [
+      "yarn i18n"
+    ],
+    "theme/**/*.{css,less}": [
+      "npx stylelint --fix"
+    ],
+    "src/**/*.{css,less}": [
+      "npx stylelint --fix"
+    ],
+    "theme/**/*.overrides": [
+      "npx stylelint --fix --syntax less"
+    ],
+    "src/**/*.overrides": [
+      "npx stylelint --fix --syntax less"
+    ]
+  },
+  "maintainers": [
+    {
+      "name": "Plone Foundation",
+      "email": "plone-developers@lists.sourceforge.net",
+      "url": "http://plone.org"
+    }
+  ],
+  "name": "@plone/volto",
+  "prettier": {
+    "trailingComma": "all",
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": "*.overrides",
+        "options": {
+          "parser": "less"
+        }
+      }
+    ]
+  },
+  "release-it": {
+    "hooks": {
+      "after:bump": "node changelogupdater.js bump ${version}",
+      "after:release": "node changelogupdater.js back ${version} && git add . && git ci -am 'Back to development' && git push"
+    },
+    "git": {
+      "changelog": "node changelogupdater.js excerpt",
+      "requireUpstream": false,
+      "requireCleanWorkingDir": false
+    },
+    "github": {
+      "release": true,
+      "releaseName": "${version}",
+      "releaseNotes": "node changelogupdater.js excerpt"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/plone/volto.git"
+  },
   "resolutions": {
     "browserslist": "4.8.3"
-  }
+  },
+  "scripts": {
+    "analyze": "BUNDLE_ANALYZE=true razzle build",
+    "build": "razzle build",
+    "ci:cypress:run": "start-test ci:start-api-plone http-get://localhost:55001/plone ci:start-frontend",
+    "ci:cypress:run:guillotina": "start-test ci:start-api-guillotina http-get://localhost:8081 ci:start-frontend-guillotina",
+    "ci:start-api-guillotina": "make test-acceptance-guillotina",
+    "ci:start-api-plone": "make test-acceptance-server",
+    "ci:start-frontend": "RAZZLE_API_PATH=http://localhost:55001/plone yarn build && start-test start:prod http-get://localhost:3000 cypress:run",
+    "ci:start-frontend-guillotina": "RAZZLE_API_PATH=http://localhost:8081/db/container yarn build && start-test start:prod http-get://localhost:3000 cypress:run:guillotina",
+    "code-analysis:i18n": "yarn i18n && git diff -G'^[^\"POT]' --exit-code",
+    "cy:install": "cypress install",
+    "cy:test:fixture:setup": "node cypress/support/reset-fixture.js",
+    "cy:test:fixture:teardown": "node cypress/support/reset-fixture.js teardown",
+    "cypress:open": "CYPRESS_API=plone cypress open",
+    "cypress:open:guillotina": "CYPRESS_API=guillotina cypress open",
+    "cypress:run": "CYPRESS_API=plone CYPRESS_RETRIES=2 cypress run",
+    "cypress:run:guillotina": "CYPRESS_API=guillotina cypress run",
+    "dry-release": "release-it --dry-run",
+    "i18n": "rm -rf build/messages && NODE_ENV=production node src/i18n.js",
+    "lint": "./node_modules/eslint/bin/eslint.js --max-warnings=0 'src/**/*.{js,jsx,json}'",
+    "lint:fix": "./node_modules/eslint/bin/eslint.js --fix 'src/**/*.{js,jsx,json}'",
+    "patches": "/bin/bash patches/patchit.sh > /dev/null 2>&1 ||true",
+    "postinstall": "yarn patches",
+    "prettier": "prettier --single-quote --check 'src/**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
+    "prettier:fix": "prettier --single-quote --write 'src/**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
+    "release": "release-it",
+    "release-alpha": "release-it major --preRelease=alpha",
+    "start": "razzle start",
+    "start:prod": "NODE_ENV=production node build/server.js",
+    "stylelint": "stylelint 'theme/**/*.{css,less}' 'src/**/*.{css,less}'",
+    "stylelint:fix": "yarn stylelint --fix && yarn stylelint:overrides --fix",
+    "stylelint:overrides": "stylelint --syntax less 'theme/**/*.overrides' 'src/**/*.overrides'",
+    "stylelint:patches": "patch -p0 -N node_modules/stylelint/lib/getPostcssResult.js < patches/fixstylelint.patch || true",
+    "test": "razzle test --env=jsdom",
+    "test:ci": "CI=true razzle test --env=jsdom",
+    "test:debug": "node --inspect node_modules/.bin/jest --runInBand",
+    "test:husky": "CI=true yarn test --bail --findRelatedTests"
+  },
+  "stylelint": {
+    "extends": [
+      "stylelint-config-idiomatic-order"
+    ],
+    "plugins": [
+      "stylelint-prettier"
+    ],
+    "rules": {
+      "prettier/prettier": true,
+      "rule-empty-line-before": [
+        "always-multi-line",
+        {
+          "except": [
+            "first-nested"
+          ],
+          "ignore": [
+            "after-comment"
+          ]
+        }
+      ]
+    },
+    "ignoreFiles": "theme/themes/default/**/*.overrides"
+  },
+  "version": "5.1.0"
 }

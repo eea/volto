@@ -3,7 +3,7 @@
  * @module components/manage/WysiwygWidget/WysiwygWidget
  */
 
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
@@ -19,6 +19,7 @@ import createInlineToolbarPlugin from 'draft-js-inline-toolbar-plugin';
 import { defineMessages, injectIntl } from 'react-intl';
 import configureStore from 'redux-mock-store';
 import { MemoryRouter } from 'react-router-dom';
+import cx from 'classnames';
 
 import { settings } from '~/config';
 
@@ -162,7 +163,7 @@ class WysiwygWidget extends Component {
         structure: settings.richTextEditorInlineToolbarButtons,
       });
 
-      this.state = { editorState, inlineToolbarPlugin };
+      this.state = { editorState, inlineToolbarPlugin, hasFocus: false };
     }
 
     this.schema = {
@@ -250,6 +251,8 @@ class WysiwygWidget extends Component {
       onEdit,
       onDelete,
       fieldSet,
+      onChange,
+      choices,
     } = this.props;
 
     if (__SERVER__) {
@@ -279,9 +282,13 @@ class WysiwygWidget extends Component {
     return (
       <Form.Field
         inline
+        onChange={onChange}
+        choices={choices}
         required={required}
         error={error.length > 0}
-        className={description ? 'help wysiwyg' : 'wysiwyg'}
+        className={cx('wysiwyg', {
+          help: description,
+        })}
       >
         <Grid>
           <Grid.Row stretched>
@@ -316,7 +323,12 @@ class WysiwygWidget extends Component {
                   </button>
                 </div>
               )}
-              <div style={{ boxSizing: 'initial' }}>
+              <div
+                style={{ boxSizing: 'initial' }}
+                className={cx({
+                  'focused-draft-container': __CLIENT__ && this.state.hasFocus,
+                })}
+              >
                 {this.props.onChange ? (
                   <>
                     <Editor
@@ -330,6 +342,12 @@ class WysiwygWidget extends Component {
                       blockRenderMap={settings.extendedBlockRenderMap}
                       blockStyleFn={settings.blockStyleFn}
                       customStyleMap={settings.customStyleMap}
+                      onFocus={() => {
+                        this.setState({ hasFocus: true });
+                      }}
+                      onBlur={() => {
+                        this.setState({ hasFocus: false });
+                      }}
                     />
                     {this.props.onChange && <InlineToolbar />}
                   </>

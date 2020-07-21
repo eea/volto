@@ -324,7 +324,7 @@ class Form extends Component {
     const selected = selectNeighbor
       ? index === 0
         ? this.state.formData[blocksLayoutFieldname].items[1]
-        : this.state.formData[blocksLayoutFieldname].items[index - 1]
+        : this.state.formData[blocksLayoutFieldname].items[index + 1]
       : null;
 
     this.setState({

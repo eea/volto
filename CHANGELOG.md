@@ -1,6 +1,6 @@
 # Change Log
 
-## 7.1.1 (unreleased)
+## 7.2.2 (unreleased)
 
 ### Breaking
 
@@ -22,9 +22,33 @@
 
 - Full screen right sidebar @rexalex #1345
 - Added Dexterity Types Controlpanel @avoinea #1285
+- Added Placeholder attribute to Textwidget and TextAreaWidget @iFlameing
+
 ### Bugfix
 
 ### Internal
+
+- Upgrade lodash dependency to 4.17.19 @tisto
+- Add a new blocks helper method, `getBlocks`. It simplifies using
+  `getBlocksFieldname` and `getBlocksLayoutFieldname` under a single method that
+  returns ordered pairs of `[blockid, blockvalue]` @tiberiuichim
+
+## 7.2.1 (2020-07-16)
+
+### Internal
+
+- Upgrade to Cypress 4.10.0 @tisto
+- Upgrade to cypress-file-upload 4.0.7 @iFlameing
+
+## 7.2.0 (2020-07-13)
+
+### Feature
+
+- Provide a new webpack alias, `volto-themes`, which points to Volto's theme folder. See details in the https://docs.voltocms.com/upgrade-guide/
+
+### Internal
+
+- Upgrade razzle to `^3.1.5`. @tiberiuichim
 
 ## 7.1.0 (2020-07-09)
 
@@ -38,10 +62,20 @@
 - Fix bug in addon loading with namespaced packages @tiberiuichim
 - Japanese translation updated @terapyon
 
-
 - Upgrade razzle to `^3.1.5`. @tiberiuichim
 
 ## 7.0.1 (2020-07-07)
+
+### Breaking
+
+### Feature
+- Added missing components for Email and Url widgets #1246 @rexalex
+- Show backend validation errors on corresponding fields #1246 @rexalex
+- Validation implemented for add user/group @rexalex
+### Bugfix
+- Fixed front-end field validation #1246 @rexalex
+- Fixed date only widget rendering #1246 @rexalex
+- Fix errors with SelectWidget when removing the only element @rexalex
 
 ### Bugfix
 
@@ -120,7 +154,6 @@
 - Added internationalization for French language @bsuttor #1588
 - use of maximumSelectionSize from plone in ObjectBrowserWidget. @giuliaghisini
 - Added selectableTypes in ObjectBrowserWidget @giuliaghisini
-
 
 ### Bugfix
 

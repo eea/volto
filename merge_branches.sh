@@ -12,6 +12,7 @@ git merge --no-ff origin/sync_update
 git merge --no-ff origin/navigation-refactoring
 git merge --no-ff volto/eea-dx-fields-validation
 git merge --no-ff volto/eea-dx-cpanel-layout
+git merge --no-ff volto/addon_less_loader
 git merge --no-ff volto/master
 
 # To come:

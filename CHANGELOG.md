@@ -23,6 +23,7 @@
 - Full screen right sidebar @rexalex #1345
 - Added Dexterity Types Controlpanel @avoinea #1285
 - Added Placeholder attribute to Textwidget and TextAreaWidget @iFlameing
+- Allow addons to provide less files @tiberiuichim
 
 ### Bugfix
 

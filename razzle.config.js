@@ -92,6 +92,7 @@ const defaultModify = (config, { target, dev }, webpack) => {
       /node_modules\/@plone\/volto\/theme/,
       /plone\.volto\/theme/,
       /node_modules\/semantic-ui-less/,
+      ...Object.values(registry.getResolveAliases()),
     ],
     use: dev
       ? [

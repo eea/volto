@@ -44,6 +44,7 @@ import { difference } from '@plone/volto/helpers';
 import aheadSVG from '@plone/volto/icons/ahead.svg';
 import clearSVG from '@plone/volto/icons/clear.svg';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { FormStateContext, FormStateProvider } from './FormContext';
 
 const messages = defineMessages({
   addBlock: {
@@ -79,38 +80,6 @@ const messages = defineMessages({
     defaultMessage: 'There were some errors.',
   },
 });
-
-export const FormContext = React.createContext();
-
-export const FormProvider = (props) => {
-  const { formData } = props;
-  const [contextData, setContextData] = React.useState(formData);
-
-  const logger = (val) => {
-    console.log('val', val);
-    return setContextData(val);
-  };
-
-  return (
-    <FormContext.Provider value={{ contextData, setContextData: logger }}>
-      {props.children}
-    </FormContext.Provider>
-  );
-};
-
-export const useFormContext = () => {
-  const context = React.useContext(FormContext);
-
-  if (!context) {
-    throw new Error(
-      `The \`useFormContext\` hook must be used inside the <FormProvider> component's context.`,
-    );
-  }
-
-  return context;
-  // const [contextData, setContextData] = context;
-  // return editor;
-};
 
 /**
  * Form container class.
@@ -745,17 +714,17 @@ class Form extends Component {
    */
   render() {
     const { schema: originalSchema, onCancel, onSubmit } = this.props;
-    const { formData, placeholderProps } = this.state;
-    const blocksFieldname = getBlocksFieldname(formData);
-    const blocksLayoutFieldname = getBlocksLayoutFieldname(formData);
-    const renderBlocks = formData?.[blocksLayoutFieldname]?.items;
-    const blocksDict = formData?.[blocksFieldname];
     const schema = this.removeBlocksLayoutFields(originalSchema);
+    const { placeholderProps } = this.state;
 
     return (
-      <FormProvider formData={formData}>
-        <FormContext.Consumer>
+      <FormStateProvider initialValue={this.state.formData}>
+        <FormStateContext.Consumer>
           {({ contextData, setContextData }) => {
+            const blocksFieldname = getBlocksFieldname(contextData);
+            const blocksLayoutFieldname = getBlocksLayoutFieldname(contextData);
+            const renderBlocks = contextData?.[blocksLayoutFieldname]?.items;
+            const blocksDict = contextData?.[blocksFieldname];
             console.log('contextData', contextData.blocks);
             return this.props.visual ? (
               // Removing this from SSR is important, since react-beautiful-dnd supports SSR,
@@ -813,7 +782,7 @@ class Form extends Component {
                                       onMutateBlock={this.onMutateBlock}
                                       onChangeField={(id, value) => {
                                         setContextData({
-                                          ...this.state.formData,
+                                          ...contextData,
                                           [id]: value,
                                         });
                                         this.onChangeField(id, value);
@@ -825,11 +794,11 @@ class Form extends Component {
                                         this.onFocusPreviousBlock
                                       }
                                       onFocusNextBlock={this.onFocusNextBlock}
-                                      properties={formData}
                                       data={blocksDict[block]}
                                       pathname={this.props.pathname}
                                       block={block}
                                       selected={this.state.selected === block}
+                                      properties={contextData}
                                     />
                                   </div>
                                 </div>
@@ -879,13 +848,13 @@ class Form extends Component {
                                   {...schema.properties[field]}
                                   id={field}
                                   focus={false}
-                                  value={this.state.formData[field]}
+                                  value={contextData[field]}
                                   required={
                                     schema.required.indexOf(field) !== -1
                                   }
                                   onChangeField={(id, value) => {
                                     setContextData({
-                                      ...this.state.formData,
+                                      ...contextData,
                                       [id]: value,
                                     });
                                     this.onChangeField(id, value);
@@ -936,11 +905,11 @@ class Form extends Component {
                                 id={field}
                                 fieldSet={item.title.toLowerCase()}
                                 focus={index === 0}
-                                value={this.state.formData[field]}
+                                value={contextData[field]}
                                 required={schema.required.indexOf(field) !== -1}
                                 onChangeField={(id, value) => {
                                   setContextData({
-                                    ...this.state.formData,
+                                    ...contextData,
                                     [id]: value,
                                   });
                                   this.onChangeField(id, value);
@@ -991,11 +960,11 @@ class Form extends Component {
                           <Field
                             {...schema.properties[field]}
                             id={field}
-                            value={this.state.formData?.[field]}
+                            value={contextData?.[field]}
                             required={schema.required.indexOf(field) !== -1}
                             onChangeField={(id, value) => {
                               setContextData({
-                                ...this.state.formData,
+                                ...contextData,
                                 [id]: value,
                               });
                               this.onChangeField(id, value);
@@ -1060,8 +1029,8 @@ class Form extends Component {
               </Container>
             );
           }}
-        </FormContext.Consumer>
-      </FormProvider>
+        </FormStateContext.Consumer>
+      </FormStateProvider>
     );
   }
 }

@@ -10,6 +10,7 @@ import { stateFromHTML } from 'draft-js-import-html';
 import { Editor, DefaultDraftBlockRenderMap, EditorState } from 'draft-js';
 import { defineMessages, injectIntl } from 'react-intl';
 import { settings } from '~/config';
+import { FormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 
 const messages = defineMessages({
   title: {
@@ -38,7 +39,7 @@ class Edit extends Component {
    * @static
    */
   static propTypes = {
-    properties: PropTypes.objectOf(PropTypes.any).isRequired,
+    // properties: PropTypes.objectOf(PropTypes.any).isRequired,
     selected: PropTypes.bool.isRequired,
     index: PropTypes.number.isRequired,
     onChangeField: PropTypes.func.isRequired,
@@ -49,6 +50,7 @@ class Edit extends Component {
     onFocusNextBlock: PropTypes.func.isRequired,
     block: PropTypes.string.isRequired,
   };
+  static contextType = FormStateContext;
 
   /**
    * Constructor
@@ -60,14 +62,7 @@ class Edit extends Component {
     super(props);
 
     if (!__SERVER__) {
-      let editorState;
-      if (props.properties && props.properties.title) {
-        const contentState = stateFromHTML(props.properties.title);
-        editorState = EditorState.createWithContent(contentState);
-      } else {
-        editorState = EditorState.createEmpty();
-      }
-      this.state = { editorState, focus: true };
+      this.state = { editorState: EditorState.createEmpty(), focus: true };
     }
 
     this.onChange = this.onChange.bind(this);
@@ -79,6 +74,16 @@ class Edit extends Component {
    * @returns {undefined}
    */
   componentDidMount() {
+    let editorState;
+    const properties = this.context.contextData?.formData || {};
+    if (properties && properties.title) {
+      const contentState = stateFromHTML(properties.title);
+      editorState = EditorState.createWithContent(contentState);
+    } else {
+      editorState = EditorState.createEmpty();
+    }
+    this.setState({ editorState, mounted: true });
+
     if (this.node) {
       this.node.focus();
       this.node._onBlur = () => this.setState({ focus: false });
@@ -119,12 +124,13 @@ class Edit extends Component {
    * @returns {undefined}
    */
   onChange(editorState) {
-    this.setState({ editorState }, () => {
-      this.props.onChangeField(
-        'title',
-        editorState.getCurrentContent().getPlainText(),
-      );
-    });
+    this.state.mounted &&
+      this.setState({ editorState }, () => {
+        this.props.onChangeField(
+          'title',
+          editorState.getCurrentContent().getPlainText(),
+        );
+      });
   }
 
   /**

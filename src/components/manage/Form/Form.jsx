@@ -208,10 +208,6 @@ class Form extends Component {
           ? formData[blocksLayoutFieldname].items[0]
           : null,
       placeholderProps: {},
-      testData: [
-        { external_link: 'https://ddg.gg' },
-        { external_link: 'https://wikipedia.org' },
-      ],
     };
 
     this.onChangeField = this.onChangeField.bind(this);

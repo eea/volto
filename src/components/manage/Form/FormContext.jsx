@@ -28,6 +28,4 @@ export const useFormStateContext = () => {
   }
 
   return context;
-  // const [contentData, setContentData] = context;
-  // return editor;
 };

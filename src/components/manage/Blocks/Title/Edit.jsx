@@ -58,11 +58,19 @@ class Edit extends Component {
    * @param {Object} props Component properties
    * @constructs WysiwygEditor
    */
-  constructor(props) {
+  constructor(props, context) {
     super(props);
 
     if (!__SERVER__) {
-      this.state = { editorState: EditorState.createEmpty(), focus: true };
+      let editorState;
+      const properties = context.contextData?.formData || {};
+      if (properties && properties.title) {
+        const contentState = stateFromHTML(properties.title);
+        editorState = EditorState.createWithContent(contentState);
+      } else {
+        editorState = EditorState.createEmpty();
+      }
+      this.state = { editorState, focus: true };
     }
 
     this.onChange = this.onChange.bind(this);
@@ -74,16 +82,7 @@ class Edit extends Component {
    * @returns {undefined}
    */
   componentDidMount() {
-    let editorState;
-    const properties = this.context.contextData?.formData || {};
-    if (properties && properties.title) {
-      const contentState = stateFromHTML(properties.title);
-      editorState = EditorState.createWithContent(contentState);
-    } else {
-      editorState = EditorState.createEmpty();
-    }
-    this.setState({ editorState, mounted: true });
-
+    this.setState({ mounted: true });
     if (this.node) {
       this.node.focus();
       this.node._onBlur = () => this.setState({ focus: false });
@@ -124,13 +123,12 @@ class Edit extends Component {
    * @returns {undefined}
    */
   onChange(editorState) {
-    this.state.mounted &&
-      this.setState({ editorState }, () => {
-        this.props.onChangeField(
-          'title',
-          editorState.getCurrentContent().getPlainText(),
-        );
-      });
+    this.setState({ editorState }, () => {
+      this.props.onChangeField(
+        'title',
+        editorState.getCurrentContent().getPlainText(),
+      );
+    });
   }
 
   /**

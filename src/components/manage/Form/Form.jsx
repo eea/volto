@@ -158,6 +158,7 @@ class Form extends Component {
       title: uuid(),
       text: uuid(),
     };
+
     let { formData } = props;
     const blocksFieldname = getBlocksFieldname(formData);
     const blocksLayoutFieldname = getBlocksLayoutFieldname(formData);
@@ -169,6 +170,7 @@ class Form extends Component {
         ...formData,
       };
     }
+
     // defaults for block editor; should be moved to schema on server side
     // Adding fallback in case the fields are empty, so we are sure that the edit form
     // shows at least the default blocks
@@ -195,6 +197,7 @@ class Form extends Component {
         };
       }
     }
+
     this.state = {
       formData,
       initialFormData: { ...formData },
@@ -210,6 +213,7 @@ class Form extends Component {
         { external_link: 'https://wikipedia.org' },
       ],
     };
+
     this.onChangeField = this.onChangeField.bind(this);
     this.onChangeBlock = this.onChangeBlock.bind(this);
     this.onMutateBlock = this.onMutateBlock.bind(this);
@@ -221,6 +225,11 @@ class Form extends Component {
     this.onFocusPreviousBlock = this.onFocusPreviousBlock.bind(this);
     this.onFocusNextBlock = this.onFocusNextBlock.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+
+    // We use these as instance fields, to be initialized in the render() meth
+    // from the context provider
+    this.contextData = null;
+    this.setContextData = null;
   }
 
   /**
@@ -231,9 +240,9 @@ class Form extends Component {
    * @returns {undefined}
    */
   onChangeField(id, value) {
-    this.setState({
+    this.setContextData({
       formData: {
-        ...this.state.formData,
+        ...this.contextData.formData,
         // We need to catch also when the value equals false this fixes #888
         [id]: value || (value !== undefined && isBoolean(value)) ? value : null,
       },
@@ -252,12 +261,13 @@ class Form extends Component {
    * @returns {undefined}
    */
   onChangeBlock(id, value) {
-    const blocksFieldname = getBlocksFieldname(this.state.formData);
-    this.setState({
+    const { formData } = this.contextData;
+    const blocksFieldname = getBlocksFieldname(formData);
+    this.setContextData({
       formData: {
-        ...this.state.formData,
+        ...formData,
         [blocksFieldname]: {
-          ...this.state.formData[blocksFieldname],
+          ...formData[blocksFieldname],
           [id]: value || null,
         },
       },
@@ -273,16 +283,16 @@ class Form extends Component {
    */
   onMutateBlock(id, value) {
     const idTrailingBlock = uuid();
-    const blocksFieldname = getBlocksFieldname(this.state.formData);
-    const blocksLayoutFieldname = getBlocksLayoutFieldname(this.state.formData);
-    const index =
-      this.state.formData[blocksLayoutFieldname].items.indexOf(id) + 1;
+    const { formData } = this.contextData;
+    const blocksFieldname = getBlocksFieldname(formData);
+    const blocksLayoutFieldname = getBlocksLayoutFieldname(formData);
+    const index = formData[blocksLayoutFieldname].items.indexOf(id) + 1;
 
-    this.setState({
+    this.setContextData({
       formData: {
-        ...this.state.formData,
+        ...formData,
         [blocksFieldname]: {
-          ...this.state.formData[blocksFieldname],
+          ...formData[blocksFieldname],
           [id]: value || null,
           [idTrailingBlock]: {
             '@type': settings.defaultBlockType,
@@ -290,9 +300,9 @@ class Form extends Component {
         },
         [blocksLayoutFieldname]: {
           items: [
-            ...this.state.formData[blocksLayoutFieldname].items.slice(0, index),
+            ...formData[blocksLayoutFieldname].items.slice(0, index),
             idTrailingBlock,
-            ...this.state.formData[blocksLayoutFieldname].items.slice(index),
+            ...formData[blocksLayoutFieldname].items.slice(index),
           ],
         },
       },
@@ -306,7 +316,7 @@ class Form extends Component {
    * @returns {undefined}
    */
   onSelectBlock(id) {
-    this.setState({
+    this.setContextData({
       selected: id,
     });
   }
@@ -319,22 +329,23 @@ class Form extends Component {
    * @returns {undefined}
    */
   onDeleteBlock(id, selectPrev) {
-    const blocksFieldname = getBlocksFieldname(this.state.formData);
-    const blocksLayoutFieldname = getBlocksLayoutFieldname(this.state.formData);
+    const { formData } = this.contextData;
+    const blocksFieldname = getBlocksFieldname(formData);
+    const blocksLayoutFieldname = getBlocksLayoutFieldname(formData);
 
-    this.setState({
-      formData: {
-        ...this.state.formData,
-        [blocksLayoutFieldname]: {
-          items: without(this.state.formData[blocksLayoutFieldname].items, id),
-        },
-        [blocksFieldname]: omit(this.state.formData[blocksFieldname], [id]),
-      },
+    this.setContextData({
       selected: selectPrev
-        ? this.state.formData[blocksLayoutFieldname].items[
-            this.state.formData[blocksLayoutFieldname].items.indexOf(id) - 1
+        ? formData[blocksLayoutFieldname].items[
+            formData[blocksLayoutFieldname].items.indexOf(id) - 1
           ]
         : null,
+      formData: {
+        ...formData,
+        [blocksLayoutFieldname]: {
+          items: without(formData[blocksLayoutFieldname].items, id),
+        },
+        [blocksFieldname]: omit(formData[blocksFieldname], [id]),
+      },
     });
   }
 
@@ -348,27 +359,26 @@ class Form extends Component {
   onAddBlock(type, index) {
     const id = uuid();
     const idTrailingBlock = uuid();
-    const blocksFieldname = getBlocksFieldname(this.state.formData);
-    const blocksLayoutFieldname = getBlocksLayoutFieldname(this.state.formData);
-    const totalItems = this.state.formData[blocksLayoutFieldname].items.length;
+    const { formData } = this.contextData;
+    const blocksFieldname = getBlocksFieldname(formData);
+    const blocksLayoutFieldname = getBlocksLayoutFieldname(formData);
+    const totalItems = formData[blocksLayoutFieldname].items.length;
     const insert = index === -1 ? totalItems : index;
 
-    this.setState({
+    this.setContextData({
+      selected: id,
       formData: {
-        ...this.state.formData,
+        ...formData,
         [blocksLayoutFieldname]: {
           items: [
-            ...this.state.formData[blocksLayoutFieldname].items.slice(
-              0,
-              insert,
-            ),
+            ...formData[blocksLayoutFieldname].items.slice(0, insert),
             id,
             ...(type !== settings.defaultBlockType ? [idTrailingBlock] : []),
-            ...this.state.formData[blocksLayoutFieldname].items.slice(insert),
+            ...formData[blocksLayoutFieldname].items.slice(insert),
           ],
         },
         [blocksFieldname]: {
-          ...this.state.formData[blocksFieldname],
+          ...formData[blocksFieldname],
           [id]: {
             '@type': type,
           },
@@ -379,7 +389,6 @@ class Form extends Component {
           }),
         },
       },
-      selected: id,
     });
 
     return id;
@@ -395,11 +404,12 @@ class Form extends Component {
     if (event) {
       event.preventDefault();
     }
+    const { formData } = this.contextData;
     const errors = {};
     map(this.props.schema.fieldsets, (fieldset) =>
       map(fieldset.fields, (fieldId) => {
         const field = this.props.schema.properties[fieldId];
-        var data = this.state.formData[fieldId];
+        var data = formData[fieldId];
         if (typeof data === 'string' || data instanceof String) {
           data = data.trim();
         }
@@ -428,7 +438,7 @@ class Form extends Component {
       }),
     );
     if (keys(errors).length > 0) {
-      this.setState({
+      this.setContextData({
         errors,
       });
     } else {
@@ -437,10 +447,10 @@ class Form extends Component {
       if (this.props.isEditForm) {
         this.props.onSubmit(this.getOnlyFormModifiedValues());
       } else {
-        this.props.onSubmit(this.state.formData);
+        this.props.onSubmit(formData);
       }
       if (this.props.resetAfterSubmit) {
-        this.setState({
+        this.setContextData({
           formData: this.props.formData,
         });
       }
@@ -457,12 +467,11 @@ class Form extends Component {
    * @returns {undefined}
    */
   getOnlyFormModifiedValues = () => {
+    const { formData } = this.contextData;
     const fieldsModified = Object.keys(
-      difference(this.state.formData, this.state.initialFormData),
+      difference(formData, this.state.initialFormData),
     );
-    return pickBy(this.state.formData, (value, key) =>
-      fieldsModified.includes(key),
-    );
+    return pickBy(formData, (value, key) => fieldsModified.includes(key));
   };
 
   /**
@@ -473,14 +482,15 @@ class Form extends Component {
    * @returns {undefined}
    */
   onMoveBlock(dragIndex, hoverIndex) {
-    const blocksLayoutFieldname = getBlocksLayoutFieldname(this.state.formData);
+    const { formData } = this.contextData;
+    const blocksLayoutFieldname = getBlocksLayoutFieldname(formData);
 
-    this.setState({
+    this.setContextData({
       formData: {
-        ...this.state.formData,
+        ...formData,
         [blocksLayoutFieldname]: {
           items: move(
-            this.state.formData[blocksLayoutFieldname].items,
+            formData[blocksLayoutFieldname].items,
             dragIndex,
             hoverIndex,
           ),
@@ -497,10 +507,11 @@ class Form extends Component {
    * @returns {undefined}
    */
   onFocusPreviousBlock(currentBlock, blockNode) {
-    const blocksLayoutFieldname = getBlocksLayoutFieldname(this.state.formData);
-    const currentIndex = this.state.formData[
-      blocksLayoutFieldname
-    ].items.indexOf(currentBlock);
+    const { formData } = this.contextData;
+    const blocksLayoutFieldname = getBlocksLayoutFieldname(formData);
+    const currentIndex = formData[blocksLayoutFieldname].items.indexOf(
+      currentBlock,
+    );
 
     if (currentIndex === 0) {
       // We are already at the top block don't do anything
@@ -509,9 +520,7 @@ class Form extends Component {
     const newindex = currentIndex - 1;
     blockNode.blur();
 
-    this.onSelectBlock(
-      this.state.formData[blocksLayoutFieldname].items[newindex],
-    );
+    this.onSelectBlock(formData[blocksLayoutFieldname].items[newindex]);
   }
 
   /**
@@ -522,15 +531,13 @@ class Form extends Component {
    * @returns {undefined}
    */
   onFocusNextBlock(currentBlock, blockNode) {
-    const blocksLayoutFieldname = getBlocksLayoutFieldname(this.state.formData);
-    const currentIndex = this.state.formData[
-      blocksLayoutFieldname
-    ].items.indexOf(currentBlock);
+    const { formData } = this.contextData;
+    const blocksLayoutFieldname = getBlocksLayoutFieldname(formData);
+    const currentIndex = formData[blocksLayoutFieldname].items.indexOf(
+      currentBlock,
+    );
 
-    if (
-      currentIndex ===
-      this.state.formData[blocksLayoutFieldname].items.length - 1
-    ) {
+    if (currentIndex === formData[blocksLayoutFieldname].items.length - 1) {
       // We are already at the bottom block don't do anything
       return;
     }
@@ -538,9 +545,7 @@ class Form extends Component {
     const newindex = currentIndex + 1;
     blockNode.blur();
 
-    this.onSelectBlock(
-      this.state.formData[blocksLayoutFieldname].items[newindex],
-    );
+    this.onSelectBlock(formData[blocksLayoutFieldname].items[newindex]);
   }
 
   /**
@@ -610,16 +615,17 @@ class Form extends Component {
     if (!destination) {
       return;
     }
-    const blocksLayoutFieldname = getBlocksLayoutFieldname(this.state.formData);
+    const { formData } = this.contextData;
+    const blocksLayoutFieldname = getBlocksLayoutFieldname(formData);
     this.setState({
       placeholderProps: {},
     });
-    this.setState({
+    this.setContextData({
       formData: {
-        ...this.state.formData,
+        ...formData,
         [blocksLayoutFieldname]: {
           items: move(
-            this.state.formData[blocksLayoutFieldname].items,
+            formData[blocksLayoutFieldname].items,
             source.index,
             destination.index,
           ),
@@ -717,15 +723,24 @@ class Form extends Component {
     const schema = this.removeBlocksLayoutFields(originalSchema);
     const { placeholderProps } = this.state;
 
+    const updateContext = ({ setContextData, contextData }) => {
+      this.setContextData = setContextData;
+      this.contextData = contextData;
+    };
+
     return (
-      <FormStateProvider initialValue={this.state.formData}>
+      <FormStateProvider initialValue={this.state}>
         <FormStateContext.Consumer>
-          {({ contextData, setContextData }) => {
-            const blocksFieldname = getBlocksFieldname(contextData);
-            const blocksLayoutFieldname = getBlocksLayoutFieldname(contextData);
-            const renderBlocks = contextData?.[blocksLayoutFieldname]?.items;
-            const blocksDict = contextData?.[blocksFieldname];
-            console.log('contextData', contextData.blocks);
+          {({ setContextData, contextData }) => {
+            updateContext({ setContextData, contextData });
+
+            const { formData } = contextData;
+
+            const blocksFieldname = getBlocksFieldname(formData);
+            const blocksLayoutFieldname = getBlocksLayoutFieldname(formData);
+            const renderBlocks = formData?.[blocksLayoutFieldname]?.items;
+            const blocksDict = formData?.[blocksFieldname];
+
             return this.props.visual ? (
               // Removing this from SSR is important, since react-beautiful-dnd supports SSR,
               // but draftJS don't like it much and the hydration gets messed up
@@ -759,7 +774,7 @@ class Form extends Component {
                                     <div
                                       style={{
                                         visibility:
-                                          this.state.selected === block &&
+                                          contextData.selected === block &&
                                           !this.hideHandler(blocksDict[block])
                                             ? 'visible'
                                             : 'hidden',
@@ -780,13 +795,7 @@ class Form extends Component {
                                       onAddBlock={this.onAddBlock}
                                       onChangeBlock={this.onChangeBlock}
                                       onMutateBlock={this.onMutateBlock}
-                                      onChangeField={(id, value) => {
-                                        setContextData({
-                                          ...contextData,
-                                          [id]: value,
-                                        });
-                                        this.onChangeField(id, value);
-                                      }}
+                                      onChangeField={this.onChangeField}
                                       onDeleteBlock={this.onDeleteBlock}
                                       onSelectBlock={this.onSelectBlock}
                                       onMoveBlock={this.onMoveBlock}
@@ -797,8 +806,8 @@ class Form extends Component {
                                       data={blocksDict[block]}
                                       pathname={this.props.pathname}
                                       block={block}
-                                      selected={this.state.selected === block}
-                                      properties={contextData}
+                                      selected={contextData.selected === block}
+                                      properties={formData}
                                     />
                                   </div>
                                 </div>
@@ -832,7 +841,7 @@ class Form extends Component {
                       <UiForm
                         method="post"
                         onSubmit={this.onSubmit}
-                        error={keys(this.state.errors).length > 0}
+                        error={keys(contextData.errors).length > 0}
                       >
                         {schema &&
                           map(schema.fieldsets, (item) => [
@@ -852,15 +861,9 @@ class Form extends Component {
                                   required={
                                     schema.required.indexOf(field) !== -1
                                   }
-                                  onChangeField={(id, value) => {
-                                    setContextData({
-                                      ...contextData,
-                                      [id]: value,
-                                    });
-                                    this.onChangeField(id, value);
-                                  }}
+                                  onChangeField={this.onChangeField}
                                   key={field}
-                                  error={this.state.errors[field]}
+                                  error={contextData.errors[field]}
                                 />
                               ))}
                             </Segment>,
@@ -875,7 +878,7 @@ class Form extends Component {
                 <UiForm
                   method="post"
                   onSubmit={this.onSubmit}
-                  error={keys(this.state.errors).length > 0}
+                  error={keys(contextData.errors).length > 0}
                 >
                   <Segment.Group raised>
                     {schema && schema.fieldsets.length > 1 && (
@@ -907,15 +910,9 @@ class Form extends Component {
                                 focus={index === 0}
                                 value={contextData[field]}
                                 required={schema.required.indexOf(field) !== -1}
-                                onChangeField={(id, value) => {
-                                  setContextData({
-                                    ...contextData,
-                                    [id]: value,
-                                  });
-                                  this.onChangeField(id, value);
-                                }}
+                                onChangeField={this.onChangeField}
                                 key={field}
-                                error={this.state.errors[field]}
+                                error={contextData.errors[field]}
                               />
                             )),
                           ],
@@ -932,7 +929,7 @@ class Form extends Component {
                         {this.props.description && (
                           <Segment secondary>{this.props.description}</Segment>
                         )}
-                        {keys(this.state.errors).length > 0 && (
+                        {keys(contextData.errors).length > 0 && (
                           <Message
                             icon="warning"
                             negative
@@ -962,15 +959,9 @@ class Form extends Component {
                             id={field}
                             value={contextData?.[field]}
                             required={schema.required.indexOf(field) !== -1}
-                            onChangeField={(id, value) => {
-                              setContextData({
-                                ...contextData,
-                                [id]: value,
-                              });
-                              this.onChangeField(id, value);
-                            }}
+                            onChangeField={this.onChangeField}
                             key={field}
-                            error={this.state.errors[field]}
+                            error={contextData.errors[field]}
                           />
                         ))}
                       </Segment>

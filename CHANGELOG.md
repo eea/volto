@@ -28,6 +28,8 @@
 
 ### Bugfix
 
+- Avoid React hydration complaining about mismatched server output in toolbar. In component rendering, replaced the use of `__CLIENT__` with a state-stored `isClient`, as that is more correct. @tiberiuichim
+
 ### Internal
 
 ## 7.3.0 (2020-07-26)

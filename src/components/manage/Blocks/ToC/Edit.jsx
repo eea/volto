@@ -7,15 +7,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import View from '@plone/volto/components/manage/Blocks/ToC/View';
+import { useFormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 
 /**
  * Edit toc block class.
  * @class Edit
  * @extends Component
  */
-const Edit = ({ properties, data }) => (
-  <View properties={properties} data={data} />
-);
+
+const Edit = () => {
+  const { contextData } = useFormStateContext();
+  const { formData } = contextData;
+  return <View properties={formData} />;
+};
 
 /**
  * Property types.

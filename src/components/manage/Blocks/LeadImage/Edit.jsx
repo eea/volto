@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
-import { defineMessages, injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import cx from 'classnames';
 import { Message } from 'semantic-ui-react';
 
@@ -14,13 +14,7 @@ import { LeadImageSidebar, SidebarPortal } from '@plone/volto/components';
 import { flattenToAppURL } from '@plone/volto/helpers';
 
 import imageBlockSVG from '@plone/volto/components/manage/Blocks/Image/block-image.svg';
-
-const messages = defineMessages({
-  ImageBlockInputPlaceholder: {
-    id: "Upload a lead image in the 'Lead Image' content field.",
-    defaultMessage: "Upload a lead image in the 'Lead Image' content field.",
-  },
-});
+import { FormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 
 /**
  * Edit image block class.
@@ -43,6 +37,7 @@ class Edit extends Component {
     onChangeBlock: PropTypes.func.isRequired,
     openObjectBrowser: PropTypes.func.isRequired,
   };
+  static contextType = FormStateContext;
 
   /**
    * Align block handler
@@ -65,10 +60,8 @@ class Edit extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
-    const { data, properties } = this.props;
-    const placeholder =
-      this.props.data.placeholder ||
-      this.props.intl.formatMessage(messages.ImageBlockInputPlaceholder);
+    const properties = this.context?.contextData?.formData || {};
+    const { data } = this.props;
 
     return (
       <div
@@ -84,7 +77,12 @@ class Edit extends Component {
           <Message>
             <center>
               <img src={imageBlockSVG} alt="" />
-              <div className="message-text">{placeholder}</div>
+              <div className="message-text">
+                <FormattedMessage
+                  id="Upload a lead image in the 'Lead Image' content field."
+                  defaultMessage="Upload a lead image in the 'Lead Image' content field."
+                />
+              </div>
             </center>
           </Message>
         )}
@@ -100,7 +98,7 @@ class Edit extends Component {
           />
         )}
         <SidebarPortal selected={this.props.selected}>
-          <LeadImageSidebar {...this.props} />
+          <LeadImageSidebar {...{ ...this.props, properties }} />
         </SidebarPortal>
       </div>
     );

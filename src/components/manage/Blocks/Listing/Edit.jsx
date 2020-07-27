@@ -8,6 +8,7 @@ import {
   ListingBlockSidebar as ListingSidebar,
 } from '@plone/volto/components';
 import { getBaseUrl } from '@plone/volto/helpers';
+import { useFormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 
 const messages = defineMessages({
   results: {
@@ -46,13 +47,15 @@ const Edit = ({
     (data?.query?.length
       ? intl.formatMessage(messages.results)
       : intl.formatMessage(messages.items));
+  const { contextData } = useFormStateContext();
+  const { formData } = contextData;
 
   return (
     <>
       <p className="items-preview">{placeholder}</p>
       <ListingBody
         data={data}
-        properties={properties}
+        properties={formData}
         block={block}
         path={getBaseUrl(pathname)}
         isEditMode

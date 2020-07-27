@@ -15,10 +15,10 @@ import { useFormStateContext } from '@plone/volto/components/manage/Form/FormCon
  * @extends Component
  */
 
-const Edit = () => {
+const Edit = ({ data }) => {
   const { contextData } = useFormStateContext();
   const { formData } = contextData;
-  return <View properties={formData} />;
+  return <View properties={formData} data={data} />;
 };
 
 /**

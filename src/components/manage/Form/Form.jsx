@@ -841,6 +841,7 @@ class Form extends Component {
                                       index={index}
                                       type={blocksDict[block]['@type']}
                                       key={block}
+                                      manage={this.props.isAdminForm}
                                       handleKeyDown={this.handleKeyDown}
                                       onAddBlock={this.onAddBlock}
                                       onChangeBlock={this.onChangeBlock}

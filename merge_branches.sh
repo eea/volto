@@ -15,6 +15,7 @@ git merge --no-ff volto/eea-dx-cpanel-layout
 git merge --no-ff volto/separate_less_loader
 git merge --no-ff volto/default-block-rebased
 git merge --no-ff volto/form_context_clean_breaking
+git merge --no-ff volto/fix_toolbar_ssr
 git merge --no-ff volto/master
 
 # To come:

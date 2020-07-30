@@ -847,6 +847,8 @@ refer to all of them in https://github.com/plone/volto/releases
 - Upgrade version pin for lxml, for compatibility with Python3.8
 - Bump handlebars from 4.1.2 to 4.3.0 @timo
 
+- Export connected widget classes, to allow extending @tiberiuichim
+
 ## 4.0.0-alpha.19 (2019-12-20)
 
 ### Added

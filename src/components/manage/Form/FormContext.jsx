@@ -47,3 +47,29 @@ export const useFormStateContext = () => {
 
   return context;
 };
+
+export const withFormStateContext = (WrappedComponent) => {
+  const FormWithState = class extends React.Component {
+    render() {
+      return (
+        <FormStateProvider initialValue={{}}>
+          <FormStateContext.Consumer>
+            {(formStateContext) => {
+              return (
+                <WrappedComponent
+                  {...this.props}
+                  ref={this.props.formRef}
+                  formStateContext={formStateContext}
+                />
+              );
+            }}
+          </FormStateContext.Consumer>
+        </FormStateProvider>
+      );
+    }
+  };
+
+  return React.forwardRef((props, ref) => (
+    <FormWithState {...props} formRef={ref} />
+  ));
+};

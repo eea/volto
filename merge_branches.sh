@@ -24,7 +24,7 @@ git merge volto/eea-dx-cpanel-layout
 git merge volto/separate_less_loader
 
 # needed by volto-slate
-git merge volto/form_context_clean_breaking
+git merge volto/form_context_clean_breaking_with_hoc
 
 # needed for bise
 git merge volto/addons_customize

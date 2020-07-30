@@ -6,6 +6,9 @@
 
 ### Feature
 
+- Allow addons to provide less files @tiberiuichim
+- Highlight the sidebar toggle button with a small flashing animation @silviubogan @tiberiuichim
+
 ### Bugfix
 
 ### Internal

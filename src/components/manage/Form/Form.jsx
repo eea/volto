@@ -42,7 +42,6 @@ import {
 import { v4 as uuid } from 'uuid';
 
 import { settings } from '~/config';
-import dragSVG from '@plone/volto/icons/drag.svg';
 import { FormStateContext, FormStateProvider } from './FormContext';
 
 import { blockHasValue } from '@plone/volto/helpers';
@@ -243,7 +242,7 @@ class Form extends Component {
     });
   }
 
-  hideHandler = data => {
+  hideHandler = (data) => {
     return !!data.fixed || !blockHasValue(data);
   };
 
@@ -417,40 +416,19 @@ class Form extends Component {
     if (event) {
       event.preventDefault();
     }
-    const errors = {};
-    map(this.props.schema.fieldsets, (fieldset) =>
-      map(fieldset.fields, (fieldId) => {
-        const field = this.props.schema.properties[fieldId];
-        var data = this.contextData.formData[fieldId];
-        if (typeof data === 'string' || data instanceof String) {
-          data = data.trim();
-        }
-        if (this.props.schema.required.indexOf(fieldId) !== -1) {
-          if (field.type !== 'boolean' && !data) {
-            errors[fieldId] = errors[field] || [];
-            errors[fieldId].push(
-              this.props.intl.formatMessage(messages.required),
-            );
-          }
-          if (field.minLength && data.length < field.minLength) {
-            errors[fieldId] = errors[field] || [];
-            errors[fieldId].push(
-              this.props.intl.formatMessage(messages.minLength, {
-                len: field.minLength,
-              }),
-            );
-          }
-        }
-        if (field.uniqueItems && data && uniq(data).length !== data.length) {
-          errors[fieldId] = errors[field] || [];
-          errors[fieldId].push(
-            this.props.intl.formatMessage(messages.uniqueItems),
-          );
-        }
-      }),
-    );
+
+    const errors = FormValidation.validateFieldsPerFieldset({
+      schema: this.props.schema,
+      formData: this.contextData.formData,
+      formatMessage: this.props.intl.formatMessage,
+    });
+
     if (keys(errors).length > 0) {
-      return this.setContextData({
+      const activeIndex = FormValidation.showFirstTabWithErrors({
+        errors,
+        schema: this.props.schema,
+      });
+      this.setContextData({
         errors,
         activeIndex,
       });
@@ -463,7 +441,7 @@ class Form extends Component {
         this.props.onSubmit(this.contextData.formData);
       }
       if (this.props.resetAfterSubmit) {
-        return this.setContextData({
+        this.setContextData({
           formData: this.props.formData,
         });
       }
@@ -616,16 +594,16 @@ class Form extends Component {
    * @param {object} schema The schema definition of the form.
    * @returns A modified copy of the given schema.
    */
-  removeBlocksLayoutFields = schema => {
+  removeBlocksLayoutFields = (schema) => {
     const newSchema = { ...schema };
     const layoutFieldsetIndex = findIndex(
       newSchema.fieldsets,
-      fieldset => fieldset.id === 'layout',
+      (fieldset) => fieldset.id === 'layout',
     );
     if (layoutFieldsetIndex > -1) {
       const layoutFields = newSchema.fieldsets[layoutFieldsetIndex].fields;
       newSchema.fieldsets[layoutFieldsetIndex].fields = layoutFields.filter(
-        field => field !== 'blocks' && field !== 'blocks_layout',
+        (field) => field !== 'blocks' && field !== 'blocks_layout',
       );
       if (newSchema.fieldsets[layoutFieldsetIndex].fields.length === 0) {
         newSchema.fieldsets = [
@@ -637,7 +615,7 @@ class Form extends Component {
     return newSchema;
   };
 
-  onDragEnd = result => {
+  onDragEnd = (result) => {
     const { source, destination } = result;
     if (!destination) {
       return;
@@ -662,7 +640,7 @@ class Form extends Component {
     });
   };
 
-  handleDragStart = event => {
+  handleDragStart = (event) => {
     const queryAttr = 'data-rbd-draggable-id';
     const domQuery = `[${queryAttr}='${event.draggableId}']`;
     const draggedDOM = document.querySelector(domQuery);
@@ -695,7 +673,7 @@ class Form extends Component {
     });
   };
 
-  onDragUpdate = update => {
+  onDragUpdate = (update) => {
     if (!update.destination) {
       return;
     }
@@ -861,44 +839,43 @@ class Form extends Component {
                         </div>
                       )}
                     </Droppable>
-                    { this.state.isClient &&
-                    <Portal
-                      node={
-                        document.getElementById('sidebar-metadata')
-                      }
-                    >
-                      <UiForm
-                        method="post"
-                        onSubmit={this.onSubmit}
-                        error={keys(this.contextData.errors).length > 0}
+                    {this.state.isClient && (
+                      <Portal
+                        node={document.getElementById('sidebar-metadata')}
                       >
-                        {schema &&
-                          map(schema.fieldsets, (item) => [
-                            <Segment secondary attached key={item.title}>
-                              {item.title}
-                            </Segment>,
-                            <Segment
-                              attached
-                              key={`fieldset-contents-${item.title}`}
-                            >
-                              {map(item.fields, (field, index) => (
-                                <Field
-                                  {...schema.properties[field]}
-                                  id={field}
-                                  focus={false}
-                                  value={this.contextData.formData[field]}
-                                  required={
-                                    schema.required.indexOf(field) !== -1
-                                  }
-                                  onChange={this.onChangeField}
-                                  key={field}
-                                  error={this.contextData.errors[field]}
-                                />
-                              ))}
-                            </Segment>,
-                          ])}
-                      </UiForm>
-                    </Portal> }
+                        <UiForm
+                          method="post"
+                          onSubmit={this.onSubmit}
+                          error={keys(this.contextData.errors).length > 0}
+                        >
+                          {schema &&
+                            map(schema.fieldsets, (item) => [
+                              <Segment secondary attached key={item.title}>
+                                {item.title}
+                              </Segment>,
+                              <Segment
+                                attached
+                                key={`fieldset-contents-${item.title}`}
+                              >
+                                {map(item.fields, (field, index) => (
+                                  <Field
+                                    {...schema.properties[field]}
+                                    id={field}
+                                    focus={false}
+                                    value={this.contextData.formData[field]}
+                                    required={
+                                      schema.required.indexOf(field) !== -1
+                                    }
+                                    onChange={this.onChangeField}
+                                    key={field}
+                                    error={this.contextData.errors[field]}
+                                  />
+                                ))}
+                              </Segment>,
+                            ])}
+                        </UiForm>
+                      </Portal>
+                    )}
                   </DragDropContext>
                 </div>
               )

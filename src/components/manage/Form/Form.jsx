@@ -815,6 +815,7 @@ class Form extends Component {
                                       selected={
                                         this.contextData.selected === block
                                       }
+                                      manage={this.props.isAdminForm}
                                     />
                                   </div>
                                 </div>

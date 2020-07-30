@@ -8,14 +8,16 @@ git remote add volto https://github.com/plone/volto.git
 git fetch --all
 git pull
 git merge --no-ff volto/export_components
+
+# this will conflict with https://github.com/plone/volto/pull/1705
 git merge --no-ff origin/sync_update
 git merge --no-ff origin/navigation-refactoring
+
 git merge --no-ff volto/eea-dx-fields-validation
 git merge --no-ff volto/eea-dx-cpanel-layout
 git merge --no-ff volto/separate_less_loader
-git merge --no-ff volto/default-block-rebased
 git merge --no-ff volto/form_context_clean_breaking
-git merge --no-ff volto/fix_toolbar_ssr
+git merge --no-ff volto/addons_customize
 git merge --no-ff volto/master
 
 # To come:
@@ -24,6 +26,8 @@ git merge --no-ff volto/master
 # git merge tibi/sync_render_kitchensink
 
 # Already merged to Volto master
+# git merge --no-ff volto/default-block-rebased
+# git merge --no-ff volto/fix_toolbar_ssr
 # git merge volto/wysiwyg_desc_styling
 # git merge volto/disable_submit
 # git merge volto/fix_querystring_ssr_edit

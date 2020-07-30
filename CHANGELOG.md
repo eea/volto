@@ -9,6 +9,9 @@
 - Allow addons to provide less files @tiberiuichim
 - Highlight the sidebar toggle button with a small flashing animation @silviubogan @tiberiuichim
 
+- Added Placeholder attribute to Textwidget and TextAreaWidget @iFlameing
+- Separate the Form.jsx state in its own component exposed as a context. This enables clean multi-block editing from other blocks, exposes the form state to widgets and many other advanced scenarios. @tiberiuichim
+
 ### Bugfix
 
 ### Internal

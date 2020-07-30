@@ -21,6 +21,11 @@ import ObjectBrowserWidget from '@plone/volto/components/manage/Widgets/ObjectBr
 export const DatetimeWidget = loadable(() =>
   import('@plone/volto/components/manage/Widgets/DatetimeWidget'),
 );
+export const RecurrenceWidget = loadable(() =>
+  import(
+    '@plone/volto/components/manage/Widgets/RecurrenceWidget/RecurrenceWidget'
+  ),
+);
 
 // Widgets mapping
 export const widgetMapping = {
@@ -28,6 +33,7 @@ export const widgetMapping = {
     schema: SchemaWidget,
     subjects: TokenWidget,
     query: QuerystringWidget,
+    recurrence: RecurrenceWidget,
   },
   widget: {
     richtext: WysiwygWidget,

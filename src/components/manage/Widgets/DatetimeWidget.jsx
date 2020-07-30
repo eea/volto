@@ -80,16 +80,14 @@ class DatetimeWidget extends Component {
    */
   constructor(props) {
     super(props);
-
+    //  Used to set a server timezone or UTC as default
+    const timezone = settings.timezone || 'UTC';
     let datetime = null;
 
     if (this.props.value) {
-      // check if datetime has timezone, otherwise assumes it's UTC
-      datetime = this.props.value.match(/T(.)*(-|\+|Z)/g)
-        ? // Since we assume UTC everywhere, then transform to local (momentjs default)
-          moment(this.props.value)
-        : // This might happen in old Plone versions dates
-          moment(`${this.props.value}Z`);
+      //  Since we set a default server timezone (UTC default), moment-timezone will transform
+      //  datetime to that specific timezone
+      datetime = moment.tz(this.props.value, timezone);
     }
 
     // @nzambello do we need this if using null by default?
@@ -101,6 +99,7 @@ class DatetimeWidget extends Component {
       focused: false,
       isDefault: datetime?.toISOString() === moment().utc().toISOString(),
       datetime,
+      timezone,
     };
   }
 
@@ -121,7 +120,7 @@ class DatetimeWidget extends Component {
                 date: date.date(),
                 ...(this.props.dateOnly ? defaultTimeDateOnly : {}),
               })
-            : moment().set({
+            : moment.tz(date.toISOString(), this.state.timezone).set({
                 year: date.year(),
                 month: date.month(),
                 date: date.date(),
@@ -148,7 +147,7 @@ class DatetimeWidget extends Component {
               minutes: time.minutes(),
               seconds: 0,
             })
-          : moment().set({
+          : moment.tz(time.toISOString(), this.state.timezone).set({
               hours: time.hours(),
               minutes: time.minutes(),
               seconds: 0,
@@ -165,10 +164,8 @@ class DatetimeWidget extends Component {
    * @returns {undefined}
    */
   onDateTimeChange = () => {
-    const dateValue = this.props.dateOnly
-      ? this.state.datetime.format('YYYY-MM-DD')
-      : this.state.datetime.toISOString();
-    this.props.onChange(this.props.id, dateValue);
+    // Serialize always to server default timezone (toISOString)
+    this.props.onChange(this.props.id, this.state.datetime.toISOString(true));
   };
 
   onResetDates = () => {

@@ -91,6 +91,11 @@
 - Fixed date only widget rendering #1246 @rexalex
 - Fix errors with SelectWidget when removing the only element @rexalex
 
+### Breaking
+
+### Feature
+
+- Added Blocks Layout Editor within Dexterity Content-Types Controlpanel @avoinea #1517
 ### Bugfix
 
 - Adding absolute url in ObjectBrowser for image type @iFlameing

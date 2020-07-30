@@ -22,6 +22,7 @@ test('renders a datetime widget component', () => {
         id="my-field"
         title="My field"
         onChange={() => {}}
+        dateOnly={false}
         value={moment('2019-10-21').toISOString()}
       />
     </Provider>,
@@ -44,6 +45,7 @@ test('datetime widget converts UTC date and adapt to local datetime', () => {
         id="my-field"
         title="My field"
         onChange={() => {}}
+        dateOnly={false}
         value={'2020-02-10T15:01:00.000Z'}
       />
     </Provider>,

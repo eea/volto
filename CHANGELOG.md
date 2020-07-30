@@ -80,6 +80,17 @@
 
 ## 7.0.1 (2020-07-07)
 
+### Breaking
+
+### Feature
+- Added missing components for Email and Url widgets #1246 @rexalex
+- Show backend validation errors on corresponding fields #1246 @rexalex
+- Validation implemented for add user/group @rexalex
+### Bugfix
+- Fixed front-end field validation #1246 @rexalex
+- Fixed date only widget rendering #1246 @rexalex
+- Fix errors with SelectWidget when removing the only element @rexalex
+
 ### Bugfix
 
 - Adding absolute url in ObjectBrowser for image type @iFlameing

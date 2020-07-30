@@ -3,8 +3,17 @@
  * @module components/manage/Form/Form
  */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { EditBlock, Field, Icon } from '@plone/volto/components';
+import {
+  difference,
+  FormValidation,
+  getBlocksFieldname,
+  getBlocksLayoutFieldname,
+  messages,
+} from '@plone/volto/helpers';
+import aheadSVG from '@plone/volto/icons/ahead.svg';
+import clearSVG from '@plone/volto/icons/clear.svg';
+import dragSVG from '@plone/volto/icons/drag.svg';
 import {
   findIndex,
   isEmpty,
@@ -13,72 +22,28 @@ import {
   mapValues,
   omit,
   pickBy,
-  uniq,
   without,
 } from 'lodash';
 import move from 'lodash-move';
 import isBoolean from 'lodash/isBoolean';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { injectIntl } from 'react-intl';
+import { Portal } from 'react-portal';
 import {
   Button,
   Container,
   Form as UiForm,
+  Message,
   Segment,
   Tab,
-  Message,
 } from 'semantic-ui-react';
-import { defineMessages, injectIntl } from 'react-intl';
 import { v4 as uuid } from 'uuid';
-import { Portal } from 'react-portal';
 
-import { EditBlock, Icon, Field } from '@plone/volto/components';
 import { settings } from '~/config';
-import dragSVG from '@plone/volto/icons/drag.svg';
 
-import {
-  getBlocksFieldname,
-  getBlocksLayoutFieldname,
-  difference,
-  blockHasValue,
-} from '@plone/volto/helpers';
-
-import aheadSVG from '@plone/volto/icons/ahead.svg';
-import clearSVG from '@plone/volto/icons/clear.svg';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-
-const messages = defineMessages({
-  addBlock: {
-    id: 'Add block…',
-    defaultMessage: 'Add block…',
-  },
-  required: {
-    id: 'Required input is missing.',
-    defaultMessage: 'Required input is missing.',
-  },
-  minLength: {
-    id: 'Minimum length is {len}.',
-    defaultMessage: 'Minimum length is {len}.',
-  },
-  uniqueItems: {
-    id: 'Items must be unique.',
-    defaultMessage: 'Items must be unique.',
-  },
-  save: {
-    id: 'Save',
-    defaultMessage: 'Save',
-  },
-  cancel: {
-    id: 'Cancel',
-    defaultMessage: 'Cancel',
-  },
-  error: {
-    id: 'Error',
-    defaultMessage: 'Error',
-  },
-  thereWereSomeErrors: {
-    id: 'There were some errors.',
-    defaultMessage: 'There were some errors.',
-  },
-});
+import { blockHasValue } from '@plone/volto/helpers';
 
 /**
  * Form container class.
@@ -120,6 +85,7 @@ class Form extends Component {
     description: PropTypes.string,
     visual: PropTypes.bool,
     blocks: PropTypes.arrayOf(PropTypes.object),
+    requestError: PropTypes.string,
   };
 
   /**
@@ -143,6 +109,7 @@ class Form extends Component {
     blocks: [],
     pathname: '',
     schema: {},
+    requestError: null,
   };
 
   /**
@@ -217,6 +184,73 @@ class Form extends Component {
     this.onFocusPreviousBlock = this.onFocusPreviousBlock.bind(this);
     this.onFocusNextBlock = this.onFocusNextBlock.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.onTabChange = this.onTabChange.bind(this);
+    this.onBlurField = this.onBlurField.bind(this);
+    this.onClickInput = this.onClickInput.bind(this);
+  }
+
+  /**
+   * On updates caused by props change
+   * if errors from Backend come, these will be shown to their corresponding Fields
+   * also the first Tab to have any errors will be selected
+   * @param {Object} prevProps
+   */
+  componentDidUpdate(prevProps) {
+    let { requestError } = this.props;
+    let errors = {};
+    let activeIndex = 0;
+
+    if (requestError && prevProps.requestError !== requestError) {
+      errors = FormValidation.giveServerErrorsToCorrespondingFields(
+        requestError,
+      );
+      activeIndex = FormValidation.showFirstTabWithErrors({
+        errors,
+        schema: this.props.schema,
+      });
+
+      this.setState({
+        errors,
+        activeIndex,
+      });
+    }
+  }
+
+  /**
+   * Tab selection is done only by setting activeIndex in state
+   */
+  onTabChange(e, { activeIndex }) {
+    this.setState({ activeIndex });
+  }
+
+  /**
+   * If user clicks on input, the form will be not considered pristine
+   * this will avoid onBlur effects without interraction with the form
+   * @param {Object} e event
+   */
+  onClickInput(e) {
+    this.setState({ isFormPrestine: false });
+  }
+
+  /**
+   * Validate fields on blur
+   * @method onBlurField
+   * @param {string} id Id of the field
+   * @param {*} value Value of the field
+   * @returns {undefined}
+   */
+  onBlurField(id, value) {
+    if (!this.state.isFormPrestine) {
+      const errors = FormValidation.validateFieldsPerFieldset({
+        schema: this.props.schema,
+        formData: this.state.formData,
+        formatMessage: this.props.intl.formatMessage,
+      });
+
+      this.setState({
+        errors,
+      });
+    }
   }
 
   /**
@@ -230,22 +264,29 @@ class Form extends Component {
 
   /**
    * Change field handler
+   * Remove errors for changed field
    * @method onChangeField
    * @param {string} id Id of the field
    * @param {*} value Value of the field
    * @returns {undefined}
    */
   onChangeField(id, value) {
-    this.setState({
-      formData: {
-        ...this.state.formData,
-        // We need to catch also when the value equals false this fixes #888
-        [id]: value || (value !== undefined && isBoolean(value)) ? value : null,
-      },
+    this.setState(prevState => {
+      const { errors, formData } = prevState;
+      delete errors[id];
+      return {
+        errors,
+        formData: {
+          ...formData,
+          // We need to catch also when the value equals false this fixes #888
+          [id]:
+            value || (value !== undefined && isBoolean(value)) ? value : null,
+        },
+      };
     });
   }
 
-  hideHandler = (data) => {
+  hideHandler = data => {
     return !blockHasValue(data);
   };
 
@@ -391,7 +432,7 @@ class Form extends Component {
   }
 
   /**
-   * Submit handler
+   * Submit handler also validate form and collect errors
    * @method onSubmit
    * @param {Object} event Event object.
    * @returns {undefined}
@@ -400,41 +441,21 @@ class Form extends Component {
     if (event) {
       event.preventDefault();
     }
-    const errors = {};
-    map(this.props.schema.fieldsets, (fieldset) =>
-      map(fieldset.fields, (fieldId) => {
-        const field = this.props.schema.properties[fieldId];
-        var data = this.state.formData[fieldId];
-        if (typeof data === 'string' || data instanceof String) {
-          data = data.trim();
-        }
-        if (this.props.schema.required.indexOf(fieldId) !== -1) {
-          if (field.type !== 'boolean' && !data) {
-            errors[fieldId] = errors[field] || [];
-            errors[fieldId].push(
-              this.props.intl.formatMessage(messages.required),
-            );
-          }
-          if (field.minLength && data.length < field.minLength) {
-            errors[fieldId] = errors[field] || [];
-            errors[fieldId].push(
-              this.props.intl.formatMessage(messages.minLength, {
-                len: field.minLength,
-              }),
-            );
-          }
-        }
-        if (field.uniqueItems && data && uniq(data).length !== data.length) {
-          errors[fieldId] = errors[field] || [];
-          errors[fieldId].push(
-            this.props.intl.formatMessage(messages.uniqueItems),
-          );
-        }
-      }),
-    );
+
+    const errors = FormValidation.validateFieldsPerFieldset({
+      schema: this.props.schema,
+      formData: this.state.formData,
+      formatMessage: this.props.intl.formatMessage,
+    });
+
     if (keys(errors).length > 0) {
+      const activeIndex = FormValidation.showFirstTabWithErrors({
+        errors,
+        schema: this.props.schema,
+      });
       this.setState({
         errors,
+        activeIndex,
       });
     } else {
       // Get only the values that have been modified (Edit forms), send all in case that
@@ -589,16 +610,16 @@ class Form extends Component {
    * @param {object} schema The schema definition of the form.
    * @returns A modified copy of the given schema.
    */
-  removeBlocksLayoutFields = (schema) => {
+  removeBlocksLayoutFields = schema => {
     const newSchema = { ...schema };
     const layoutFieldsetIndex = findIndex(
       newSchema.fieldsets,
-      (fieldset) => fieldset.id === 'layout',
+      fieldset => fieldset.id === 'layout',
     );
     if (layoutFieldsetIndex > -1) {
       const layoutFields = newSchema.fieldsets[layoutFieldsetIndex].fields;
       newSchema.fieldsets[layoutFieldsetIndex].fields = layoutFields.filter(
-        (field) => field !== 'blocks' && field !== 'blocks_layout',
+        field => field !== 'blocks' && field !== 'blocks_layout',
       );
       if (newSchema.fieldsets[layoutFieldsetIndex].fields.length === 0) {
         newSchema.fieldsets = [
@@ -610,7 +631,7 @@ class Form extends Component {
     return newSchema;
   };
 
-  onDragEnd = (result) => {
+  onDragEnd = result => {
     const { source, destination } = result;
     if (!destination) {
       return;
@@ -633,7 +654,7 @@ class Form extends Component {
     });
   };
 
-  handleDragStart = (event) => {
+  handleDragStart = event => {
     const queryAttr = 'data-rbd-draggable-id';
     const domQuery = `[${queryAttr}='${event.draggableId}']`;
     const draggedDOM = document.querySelector(domQuery);
@@ -666,7 +687,7 @@ class Form extends Component {
     });
   };
 
-  onDragUpdate = (update) => {
+  onDragUpdate = update => {
     if (!update.destination) {
       return;
     }
@@ -745,7 +766,7 @@ class Form extends Component {
                 >
                   {map(renderBlocks, (block, index) => (
                     <Draggable draggableId={block} index={index} key={block}>
-                      {(provided) => (
+                      {provided => (
                         <div
                           ref={provided.innerRef}
                           {...provided.draggableProps}
@@ -804,7 +825,7 @@ class Form extends Component {
                         width: `${placeholderProps.clientWidth}px`,
                         borderRadius: '3px',
                       }}
-                    />
+                    ></div>
                   )}
                 </div>
               )}
@@ -819,7 +840,7 @@ class Form extends Component {
                   error={keys(this.state.errors).length > 0}
                 >
                   {schema &&
-                    map(schema.fieldsets, (item) => [
+                    map(schema.fieldsets, item => [
                       <Segment secondary attached key={item.title}>
                         {item.title}
                       </Segment>,
@@ -862,7 +883,9 @@ class Form extends Component {
                   tabular: true,
                   className: 'formtabs',
                 }}
-                panes={map(schema.fieldsets, (item) => ({
+                onTabChange={this.onTabChange}
+                activeIndex={this.state.activeIndex}
+                panes={map(schema.fieldsets, item => ({
                   menuItem: item.title,
                   render: () => [
                     this.props.title && (
@@ -877,9 +900,12 @@ class Form extends Component {
                         formData={this.state.formData}
                         fieldSet={item.title.toLowerCase()}
                         focus={index === 0}
-                        value={this.state.formData[field]}
+                        value={this.state.formData?.[field]}
                         required={schema.required.indexOf(field) !== -1}
                         onChange={this.onChangeField}
+                        onBlur={this.onBlurField}
+                        onClick={this.onClickInput}
+                        dateOnly={schema.properties[field].widget === 'date'}
                         key={field}
                         error={this.state.errors[field]}
                       />
@@ -916,13 +942,16 @@ class Form extends Component {
                     content={this.props.error.message}
                   />
                 )}
-                {map(schema.fieldsets[0].fields, (field) => (
+                {map(schema.fieldsets[0].fields, field => (
                   <Field
                     {...schema.properties[field]}
                     id={field}
                     value={this.state.formData?.[field]}
                     required={schema.required.indexOf(field) !== -1}
                     onChange={this.onChangeField}
+                    onBlur={this.onBlurField}
+                    onClick={this.onClickInput}
+                    dateOnly={schema.properties[field].widget === 'date'}
                     key={field}
                     error={this.state.errors[field]}
                   />

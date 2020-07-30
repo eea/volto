@@ -11,16 +11,14 @@ import { SingleDatePicker } from 'react-dates';
 import TimePicker from 'rc-time-picker';
 import cx from 'classnames';
 import { Icon, FormFieldWrapper } from '@plone/volto/components';
+import clearSVG from '@plone/volto/icons/clear.svg';
 import { settings } from '~/config';
 
 import leftKey from '@plone/volto/icons/left-key.svg';
 import rightKey from '@plone/volto/icons/right-key.svg';
-import clearSVG from '@plone/volto/icons/clear.svg';
-
+import 'rc-time-picker/assets/index.css';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
-
-import 'rc-time-picker/assets/index.css';
 
 const messages = defineMessages({
   date: {
@@ -101,7 +99,11 @@ class DatetimeWidget extends Component {
 
     this.state = {
       focused: false,
-      isDefault: datetime?.toISOString() === moment().utc().toISOString(),
+      isDefault:
+        datetime?.toISOString() ===
+        moment()
+          .utc()
+          .toISOString(),
       datetime,
       timezone,
     };
@@ -113,10 +115,10 @@ class DatetimeWidget extends Component {
    * @param {Object} date updated momentjs Object for date
    * @returns {undefined}
    */
-  onDateChange = (date) => {
+  onDateChange = date => {
     if (date)
       this.setState(
-        (prevState) => ({
+        prevState => ({
           datetime: prevState.datetime
             ? prevState.datetime.set({
                 year: date.year(),
@@ -142,9 +144,9 @@ class DatetimeWidget extends Component {
    * @param {Object} time updated momentjs Object for time
    * @returns {undefined}
    */
-  onTimeChange = (time) => {
+  onTimeChange = time => {
     this.setState(
-      (prevState) => ({
+      prevState => ({
         datetime: prevState.datetime
           ? prevState.datetime.set({
               hours: time.hours(),
@@ -174,7 +176,7 @@ class DatetimeWidget extends Component {
 
   onResetDates = () => {
     this.setState(
-      (prevState) => ({
+      prevState => ({
         datetime: null,
         isDefault: false,
       }),

@@ -3,10 +3,10 @@
  * @module components/manage/Widgets/PassswordWidget
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Input } from 'semantic-ui-react';
 import { FormFieldWrapper } from '@plone/volto/components';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Input } from 'semantic-ui-react';
 
 /**
  * PasswordWidget component class.
@@ -21,8 +21,12 @@ const PasswordWidget = ({
   error,
   value,
   onChange,
+  onBlur,
+  onClick,
   fieldSet,
   wrapped,
+  minLength,
+  maxLength,
 }) => (
   <FormFieldWrapper
     id={id}
@@ -41,7 +45,17 @@ const PasswordWidget = ({
       onChange={({ target }) =>
         onChange(id, target.value === '' ? undefined : target.value)
       }
-    />
+      onBlur={({ target }) =>
+        onBlur(id, target.value === '' ? undefined : target.value)
+      }
+      onClick={() => onClick()}
+    >
+      <input
+        minLength={minLength || null}
+        maxLength={maxLength || null}
+        autoComplete="off"
+      />
+    </Input>
   </FormFieldWrapper>
 );
 
@@ -58,6 +72,10 @@ PasswordWidget.propTypes = {
   error: PropTypes.arrayOf(PropTypes.string),
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func,
+  onClick: PropTypes.func,
+  minLength: PropTypes.number,
+  maxLength: PropTypes.number,
   wrapped: PropTypes.bool,
 };
 
@@ -71,6 +89,11 @@ PasswordWidget.defaultProps = {
   required: false,
   error: [],
   value: null,
+  onChange: () => {},
+  onBlur: () => {},
+  onClick: () => {},
+  minLength: null,
+  maxLength: null,
 };
 
 export default PasswordWidget;

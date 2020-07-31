@@ -10,6 +10,7 @@ import {
   getBlocksFieldname,
   getBlocksLayoutFieldname,
   messages,
+  blockHasValue,
 } from '@plone/volto/helpers';
 import aheadSVG from '@plone/volto/icons/ahead.svg';
 import clearSVG from '@plone/volto/icons/clear.svg';
@@ -44,8 +45,6 @@ import { v4 as uuid } from 'uuid';
 import { settings } from '~/config';
 import { withFormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 // import { FormStateContext, FormStateProvider } from './FormContext';
-
-import { blockHasValue } from '@plone/volto/helpers';
 
 /**
  * Form container class.
@@ -856,6 +855,11 @@ export class Form extends Component {
                             value={contextData.formData[field]}
                             required={schema.required.indexOf(field) !== -1}
                             onChange={this.onChangeField}
+                            onBlur={this.onBlurField}
+                            onClick={this.onClickInput}
+                            dateOnly={
+                              schema.properties[field].widget === 'date'
+                            }
                             key={field}
                             error={contextData.errors[field]}
                           />

@@ -2059,10 +2059,6 @@ msgstr "La istruzioni per reimpostare la tua password sono state inviate. Dovreb
 msgid "draft"
 msgstr "Bozza"
 
-#: helpers/MessageLabels/MessageLabels
-msgid "email"
-msgstr ""
-
 #: components/theme/View/EventView
 msgid "event_alldates"
 msgstr "Tutte le date"
@@ -2110,10 +2106,6 @@ msgstr "HTML"
 #: config/Blocks
 msgid "image"
 msgstr "Immagine"
-
-#: helpers/MessageLabels/MessageLabels
-msgid "integer"
-msgstr ""
 
 #: components/manage/Contents/ContentsItem
 msgid "intranet"

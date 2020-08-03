@@ -31,6 +31,8 @@
 
 - Added recurrence widget @giuliaghisini
 
+- Export connected widget classes, to allow extending @tiberiuichim
+
 ## 7.5.1 (2020-07-29)
 
 ### Bugfix

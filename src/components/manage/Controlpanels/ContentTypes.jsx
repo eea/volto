@@ -139,8 +139,8 @@ class ContentTypes extends Component {
       addTypeError: '',
       showDelete: false,
       typeToDelete: undefined,
-      isClient: false,
       error: null,
+      isClient: false,
     };
   }
 
@@ -432,7 +432,7 @@ class ContentTypes extends Component {
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                  {this.props.controlpanel.items.map(item => (
+                  {this.props.controlpanel.items.map((item) => (
                     <Table.Row key={item['@id']}>
                       <Table.Cell>
                         <Link to={`${this.props.pathname}/${item['id']}`}>

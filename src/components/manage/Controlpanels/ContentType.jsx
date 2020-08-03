@@ -88,6 +88,7 @@ class ContentType extends Component {
 
     this.state = {
       visual: false,
+      error: null,
       isClient: false,
     };
 

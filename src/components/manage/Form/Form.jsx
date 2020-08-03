@@ -809,6 +809,7 @@ export class Form extends Component {
                               pathname={this.props.pathname}
                               block={block}
                               selected={contextData.selected === block}
+                              manage={this.props.isAdminForm}
                             />
                           </div>
                         </div>

@@ -29,6 +29,7 @@ git merge volto/form_context_clean_breaking_with_hoc
 # needed for bise
 git merge volto/addons_customize
 git merge volto/safe_apply_config
+git merge volto/object-widget-final
 
 # To come:
 

@@ -20,8 +20,6 @@ git merge volto/export_components
 git merge volto/eea-dx-fields-validation
 git merge volto/eea-dx-cpanel-layout
 
-# needed for volto-slate
-git merge volto/separate_less_loader
 
 # needed by volto-slate
 git merge volto/form_context_clean_breaking_with_hoc
@@ -47,3 +45,4 @@ git merge volto/object-widget-final
 # git merge tiberiuichim/navigation-refactoring
 # git merge volto/eea-controlpanel-dx
 # git merge origin/eea-default-blocks
+#git merge volto/separate_less_loader

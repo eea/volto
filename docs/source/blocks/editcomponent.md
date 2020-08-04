@@ -97,6 +97,83 @@ import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 </SidebarPortal>;
 ```
 
+### `object` and `object_list` widget types
+
+Both of `object` and `object_list` understand the same schema format. Below is an example schema (`LinkSchema`) and an example of usage of the `object` widget (`LinkEditSchema`):
+
+```js
+const LinkSchema = {
+  title: 'Link',
+  fieldsets: [
+    {
+      id: 'internal',
+      title: 'Internal',
+      fields: ['internal_link'],
+    },
+    {
+      id: 'external',
+      title: 'External',
+      fields: ['external_link'],
+    },
+    {
+      id: 'email',
+      title: 'Email',
+      fields: ['email_address', 'email_subject'],
+    },
+  ],
+  properties: {
+    internal_link: {
+      widget: 'object_browser',
+      title: 'Internal link',
+    },
+    external_link: {
+      title:
+        'External URL (can be relative within this site or absolute if it starts with http:// or https://)',
+    },
+    email_address: {
+      title: 'Email address',
+    },
+    email_subject: {
+      title: 'Email subject (optional)',
+    },
+  },
+  required: [],
+};
+
+const LinkEditSchema = {
+  title: 'Edit link',
+  fieldsets: [
+    {
+      id: 'default',
+      title: 'Internal link',
+      fields: ['link', 'target', 'title'],
+    },
+  ],
+  properties: {
+    link: {
+      widget: 'object', // this is the essential line
+      schema: LinkSchema,
+    },
+    target: {
+      title: 'Target',
+      choices: [
+        ['', 'Open in this window / frame'],
+        ['_blank', 'Open in new window'],
+        ['_parent', 'Open in parent window / frame'],
+        ['_top', 'Open in top frame (replaces all frames)'],
+      ],
+    },
+    title: {
+      title: 'Title',
+    },
+  },
+  required: [],
+};
+```
+
+- `object` - receives a schema of type object and displays an inline form to edit an object structured with that schema (it creates multiple tabs when there are multiple objects in the `fieldsets` section in the schema);
+- `object_list` - receives a schema object and displays a small form based on it that allows the end-user to manipulate a list of objects stuctured based on that schema (it contains _Reset_ and _Edit_ buttons). When clicking on the _Edit_ button a modal form is opened that can manipulate the list. The modal has buttons such as _Add_ (to add new items of the same received schema to the manipulated list), _Cancel_ and _Save_.
+
 ## Object Browser
 
 Volto 4 has a new object browser component that allows you to select an existing content object from the site.
@@ -120,7 +197,7 @@ By default, it's enabled for all the component tree under the Blocks Editor, so 
 However, if you need to instantiate it somewhere else, you can do it anyways by wrapping your component with it.
 
 !!! note
-The default image block in Volto features both the Sidebar and the object browser, take a look at its source code in case you need more context on how they work.
+    The default image block in Volto features both the Sidebar and the object browser, take a look at its source code in case you need more context on how they work.
 
 ### openObjectBrowser handler API
 

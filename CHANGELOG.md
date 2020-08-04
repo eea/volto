@@ -1,6 +1,6 @@
 # Change Log
 
-## 7.6.1 (unreleased)
+## 7.7.1 (unreleased)
 
 ### Breaking
 
@@ -15,12 +15,21 @@
 - Added recurrence widget @giuliaghisini
 
 - Added recurrence widget @giuliaghisini
-- Making Content browser aware of context @iFlameing
-- Fix click-select block on unknown block type @nileshgulia1
-
 ### Bugfix
 
 ### Internal
+
+## 7.7.0 (2020-08-04)
+
+### Feature
+
+- Allow addons to provide less files @tiberiuichim
+- Making Content browser aware of context @iFlameing
+
+### Bugfix
+
+- Fix click-select block on unknown block type @nileshgulia1
+
 
 - Wrap addon configuration loaders in a wrapper to check that they return back config @tiberiuichim
 

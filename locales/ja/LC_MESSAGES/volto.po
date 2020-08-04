@@ -2030,6 +2030,10 @@ msgstr "パスワード再設定のお願いをメール送信しました。ま
 msgid "draft"
 msgstr "下書き(draft)"
 
+#: helpers/MessageLabels/MessageLabels
+msgid "email"
+msgstr ""
+
 #: components/theme/View/EventView
 msgid "event_alldates"
 msgstr "すべての日程"
@@ -2078,6 +2082,10 @@ msgstr "HTML"
 msgid "image"
 msgstr "画像"
 
+#: helpers/MessageLabels/MessageLabels
+msgid "integer"
+msgstr ""
+
 #: components/manage/Contents/ContentsItem
 msgid "intranet"
 msgstr ""
@@ -2112,6 +2120,10 @@ msgstr "よく使う物<<<<<<< HEAD"
 
 #: components/manage/Contents/ContentsItem
 msgid "no workflow state"
+msgstr ""
+
+#: helpers/MessageLabels/MessageLabels
+msgid "number"
 msgstr ""
 
 #: components/manage/Widgets/RecurrenceWidget/ByMonthDayField

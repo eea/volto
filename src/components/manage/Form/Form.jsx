@@ -24,6 +24,7 @@ import {
   omit,
   pickBy,
   without,
+  isEqual,
 } from 'lodash';
 import move from 'lodash-move';
 import isBoolean from 'lodash/isBoolean';
@@ -223,6 +224,18 @@ export class Form extends Component {
     if (this.props.formData?.['@id'] !== prevProps.formData?.['@id']) {
       const newState = this.getInitialState(this.props);
       this.setContextData(newState); // .then(() => this.setState(newState));;
+    }
+  }
+
+  /**
+   * Component will receive props
+   * @method componentWillReceiveProps
+   * @param {Object} nextProps Next properties
+   * @returns {undefined}
+   */
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    if (!isEqual(nextProps.formData, this.contextData.formData)) {
+      this.setContextData({ formData: nextProps.formData });
     }
   }
 

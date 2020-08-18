@@ -1,6 +1,6 @@
 # Change Log
 
-## 7.7.2 (unreleased)
+## 7.8.2 (unreleased)
 
 ### Breaking
 
@@ -13,6 +13,28 @@
 
 - Allow Volto projects to customize (via webpack resolve aliases) addons. Allow addons to customize Volto and other addons. Allow Volto projects to customize Volto in a `src/customizations/volto` folder, for better organization of the customizations folder. @tiberiuichim @sneridagh
 - Added recurrence widget @giuliaghisini
+### Bugfix
+
+### Internal
+
+## 7.8.1 (2020-08-18)
+
+### Bugfix
+
+- Remove supposed fix to form.jsx again, as it apparently did not really fix anything but only broke stuff @jackahl
+
+## 7.8.0 (2020-08-18)
+
+### Breaking
+
+### Feature
+
+- Add cms-only theme that allows to completely remove semantic-ui from public facing views @pnicolli @nzambello
+
+### Internal
+
+## 7.7.2 (2020-08-18)
+
 ### Bugfix
 
 - Fix bug showing wrong data in the edit view, that occured in some cases, when one would enter the edit view of a page from another page @jackahl

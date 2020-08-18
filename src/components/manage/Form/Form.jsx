@@ -228,18 +228,6 @@ export class Form extends Component {
   }
 
   /**
-   * Component will receive props
-   * @method componentWillReceiveProps
-   * @param {Object} nextProps Next properties
-   * @returns {undefined}
-   */
-  // UNSAFE_componentWillReceiveProps(nextProps) {
-  //   if (!isEqual(nextProps.formData, this.contextData.formData)) {
-  //     this.setContextData({ formData: nextProps.formData });
-  //   }
-  // }
-
-  /**
    * Change field handler
    * Remove errors for changed field
    * @method onChangeField

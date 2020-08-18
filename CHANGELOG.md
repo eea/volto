@@ -1,6 +1,6 @@
 # Change Log
 
-## 7.8.2 (unreleased)
+## 7.8.3 (unreleased)
 
 ### Breaking
 
@@ -16,6 +16,12 @@
 ### Bugfix
 
 ### Internal
+
+## 7.8.2 (2020-08-18)
+
+### Bugfix
+
+- Include cypress folder in release @timo
 
 ## 7.8.1 (2020-08-18)
 

@@ -241,7 +241,7 @@ This widget shows an objectBrowser to find content/contents on site.
 
 It is the default widget for vocabulary fields that uses plone.app.vocabularies.Catalog.
 
-It works in 3 different mode:
+It works in 3 different modes:
 
 - **image**: The field value is an object.
   The path of selected item is saved in 'url' property of value object. (fieldName: {url:''})

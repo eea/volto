@@ -41,8 +41,11 @@
 
 ## 7.7.2 (2020-08-18)
 
+- Add a `subrequest` option to the `createContent` action @tiberiuichim @silviubogan
+
 ### Bugfix
 
+- On image upload in a block, don't overwrite the global `state.content.data` with new image data @tiberiuichim @silviubogan
 - Fix bug showing wrong data in the edit view, that occured in some cases, when one would enter the edit view of a page from another page @jackahl
 
 ### Internal

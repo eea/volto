@@ -16,7 +16,6 @@ import { Icon as VoltoIcon } from '@plone/volto/components';
 
 import deleteSVG from '@plone/volto/icons/delete.svg';
 import addSVG from '@plone/volto/icons/add.svg';
-import penSVG from '@plone/volto/icons/pen.svg';
 
 import ObjectWidget from './ObjectWidget';
 
@@ -281,9 +280,6 @@ export const ObjectListWidget = injectIntl(
                     count: value.length,
                   })}
                 />
-                <button onClick={() => setOpen(true)}>
-                  <VoltoIcon name={penSVG} size="18px" />
-                </button>
 
                 <div className="toolbar">
                   <Button

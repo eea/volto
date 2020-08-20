@@ -29,6 +29,7 @@ git merge volto/addons_customize
 git merge volto/safe_apply_config
 git merge volto/object-widget-final
 git merge volto/upload_content
+git merge volto/eea-fix-get-blocks
 
 # To come:
 

@@ -658,28 +658,6 @@ exports[`renders an object list widget component 1`] = `
             value="A collection of 2 items"
           />
         </div>
-        <button
-          onClick={[Function]}
-        >
-          <svg
-            className="icon"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": undefined,
-              }
-            }
-            onClick={null}
-            style={
-              Object {
-                "fill": "currentColor",
-                "height": "18px",
-                "width": "auto",
-              }
-            }
-            viewBox=""
-            xmlns=""
-          />
-        </button>
         <div
           className="toolbar"
         >
@@ -772,14 +750,6 @@ exports[`renders an object list widget component and changes its value by clicki
               value="A collection of 2 items"
             />
           </div>
-          <button>
-            <svg
-              class="icon"
-              style="height: 18px; width: auto; fill: currentColor;"
-              viewBox=""
-              xmlns=""
-            />
-          </button>
           <div
             class="toolbar"
           >
@@ -872,14 +842,6 @@ exports[`renders an object list widget component and changes its value by clicki
               value="A collection of 2 items"
             />
           </div>
-          <button>
-            <svg
-              class="icon"
-              style="height: 18px; width: auto; fill: currentColor;"
-              viewBox=""
-              xmlns=""
-            />
-          </button>
           <div
             class="toolbar"
           >

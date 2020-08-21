@@ -30,6 +30,7 @@ git merge volto/safe_apply_config
 git merge volto/object-widget-final
 git merge volto/upload_content
 git merge volto/eea-fix-get-blocks
+git merge volto/internalApiPath_in_url_helpers
 
 # To come:
 

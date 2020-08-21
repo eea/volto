@@ -16,6 +16,7 @@
 ### Bugfix
 
 - Fix getBlocks helper when blocks_layout has no `items` (default PloneSite with no volto homepage)
+- Also use `settings.internalApiPath` in url helpers `isInternalURL`, `flattenToAppUrl` and `flattenHTMLToAppURL` @tiberiuichim
 
 ### Internal
 

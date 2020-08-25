@@ -136,6 +136,9 @@ export class Form extends Component {
     this.onFocusPreviousBlock = this.onFocusPreviousBlock.bind(this);
     this.onFocusNextBlock = this.onFocusNextBlock.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.onTabChange = this.onTabChange.bind(this);
+    this.onBlurField = this.onBlurField.bind(this);
+    this.onClickInput = this.onClickInput.bind(this);
 
     // We use these as instance fields, to be initialized in the render() meth
     // from the context provider
@@ -203,6 +206,54 @@ export class Form extends Component {
   }
 
   /**
+   * On updates caused by props change
+   * if errors from Backend come, these will be shown to their corresponding Fields
+   * also the first Tab to have any errors will be selected
+   * @param {Object} prevProps
+   */
+  componentDidUpdate(prevProps) {
+    if (this.props.formData?.['@id'] !== prevProps.formData?.['@id']) {
+      const newState = this.getInitialState(this.props);
+      this.setContextData(newState); // .then(() => this.setState(newState));;
+    }
+
+    let { requestError } = this.props;
+    let errors = {};
+    let activeIndex = 0;
+
+    if (requestError && prevProps.requestError !== requestError) {
+      errors = FormValidation.giveServerErrorsToCorrespondingFields(
+        requestError,
+      );
+      activeIndex = FormValidation.showFirstTabWithErrors({
+        errors,
+        schema: this.props.schema,
+      });
+
+      this.setState({
+        errors,
+        activeIndex,
+      });
+    }
+  }
+
+  /**
+   * Tab selection is done only by setting activeIndex in state
+   */
+  onTabChange(e, { activeIndex }) {
+    this.setState({ activeIndex });
+  }
+
+  /**
+   * If user clicks on input, the form will be not considered pristine
+   * this will avoid onBlur effects without interraction with the form
+   * @param {Object} e event
+   */
+  onClickInput(e) {
+    this.setState({ isFormPristine: false });
+  }
+
+  /**
    * Component did mount
    * @method componentDidMount
    * @returns {undefined}
@@ -214,16 +265,17 @@ export class Form extends Component {
     });
   }
 
-  /**
-   * Component did update
-   * @method componentDidUpdate
-   * @param {Object} prevProps Previous properties
-   * @returns {undefined}
-   */
-  componentDidUpdate(prevProps) {
-    if (this.props.formData?.['@id'] !== prevProps.formData?.['@id']) {
-      const newState = this.getInitialState(this.props);
-      this.setContextData(newState); // .then(() => this.setState(newState));;
+  onBlurField(id, value) {
+    if (!this.state.isFormPristine) {
+      const errors = FormValidation.validateFieldsPerFieldset({
+        schema: this.props.schema,
+        formData: this.state.formData,
+        formatMessage: this.props.intl.formatMessage,
+      });
+
+      this.setState({
+        errors,
+      });
     }
   }
 

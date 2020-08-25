@@ -99,11 +99,7 @@ class DatetimeWidget extends Component {
 
     this.state = {
       focused: false,
-      isDefault:
-        datetime?.toISOString() ===
-        moment()
-          .utc()
-          .toISOString(),
+      isDefault: datetime?.toISOString() === moment().utc().toISOString(),
       datetime,
       timezone,
     };
@@ -115,10 +111,10 @@ class DatetimeWidget extends Component {
    * @param {Object} date updated momentjs Object for date
    * @returns {undefined}
    */
-  onDateChange = date => {
+  onDateChange = (date) => {
     if (date)
       this.setState(
-        prevState => ({
+        (prevState) => ({
           datetime: prevState.datetime
             ? prevState.datetime.set({
                 year: date.year(),
@@ -144,9 +140,9 @@ class DatetimeWidget extends Component {
    * @param {Object} time updated momentjs Object for time
    * @returns {undefined}
    */
-  onTimeChange = time => {
+  onTimeChange = (time) => {
     this.setState(
-      prevState => ({
+      (prevState) => ({
         datetime: prevState.datetime
           ? prevState.datetime.set({
               hours: time.hours(),
@@ -176,11 +172,11 @@ class DatetimeWidget extends Component {
 
   onResetDates = () => {
     this.setState(
-      prevState => ({
+      (prevState) => ({
         datetime: null,
         isDefault: false,
       }),
-      this.props.onChange(this.props.id, null),
+      () => this.props.onChange(this.props.id, null),
     );
   };
 

@@ -29,6 +29,9 @@
 - Fix cosmetic issue, add links were not properly generated in Contents view not under the root. This didn't impact functionality as the content was properly created @tiberiuichim
 
 - Fix `null` response issue when passing custom `Accept:` headers to actions #1771 @avoinea
+- Fix bug introduced in 7.9.0, properly return a list of results when dealing with batched api requests @tiberiuichim
+- On image upload in a block, don't overwrite the global `state.content.data` with new image data @tiberiuichim @silviubogan
+- In folder contents batch upload, use a subrequest to avoid breaking the global `content.data` state @tiberiuichim
 
 ### Internal
 
@@ -92,7 +95,6 @@
 
 ### Bugfix
 
-- On image upload in a block, don't overwrite the global `state.content.data` with new image data @tiberiuichim @silviubogan
 - Fix bug showing wrong data in the edit view, that occured in some cases, when one would enter the edit view of a page from another page @jackahl
 
 ### Internal

@@ -19,6 +19,7 @@ git merge volto/export_components
 
 git merge volto/eea-dx-fields-validation
 git merge volto/eea-dx-cpanel-layout
+git merge volto/eea-fix-custom-action-headers
 
 
 # needed by volto-slate

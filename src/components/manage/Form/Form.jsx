@@ -285,6 +285,26 @@ export class Form extends Component {
     const index =
       this.contextData.formData[blocksLayoutFieldname].items.indexOf(id) + 1;
 
+    // Test if block at index is already a placeholder (trailing) block
+    const trailId = this.contextData.formData[blocksLayoutFieldname].items[
+      index
+    ];
+    if (trailId) {
+      const block = this.contextData.formData[blocksFieldname][trailId];
+      if (!blockHasValue(block)) {
+        this.setState({
+          formData: {
+            ...this.contextData.formData,
+            [blocksFieldname]: {
+              ...this.contextData.formData[blocksFieldname],
+              [id]: value || null,
+            },
+          },
+        });
+        return;
+      }
+    }
+
     return this.setContextData({
       formData: {
         ...this.contextData.formData,

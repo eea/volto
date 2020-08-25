@@ -26,6 +26,7 @@ export function createContent(url, content, origin) {
   return {
     type: CREATE_CONTENT,
     subrequest: origin,
+    mode: 'serial',
     request: Array.isArray(content)
       ? content.map((item) => ({ op: 'post', path: url, data: item }))
       : { op: 'post', path: url, data: nestContent(content) },

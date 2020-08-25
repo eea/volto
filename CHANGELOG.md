@@ -1,6 +1,6 @@
 # Change Log
 
-## 7.8.3 (unreleased)
+## 7.9.2 (unreleased)
 
 ### Breaking
 
@@ -17,6 +17,45 @@
 
 - Fix getBlocks helper when blocks_layout has no `items` (default PloneSite with no volto homepage)
 - Also use `settings.internalApiPath` in url helpers `isInternalURL`, `flattenToAppUrl` and `flattenHTMLToAppURL` @tiberiuichim
+
+### Internal
+
+## 7.9.1 (2020-08-25)
+
+### Bugfix
+
+- Fix bug related to closing the More menu of Toolbar @iFlameing
+
+- Fix cosmetic issue, add links were not properly generated in Contents view not under the root. This didn't impact functionality as the content was properly created @tiberiuichim
+
+### Internal
+
+- Removed unused component `src/components/manage/Contents/ContentsToolbar.jsx` @tiberiuichim
+
+## 7.9.0 (2020-08-24)
+
+### Breaking
+
+### Feature
+
+- Allow serial processing of API requests when `mode:'serial'` is passed in the action. @tiberiuichim
+
+### Bugfix
+
+- On mutating a block, don't create extra placeholder block if such block already exists @tiberiuichim
+- Fixing broken file-preview placeholder for other file type than image @iFlameing
+
+### Internal
+
+- When passed an array of items (for example in batch upload content), the `createContent` action now serializes those requests @tiberiuichim
+
+## 7.8.3 (2020-08-21)
+
+### Bugfix
+
+- Change ImageGallery image scale from preview to large. @tisto
+- Also use `settings.internalApiPath` in url helpers `isInternalURL`, `flattenToAppUrl` and `flattenHTMLToAppURL` @tiberiuichim
+- Fix getBlocks helper when blocks_layout has no `items` (default PloneSite with no volto homepage) @avoinea
 
 ### Internal
 

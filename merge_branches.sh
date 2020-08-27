@@ -3,40 +3,19 @@
 set -x
 
 git remote add volto https://github.com/plone/volto.git
-#git remote add tiberiuichim https://github.com/tiberiuichim/volto.git
-
 git fetch --all
 git pull
 
 git merge volto/master
 git merge volto/export_components
-
-# this will conflict with https://github.com/plone/volto/pull/1705
-
-# this add minimizeNetworkFetch option
-# git merge origin/sync_update
-# git merge origin/navigation-refactoring
-
 git merge volto/eea-dx-fields-validation
 git merge volto/eea-dx-cpanel-layout
 git merge volto/eea-fix-custom-action-headers
-
-
-# needed by volto-slate
 git merge volto/form_context_clean_breaking_with_hoc
-
-# needed for bise
 git merge volto/addons_customize
 git merge volto/safe_apply_config
 git merge volto/object-widget-final
 git merge volto/upload_content
-git merge volto/eea-fix-get-blocks
-git merge volto/internalApiPath_in_url_helpers
-
-# To come:
-
-# git merge origin/error_toast
-# git merge tibi/sync_render_kitchensink
 
 # Already merged to Volto master
 # git merge --no-ff volto/default-block-rebased
@@ -49,4 +28,6 @@ git merge volto/internalApiPath_in_url_helpers
 # git merge tiberiuichim/navigation-refactoring
 # git merge volto/eea-controlpanel-dx
 # git merge origin/eea-default-blocks
-#git merge volto/separate_less_loader
+# git merge volto/separate_less_loader
+# git merge volto/eea-fix-get-blocks
+# git merge volto/internalApiPath_in_url_helpers

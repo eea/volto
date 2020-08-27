@@ -49,7 +49,7 @@ to pull the packages. So, create `mrs.developer.json` and add:
 }
 ```
 
-run 
+run
 
 ```bash
 yarn develop
@@ -211,6 +211,9 @@ Volto project.
     Do not forget the `/` at the end of both
 
 
+  See the [Advanced customization scenarios](../../customizing-components/)
+  section on how to enhance this pattern and how to include customizations
+  inside addons.
 
 ## Creating addons
 

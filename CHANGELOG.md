@@ -30,6 +30,7 @@
 - Fixed date only widget rendering #1246 @rexalex
 
 - Fix errors with SelectWidget when removing the only element @rexalex
+- Fix `null` response issue when passing custom `Accept:` headers to actions #1771 @avoinea
 
 ### Internal
 

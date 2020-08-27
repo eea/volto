@@ -504,15 +504,17 @@ export class Form extends Component {
         errors,
         schema: this.props.schema,
       });
-      this.setContextData({
+
+      this.setState({ activeIndex });
+      return this.setContextData({
         errors,
-        activeIndex,
+      }).then(() => {
+        Object.keys(errors).forEach((err) =>
+          toast.error(
+            <Toast error title={err} content={errors[err].join(', ')} />,
+          ),
+        );
       });
-      Object.keys(errors).forEach((err) =>
-        toast.error(
-          <Toast error title={err} content={errors[err].join(', ')} />,
-        ),
-      );
     } else {
       // Get only the values that have been modified (Edit forms), send all in case that
       // it's an add form
@@ -965,6 +967,8 @@ export class Form extends Component {
                   tabular: true,
                   className: 'formtabs',
                 }}
+                onTabChange={this.onTabChange}
+                activeIndex={this.state.activeIndex}
                 panes={map(schema.fieldsets, (item) => ({
                   menuItem: item.title,
                   render: () => [

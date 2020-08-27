@@ -5,12 +5,12 @@
 
 import { EditBlock, Field, Icon, Toast } from '@plone/volto/components';
 import {
+  blockHasValue,
   difference,
   FormValidation,
   getBlocksFieldname,
   getBlocksLayoutFieldname,
   messages,
-  blockHasValue,
 } from '@plone/volto/helpers';
 import aheadSVG from '@plone/volto/icons/ahead.svg';
 import clearSVG from '@plone/volto/icons/clear.svg';
@@ -42,7 +42,6 @@ import {
   Tab,
 } from 'semantic-ui-react';
 import { v4 as uuid } from 'uuid';
-
 import { toast } from 'react-toastify';
 import { settings } from '~/config';
 import { withFormStateContext } from '@plone/volto/components/manage/Form/FormContext';
@@ -937,9 +936,6 @@ export class Form extends Component {
                             onChange={this.onChangeField}
                             onBlur={this.onBlurField}
                             onClick={this.onClickInput}
-                            dateOnly={
-                              schema.properties[field].widget === 'date'
-                            }
                             key={field}
                             error={contextData.errors[field]}
                           />
@@ -987,6 +983,8 @@ export class Form extends Component {
                         value={contextData.formData[field]}
                         required={schema.required.indexOf(field) !== -1}
                         onChange={this.onChangeField}
+                        onBlur={this.onBlurField}
+                        onClick={this.onClickInput}
                         key={field}
                         error={contextData.errors[field]}
                       />
@@ -1030,6 +1028,8 @@ export class Form extends Component {
                     value={contextData.formData?.[field]}
                     required={schema.required.indexOf(field) !== -1}
                     onChange={this.onChangeField}
+                    onBlur={this.onBlurField}
+                    onClick={this.onClickInput}
                     key={field}
                     error={contextData.errors[field]}
                   />

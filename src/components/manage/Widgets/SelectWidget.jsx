@@ -136,9 +136,6 @@ export class SelectWidget extends Component {
     widgetOptions: PropTypes.shape({
       vocabulary: PropTypes.object,
     }),
-    value: PropTypes.arrayOf(
-      PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.bool]),
-    ),
     onChange: PropTypes.func.isRequired,
     onBlur: PropTypes.func,
     onClick: PropTypes.func,

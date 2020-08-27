@@ -33,6 +33,7 @@
 - Fix bug introduced in 7.9.0, properly return a list of results when dealing with batched api requests @tiberiuichim
 - On image upload in a block, don't overwrite the global `state.content.data` with new image data @tiberiuichim @silviubogan
 - In folder contents batch upload, use a subrequest to avoid breaking the global `content.data` state @tiberiuichim
+- Fix `null` response issue when passing custom `Accept:` headers to actions #1771 @avoinea
 
 ### Internal
 
@@ -101,6 +102,7 @@
 
 ### Feature
 
+- Adding support of pasting link of voltoCMS video link to video blocks @iFlameing
 - Allow serial processing of API requests when `mode:'serial'` is passed in the action. @tiberiuichim
 - Adding cypress test from image-gallery in edit mode @iFlameing
 

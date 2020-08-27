@@ -1,6 +1,6 @@
 # Change Log
 
-## 7.9.2 (unreleased)
+## 7.11.1 (unreleased)
 
 ### Breaking
 
@@ -20,6 +20,33 @@
 
 ### Internal
 
+## 7.11.0 (2020-08-27)
+
+### Feature
+
+- Add sort option to search @iFlameing
+
+### Bugfix
+
+- Turn autocomplete off for the search input field @timo
+
+## 7.10.0 (2020-08-26)
+
+### Feature
+
+- Added toast notifications for form errors @nzambello @avoinea
+- Added italian translations and translated array, token and select widget. @giuliaghisini
+
+## 7.9.2 (2020-08-26)
+
+### Bugfix
+
+- Open content browser sidebar on parent object when editing an existing document. @iFlameing
+
+### Internal
+
+- Added developer-guidelines/redux documentation @tiberiuichim
+
 ## 7.9.1 (2020-08-25)
 
 ### Bugfix
@@ -32,6 +59,7 @@
 - Fix bug introduced in 7.9.0, properly return a list of results when dealing with batched api requests @tiberiuichim
 - On image upload in a block, don't overwrite the global `state.content.data` with new image data @tiberiuichim @silviubogan
 - In folder contents batch upload, use a subrequest to avoid breaking the global `content.data` state @tiberiuichim
+- Fix bug for text block with new line and styles applyed to all text. @giuliaghisini
 
 ### Internal
 
@@ -45,6 +73,7 @@
 ### Feature
 
 - Allow serial processing of API requests when `mode:'serial'` is passed in the action. @tiberiuichim
+- Adding cypress test from image-gallery in edit mode @iFlameing
 
 ### Bugfix
 

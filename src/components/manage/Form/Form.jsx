@@ -3,7 +3,7 @@
  * @module components/manage/Form/Form
  */
 
-import { EditBlock, Field, Icon } from '@plone/volto/components';
+import { EditBlock, Field, Icon, Toast } from '@plone/volto/components';
 import {
   difference,
   FormValidation,
@@ -43,6 +43,7 @@ import {
 } from 'semantic-ui-react';
 import { v4 as uuid } from 'uuid';
 
+import { toast } from 'react-toastify';
 import { settings } from '~/config';
 import { withFormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 // import { FormStateContext, FormStateProvider } from './FormContext';
@@ -508,6 +509,11 @@ export class Form extends Component {
         errors,
         activeIndex,
       });
+      Object.keys(errors).forEach((err) =>
+        toast.error(
+          <Toast error title={err} content={errors[err].join(', ')} />,
+        ),
+      );
     } else {
       // Get only the values that have been modified (Edit forms), send all in case that
       // it's an add form

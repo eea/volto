@@ -11,6 +11,7 @@
 - Show backend validation errors on corresponding fields #1246 @rexalex
 
 - Validation implemented for add user/group @rexalex
+- Added Schema Editor within Dexterity Content-Types Controlpanel @rexalex @avoinea #1517
 
 ### Bugfix
 
@@ -268,6 +269,9 @@
 ### Breaking
 
 
+### Feature
+
+- Added Blocks Layout Editor within Dexterity Content-Types Controlpanel @avoinea #1517
 ### Bugfix
 
 - Adding absolute url in ObjectBrowser for image type @iFlameing

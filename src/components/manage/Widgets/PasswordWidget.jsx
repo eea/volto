@@ -7,57 +7,38 @@ import { FormFieldWrapper } from '@plone/volto/components';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Input } from 'semantic-ui-react';
+import { injectIntl } from 'react-intl';
 
 /**
  * PasswordWidget component class.
  * @function PasswordWidget
  * @returns {string} Markup of the component.
  */
-const PasswordWidget = ({
-  id,
-  title,
-  required,
-  description,
-  error,
-  value,
-  onChange,
-  onBlur,
-  onClick,
-  fieldSet,
-  wrapped,
-  minLength,
-  maxLength,
-}) => (
-  <FormFieldWrapper
-    id={id}
-    title={title}
-    description={description}
-    required={required}
-    error={error}
-    fieldSet={fieldSet}
-    wrapped={wrapped}
-  >
-    <Input
-      id={`field-${id}`}
-      name={id}
-      type="password"
-      value={value || ''}
-      onChange={({ target }) =>
-        onChange(id, target.value === '' ? undefined : target.value)
-      }
-      onBlur={({ target }) =>
-        onBlur(id, target.value === '' ? undefined : target.value)
-      }
-      onClick={() => onClick()}
-    >
-      <input
+const PasswordWidget = (props) => {
+  const { id, value, onChange, onBlur, onClick, minLength, maxLength } = props;
+  return (
+    <FormFieldWrapper {...props}>
+      <Input
+        id={`field-${id}`}
+        name={id}
+        type="password"
+        disabled={props.isDisabled}
+        value={value || ''}
+        onChange={({ target }) =>
+          onChange &&
+          onChange(id, target.value === '' ? undefined : target.value)
+        }
+        onBlur={({ target }) =>
+          onBlur && onBlur(id, target.value === '' ? undefined : target.value)
+        }
+        onClick={() => onClick && onClick()}
         minLength={minLength || null}
         maxLength={maxLength || null}
         autoComplete="off"
       />
-    </Input>
-  </FormFieldWrapper>
-);
+    </FormFieldWrapper>
+  );
+};
 
 /**
  * Property types.
@@ -96,4 +77,4 @@ PasswordWidget.defaultProps = {
   maxLength: null,
 };
 
-export default PasswordWidget;
+export default injectIntl(PasswordWidget);

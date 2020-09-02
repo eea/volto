@@ -2,43 +2,11 @@
  * TextWidget component.
  * @module components/manage/Widgets/TextWidget
  */
-
+import React, { Component } from 'react';
 import { FormFieldWrapper, Icon } from '@plone/volto/components';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { defineMessages, injectIntl } from 'react-intl';
-import { Icon as IconOld, Input } from 'semantic-ui-react';
-
-const messages = defineMessages({
-  default: {
-    id: 'Default',
-    defaultMessage: 'Default',
-  },
-  idTitle: {
-    id: 'Short Name',
-    defaultMessage: 'Short Name',
-  },
-  idDescription: {
-    id: 'Used for programmatic access to the fieldset.',
-    defaultMessage: 'Used for programmatic access to the fieldset.',
-  },
-  title: {
-    id: 'Title',
-    defaultMessage: 'Title',
-  },
-  description: {
-    id: 'Description',
-    defaultMessage: 'Description',
-  },
-  required: {
-    id: 'Required',
-    defaultMessage: 'Required',
-  },
-  delete: {
-    id: 'Delete',
-    defaultMessage: 'Delete',
-  },
-});
+import { injectIntl } from 'react-intl';
+import { Input } from 'semantic-ui-react';
 
 const typeTranslations = {
   integer: 'number',
@@ -132,9 +100,6 @@ class TextWidget extends Component {
       onChange,
       onBlur,
       onClick,
-      onEdit,
-      onDelete,
-      intl,
       icon,
       iconAction,
       type,
@@ -145,61 +110,13 @@ class TextWidget extends Component {
       placeholder,
     } = this.props;
 
-    const schema = {
-      fieldsets: [
-        {
-          id: 'default',
-          title: intl.formatMessage(messages.default),
-          fields: ['title', 'id', 'description', 'required'],
-        },
-      ],
-      properties: {
-        id: {
-          type: 'string',
-          title: intl.formatMessage(messages.idTitle),
-          description: intl.formatMessage(messages.idDescription),
-        },
-        title: {
-          type: 'string',
-          title: intl.formatMessage(messages.title),
-        },
-        description: {
-          type: 'string',
-          widget: 'textarea',
-          title: intl.formatMessage(messages.description),
-        },
-        required: {
-          type: 'boolean',
-          title: intl.formatMessage(messages.required),
-        },
-      },
-      required: ['id', 'title'],
-    };
-
     return (
-      <FormFieldWrapper {...this.props} draggable={true} className="text">
-        {onEdit && (
-          <div className="toolbar">
-            <button
-              className="item ui noborder button"
-              onClick={() => onEdit(id, schema)}
-            >
-              <IconOld name="write square" size="large" color="blue" />
-            </button>
-            <button
-              aria-label={this.props.intl.formatMessage(messages.delete)}
-              className="item ui noborder button"
-              onClick={() => onDelete(id)}
-            >
-              <IconOld name="close" size="large" color="red" />
-            </button>
-          </div>
-        )}
+      <FormFieldWrapper {...this.props} className="text">
         <Input
           id={`field-${id}`}
           name={id}
           value={value || ''}
-          disabled={onEdit !== null}
+          disabled={this.props.isDisabled}
           icon={icon || null}
           placeholder={placeholder}
           onChange={({ target }) =>

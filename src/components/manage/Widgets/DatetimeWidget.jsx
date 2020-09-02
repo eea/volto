@@ -199,6 +199,7 @@ class DatetimeWidget extends Component {
           >
             <SingleDatePicker
               date={datetime}
+              disabled={this.props.isDisabled}
               onDateChange={this.onDateChange}
               focused={focused}
               numberOfMonths={1}
@@ -219,6 +220,7 @@ class DatetimeWidget extends Component {
               })}
             >
               <TimePicker
+                disabled={this.props.isDisabled}
                 defaultValue={datetime}
                 value={datetime}
                 onChange={this.onTimeChange}
@@ -234,7 +236,7 @@ class DatetimeWidget extends Component {
             </div>
           )}
           <button
-            disabled={!datetime}
+            disabled={this.props.isDisabled || !datetime}
             onClick={() => this.onResetDates()}
             className="item ui noborder button"
           >

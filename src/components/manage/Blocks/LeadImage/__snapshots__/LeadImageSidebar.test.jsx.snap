@@ -52,7 +52,6 @@ exports[`renders a Lead Image block Sidebar component 1`] = `
               className="ui icon input"
             >
               <input
-                disabled={false}
                 id="field-alt"
                 max={null}
                 maxLength={null}
@@ -297,7 +296,6 @@ exports[`renders a Lead Image block Sidebar component 1`] = `
                 className="ui icon input"
               >
                 <input
-                  disabled={false}
                   id="field-link"
                   max={null}
                   maxLength={null}

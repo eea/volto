@@ -399,7 +399,7 @@ exports[`renders a Listing Block Sidebar component 1`] = `
                   <input
                     id="field-limit"
                     name="limit"
-                    type="text"
+                    type=""
                     value=""
                   />
                 </div>
@@ -439,7 +439,7 @@ exports[`renders a Listing Block Sidebar component 1`] = `
                   <input
                     id="field-itembatchsize"
                     name="itembatchsize"
-                    type="text"
+                    type=""
                     value=""
                   />
                 </div>
@@ -495,7 +495,7 @@ exports[`renders a Listing Block Sidebar component 1`] = `
                 <input
                   id="field-linkTitle"
                   name="linkTitle"
-                  type="text"
+                  type=""
                   value=""
                 />
               </div>
@@ -535,13 +535,8 @@ exports[`renders a Listing Block Sidebar component 1`] = `
                 <input
                   id="field-linkHref"
                   name="linkHref"
-                  type="text"
+                  type=""
                   value=""
-                />
-                <i
-                  aria-hidden="true"
-                  attributes="[object Object]"
-                  class="icon"
                 />
               </div>
               <button>

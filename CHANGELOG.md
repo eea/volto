@@ -25,6 +25,7 @@
 ### Internal
 
 ## 7.11.3 (2020-08-28)
+- Allow Volto projects to customize (via webpack resolve aliases) addons. Allow addons to customize Volto and other addons. Allow Volto projects to customize Volto in a `src/customizations/volto` folder, for better organization of the customizations folder. @tiberiuichim @sneridagh
 
 ### Bugfix
 

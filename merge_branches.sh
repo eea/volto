@@ -13,9 +13,10 @@ git merge volto/eea-dx-cpanel-layout-and-metadata-clean
 git merge volto/form_context_clean_breaking_with_hoc
 git merge volto/addons_customize
 git merge volto/safe_apply_config
-git merge volto/object-widget-final
 
-# Already merged to Volto master
+
+## Already merged to Volto master
+#
 # git merge volto/default-block-rebased
 # git merge volto/fix_toolbar_ssr
 # git merge volto/wysiwyg_desc_styling
@@ -31,3 +32,7 @@ git merge volto/object-widget-final
 # git merge volto/internalApiPath_in_url_helpers
 # git merge volto/eea-fix-custom-action-headers
 # git merge volto/upload_content
+
+## Moved to add-ons - https://github.com/eea/volto-object-widget
+#
+# git merge volto/object-widget-final

@@ -11,7 +11,6 @@ git merge volto/export_components
 git merge volto/eea-dx-fields-validation
 git merge volto/eea-dx-cpanel-layout-and-metadata-clean
 git merge volto/form_context_clean_breaking_with_hoc
-git merge volto/addons_customize
 git merge volto/safe_apply_config
 
 yarn i18n
@@ -36,7 +35,8 @@ git commit -m "yarn i18n"
 # git merge volto/internalApiPath_in_url_helpers
 # git merge volto/eea-fix-custom-action-headers
 # git merge volto/upload_content
-
+# git merge volto/addons_customize
+#
 ## Moved to add-ons - https://github.com/eea/volto-object-widget
 #
 # git merge volto/object-widget-final

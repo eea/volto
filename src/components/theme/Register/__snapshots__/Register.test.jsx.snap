@@ -54,15 +54,12 @@ exports[`Register renders a register component 1`] = `
                   >
                     <input
                       id="field-fullname"
-                      max={null}
                       maxLength={null}
-                      min={null}
                       minLength={null}
                       name="fullname"
                       onBlur={[Function]}
                       onChange={[Function]}
                       onClick={[Function]}
-                      step={null}
                       type="text"
                       value=""
                     />
@@ -115,15 +112,12 @@ exports[`Register renders a register component 1`] = `
                   >
                     <input
                       id="field-email"
-                      max={null}
                       maxLength={null}
-                      min={null}
                       minLength={null}
                       name="email"
                       onBlur={[Function]}
                       onChange={[Function]}
                       onClick={[Function]}
-                      step={null}
                       type="text"
                       value=""
                     />

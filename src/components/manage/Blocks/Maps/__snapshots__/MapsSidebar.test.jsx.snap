@@ -45,16 +45,13 @@ exports[`renders an Image Block Sidebar component 1`] = `
             >
               <input
                 id="field-external"
-                max={null}
                 maxLength={null}
-                min={null}
                 minLength={null}
                 name="external"
                 onBlur={[Function]}
                 onChange={[Function]}
                 onClick={[Function]}
-                step={null}
-                type=""
+                type="text"
                 value="map"
               />
               <i

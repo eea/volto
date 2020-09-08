@@ -8,11 +8,6 @@ import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import { Input } from 'semantic-ui-react';
 
-const typeTranslations = {
-  integer: 'number',
-  string: 'text',
-};
-
 /**
  * TextWidget component class.
  * @class TextWidget
@@ -30,7 +25,7 @@ class TextWidget extends Component {
     description: PropTypes.string,
     required: PropTypes.bool,
     error: PropTypes.arrayOf(PropTypes.string),
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    value: PropTypes.string,
     focus: PropTypes.bool,
     onChange: PropTypes.func,
     onBlur: PropTypes.func,
@@ -43,11 +38,8 @@ class TextWidget extends Component {
       content: PropTypes.string,
     }),
     iconAction: PropTypes.func,
-    type: PropTypes.string,
     minLength: PropTypes.number,
     maxLength: PropTypes.number,
-    maximum: PropTypes.number,
-    minimum: PropTypes.number,
     wrapped: PropTypes.bool,
     placeholder: PropTypes.string,
   };
@@ -70,11 +62,8 @@ class TextWidget extends Component {
     focus: false,
     icon: null,
     iconAction: null,
-    type: '',
     minLength: null,
     maxLength: null,
-    minimum: null,
-    maximum: null,
   };
 
   /**
@@ -102,11 +91,8 @@ class TextWidget extends Component {
       onClick,
       icon,
       iconAction,
-      type,
       minLength,
       maxLength,
-      minimum,
-      maximum,
       placeholder,
     } = this.props;
 
@@ -129,10 +115,6 @@ class TextWidget extends Component {
             onBlur(id, target.value === '' ? undefined : target.value)
           }
           onClick={() => onClick()}
-          type={typeTranslations[type] || type}
-          step={type === 'number' ? 'any' : type === 'integer' ? '1' : null}
-          min={minimum || null}
-          max={maximum || null}
           minLength={minLength || null}
           maxLength={maxLength || null}
         />

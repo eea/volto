@@ -32,16 +32,13 @@ exports[`renders a text widget component 1`] = `
         >
           <input
             id="field-my-field"
-            max={null}
             maxLength={null}
-            min={null}
             minLength={null}
             name="my-field"
             onBlur={[Function]}
             onChange={[Function]}
             onClick={[Function]}
-            step={null}
-            type=""
+            type="text"
             value=""
           />
         </div>

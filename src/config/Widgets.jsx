@@ -63,9 +63,8 @@ export const widgetMapping = {
     datetime: DatetimeWidget,
     date: DatetimeWidget,
     password: PasswordWidget,
-    url: UrlWidget,
-    email: EmailWidget,
     number: NumberWidget,
+    integer: NumberWidget,
   },
 };
 

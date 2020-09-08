@@ -59,16 +59,13 @@ exports[`renders an Image Block Sidebar component 1`] = `
             >
               <input
                 id="field-external"
-                max={null}
                 maxLength={null}
-                min={null}
                 minLength={null}
                 name="external"
                 onBlur={[Function]}
                 onChange={[Function]}
                 onClick={[Function]}
-                step={null}
-                type=""
+                type="text"
                 value="image"
               />
               <i
@@ -140,16 +137,13 @@ exports[`renders an Image Block Sidebar component 1`] = `
             >
               <input
                 id="field-alt"
-                max={null}
                 maxLength={null}
-                min={null}
                 minLength={null}
                 name="alt"
                 onBlur={[Function]}
                 onChange={[Function]}
                 onClick={[Function]}
-                step={null}
-                type=""
+                type="text"
                 value="alternate text"
               />
               <i
@@ -472,16 +466,13 @@ exports[`renders an Image Block Sidebar component 1`] = `
               >
                 <input
                   id="field-link"
-                  max={null}
                   maxLength={null}
-                  min={null}
                   minLength={null}
                   name="link"
                   onBlur={[Function]}
                   onChange={[Function]}
                   onClick={[Function]}
-                  step={null}
-                  type=""
+                  type="text"
                   value=""
                 />
                 <i

@@ -75,15 +75,12 @@ exports[`Contact form renders a contact form 1`] = `
                     >
                       <input
                         id="field-name"
-                        max={null}
                         maxLength={null}
-                        min={null}
                         minLength={null}
                         name="name"
                         onBlur={[Function]}
                         onChange={[Function]}
                         onClick={[Function]}
-                        step={null}
                         type="text"
                         value=""
                       />
@@ -123,15 +120,12 @@ exports[`Contact form renders a contact form 1`] = `
                     >
                       <input
                         id="field-from"
-                        max={null}
                         maxLength={null}
-                        min={null}
                         minLength={null}
                         name="from"
                         onBlur={[Function]}
                         onChange={[Function]}
                         onClick={[Function]}
-                        step={null}
                         type="text"
                         value=""
                       />
@@ -171,15 +165,12 @@ exports[`Contact form renders a contact form 1`] = `
                     >
                       <input
                         id="field-subject"
-                        max={null}
                         maxLength={null}
-                        min={null}
                         minLength={null}
                         name="subject"
                         onBlur={[Function]}
                         onChange={[Function]}
                         onClick={[Function]}
-                        step={null}
                         type="text"
                         value=""
                       />
@@ -370,15 +361,12 @@ exports[`Contact form renders a contact form with error message 1`] = `
                     >
                       <input
                         id="field-name"
-                        max={null}
                         maxLength={null}
-                        min={null}
                         minLength={null}
                         name="name"
                         onBlur={[Function]}
                         onChange={[Function]}
                         onClick={[Function]}
-                        step={null}
                         type="text"
                         value=""
                       />
@@ -418,15 +406,12 @@ exports[`Contact form renders a contact form with error message 1`] = `
                     >
                       <input
                         id="field-from"
-                        max={null}
                         maxLength={null}
-                        min={null}
                         minLength={null}
                         name="from"
                         onBlur={[Function]}
                         onChange={[Function]}
                         onClick={[Function]}
-                        step={null}
                         type="text"
                         value=""
                       />
@@ -466,15 +451,12 @@ exports[`Contact form renders a contact form with error message 1`] = `
                     >
                       <input
                         id="field-subject"
-                        max={null}
                         maxLength={null}
-                        min={null}
                         minLength={null}
                         name="subject"
                         onBlur={[Function]}
                         onChange={[Function]}
                         onClick={[Function]}
-                        step={null}
                         type="text"
                         value=""
                       />

@@ -380,16 +380,13 @@ exports[`renders an Listing Data Sidebar component 1`] = `
           >
             <input
               id="field-limit"
-              max={null}
               maxLength={null}
-              min={null}
               minLength={null}
               name="limit"
               onBlur={[Function]}
               onChange={[Function]}
               onClick={[Function]}
-              step={null}
-              type=""
+              type="text"
               value=""
             />
           </div>
@@ -428,16 +425,13 @@ exports[`renders an Listing Data Sidebar component 1`] = `
           >
             <input
               id="field-itembatchsize"
-              max={null}
               maxLength={null}
-              min={null}
               minLength={null}
               name="itembatchsize"
               onBlur={[Function]}
               onChange={[Function]}
               onClick={[Function]}
-              step={null}
-              type=""
+              type="text"
               value=""
             />
           </div>

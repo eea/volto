@@ -46,15 +46,12 @@ exports[`PersonalInformation renders a personal information component 1`] = `
                 >
                   <input
                     id="field-fullname"
-                    max={null}
                     maxLength={null}
-                    min={null}
                     minLength={null}
                     name="fullname"
                     onBlur={[Function]}
                     onChange={[Function]}
                     onClick={[Function]}
-                    step={null}
                     type="text"
                     value=""
                   />
@@ -107,15 +104,12 @@ exports[`PersonalInformation renders a personal information component 1`] = `
                 >
                   <input
                     id="field-email"
-                    max={null}
                     maxLength={null}
-                    min={null}
                     minLength={null}
                     name="email"
                     onBlur={[Function]}
                     onChange={[Function]}
                     onClick={[Function]}
-                    step={null}
                     type="text"
                     value=""
                   />
@@ -228,15 +222,12 @@ exports[`PersonalInformation renders a personal information component 1`] = `
                 >
                   <input
                     id="field-home_page"
-                    max={null}
                     maxLength={null}
-                    min={null}
                     minLength={null}
                     name="home_page"
                     onBlur={[Function]}
                     onChange={[Function]}
                     onClick={[Function]}
-                    step={null}
                     type="text"
                     value=""
                   />
@@ -289,15 +280,12 @@ exports[`PersonalInformation renders a personal information component 1`] = `
                 >
                   <input
                     id="field-location"
-                    max={null}
                     maxLength={null}
-                    min={null}
                     minLength={null}
                     name="location"
                     onBlur={[Function]}
                     onChange={[Function]}
                     onClick={[Function]}
-                    step={null}
                     type="text"
                     value=""
                   />
@@ -426,15 +414,12 @@ exports[`PersonalInformation renders a personal information component embedded i
                 >
                   <input
                     id="field-fullname"
-                    max={null}
                     maxLength={null}
-                    min={null}
                     minLength={null}
                     name="fullname"
                     onBlur={[Function]}
                     onChange={[Function]}
                     onClick={[Function]}
-                    step={null}
                     type="text"
                     value=""
                   />
@@ -487,15 +472,12 @@ exports[`PersonalInformation renders a personal information component embedded i
                 >
                   <input
                     id="field-email"
-                    max={null}
                     maxLength={null}
-                    min={null}
                     minLength={null}
                     name="email"
                     onBlur={[Function]}
                     onChange={[Function]}
                     onClick={[Function]}
-                    step={null}
                     type="text"
                     value=""
                   />
@@ -608,15 +590,12 @@ exports[`PersonalInformation renders a personal information component embedded i
                 >
                   <input
                     id="field-home_page"
-                    max={null}
                     maxLength={null}
-                    min={null}
                     minLength={null}
                     name="home_page"
                     onBlur={[Function]}
                     onChange={[Function]}
                     onClick={[Function]}
-                    step={null}
                     type="text"
                     value=""
                   />
@@ -669,15 +648,12 @@ exports[`PersonalInformation renders a personal information component embedded i
                 >
                   <input
                     id="field-location"
-                    max={null}
                     maxLength={null}
-                    min={null}
                     minLength={null}
                     name="location"
                     onBlur={[Function]}
                     onChange={[Function]}
                     onClick={[Function]}
-                    step={null}
                     type="text"
                     value=""
                   />

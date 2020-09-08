@@ -22,9 +22,13 @@ const NumberWidget = ({
   error,
   value,
   onChange,
+  onBlur,
+  onClick,
   fieldSet,
   wrapped,
   defaultValue = 0,
+  maximum,
+  minimum,
 }) => (
   <FormFieldWrapper
     id={id}
@@ -39,10 +43,16 @@ const NumberWidget = ({
       id={`field-${id}`}
       name={id}
       type="number"
+      min={minimum || null}
+      max={maximum || null}
       value={value || defaultValue}
       onChange={({ target }) =>
         onChange(id, target.value === '' ? undefined : target.value)
       }
+      onBlur={({ target }) =>
+        onBlur(id, target.value === '' ? undefined : target.value)
+      }
+      onClick={() => onClick()}
     />
   </FormFieldWrapper>
 );
@@ -58,9 +68,11 @@ NumberWidget.propTypes = {
   description: PropTypes.string,
   required: PropTypes.bool,
   error: PropTypes.arrayOf(PropTypes.string),
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func.isRequired,
   wrapped: PropTypes.bool,
+  maximum: PropTypes.number,
+  minimum: PropTypes.number,
 };
 
 /**

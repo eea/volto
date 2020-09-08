@@ -14,48 +14,37 @@ import { injectIntl } from 'react-intl';
  * @function NumberWidget
  * @returns {string} Markup of the component.
  */
-const NumberWidget = ({
-  id,
-  title,
-  required,
-  description,
-  error,
-  value,
-  onChange,
-  onBlur,
-  onClick,
-  fieldSet,
-  wrapped,
-  defaultValue = 0,
-  maximum,
-  minimum,
-}) => (
-  <FormFieldWrapper
-    id={id}
-    title={title}
-    description={description}
-    required={required}
-    error={error}
-    fieldSet={fieldSet}
-    wrapped={wrapped}
-  >
-    <Input
-      id={`field-${id}`}
-      name={id}
-      type="number"
-      min={minimum || null}
-      max={maximum || null}
-      value={value || defaultValue}
-      onChange={({ target }) =>
-        onChange(id, target.value === '' ? undefined : target.value)
-      }
-      onBlur={({ target }) =>
-        onBlur(id, target.value === '' ? undefined : target.value)
-      }
-      onClick={() => onClick()}
-    />
-  </FormFieldWrapper>
-);
+const NumberWidget = (props) => {
+  const {
+    id,
+    value,
+    onChange,
+    onBlur,
+    onClick,
+    defaultValue,
+    maximum,
+    minimum,
+  } = props;
+  return (
+    <FormFieldWrapper {...props}>
+      <Input
+        id={`field-${id}`}
+        name={id}
+        type="number"
+        min={minimum || null}
+        max={maximum || null}
+        value={value || defaultValue}
+        onChange={({ target }) =>
+          onChange(id, target.value === '' ? undefined : target.value)
+        }
+        onBlur={({ target }) =>
+          onBlur(id, target.value === '' ? undefined : target.value)
+        }
+        onClick={() => onClick()}
+      />
+    </FormFieldWrapper>
+  );
+};
 
 /**
  * Property types.

@@ -40,7 +40,6 @@ Array [
               onChange={[Function]}
               onClick={[Function]}
               type="number"
-              value={0}
             />
           </div>
         </div>

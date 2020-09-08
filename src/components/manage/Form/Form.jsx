@@ -1005,7 +1005,7 @@ export class Form extends Component {
                           formData={contextData.formData}
                           fieldSet={item.title.toLowerCase()}
                           focus={index === 0}
-                          value={contextData.formData[field]}
+                          value={contextData.formData?.[field]}
                           required={schema.required.indexOf(field) !== -1}
                           onChange={this.onChangeField}
                           onBlur={this.onBlurField}

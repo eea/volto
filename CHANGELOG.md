@@ -13,6 +13,7 @@
 - Validation implemented for add user/group @rexalex
 - Added Schema Editor within Dexterity Content-Types Controlpanel @rexalex @avoinea #1517
 - Separate the Form.jsx state in its own component exposed as a context. This enables clean multi-block editing from other blocks, exposes the form state to widgets and many other advanced scenarios. @tiberiuichim
+- Added Blocks Layout Editor within Dexterity Content-Types Controlpanel @avoinea #1517
 
 ### Bugfix
 
@@ -308,7 +309,6 @@
 
 ### Feature
 
-- Added Blocks Layout Editor within Dexterity Content-Types Controlpanel @avoinea #1517
 ### Bugfix
 
 - Adding absolute url in ObjectBrowser for image type @iFlameing

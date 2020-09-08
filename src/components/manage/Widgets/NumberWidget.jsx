@@ -33,6 +33,7 @@ const NumberWidget = (props) => {
         type="number"
         min={minimum || null}
         max={maximum || null}
+        disabled={props.isDisabled}
         value={value || defaultValue}
         onChange={({ target }) =>
           onChange(id, target.value === '' ? undefined : target.value)

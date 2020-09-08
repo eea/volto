@@ -13,9 +13,9 @@ git merge volto/eea-dx-cpanel-layout-and-metadata-clean
 git merge volto/form_context_clean_breaking_with_hoc
 git merge volto/safe_apply_config
 
-yarn i18n
-git add .
-git commit -m "yarn i18n"
+#yarn i18n
+#git add .
+#git commit -m "yarn i18n"
 
 
 ## Already merged to Volto master

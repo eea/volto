@@ -15,6 +15,8 @@
 - Separate the Form.jsx state in its own component exposed as a context. This enables clean multi-block editing from other blocks, exposes the form state to widgets and many other advanced scenarios. @tiberiuichim
 - Added Blocks Layout Editor within Dexterity Content-Types Controlpanel @avoinea #1517
 - Show Username when Firstname attr is missing in UsersControlPanelUser @iFlameing
+- Add `Style`, a wrapper component that applies float and width classes to wrapped content (typically blocks) @tiberiuichim
+- Add `AlignWidget`, a widget that wraps the `AlignBlock` helper @tiberiuichim
 
 ### Bugfix
 

@@ -12,6 +12,7 @@ git merge volto/eea-dx-fields-validation
 git merge volto/eea-dx-cpanel-layout-and-metadata-clean
 git merge volto/form_context_clean_breaking_with_hoc
 git merge volto/safe_apply_config
+git merge volto/block_alignment
 
 #yarn i18n
 #git add .

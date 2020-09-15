@@ -25,6 +25,8 @@
 - Show backend validation errors on corresponding fields #1246 @rexalex
 - Validation implemented for add user/group @rexalex
 - Show Username when Firstname attr is missing in UsersControlPanelUser @iFlameing
+- Add `Style`, a wrapper component that applies float and width classes to wrapped content (typically blocks) @tiberiuichim
+- Add `AlignWidget`, a widget that wraps the `AlignBlock` helper @tiberiuichim
 
 ### Bugfix
 

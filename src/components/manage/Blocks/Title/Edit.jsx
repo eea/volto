@@ -10,6 +10,7 @@ import { stateFromHTML } from 'draft-js-import-html';
 import { Editor, DefaultDraftBlockRenderMap, EditorState } from 'draft-js';
 import { defineMessages, injectIntl } from 'react-intl';
 import { settings } from '~/config';
+import { FormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 
 const messages = defineMessages({
   title: {
@@ -49,6 +50,7 @@ class Edit extends Component {
     onFocusNextBlock: PropTypes.func.isRequired,
     block: PropTypes.string.isRequired,
   };
+  static contextType = FormStateContext;
 
   /**
    * Constructor
@@ -56,13 +58,14 @@ class Edit extends Component {
    * @param {Object} props Component properties
    * @constructs WysiwygEditor
    */
-  constructor(props) {
+  constructor(props, context) {
     super(props);
 
     if (!__SERVER__) {
       let editorState;
-      if (props.properties && props.properties.title) {
-        const contentState = stateFromHTML(props.properties.title);
+      const properties = context.contextData?.formData || {};
+      if (properties && properties.title) {
+        const contentState = stateFromHTML(properties.title);
         editorState = EditorState.createWithContent(contentState);
       } else {
         editorState = EditorState.createEmpty();
@@ -150,12 +153,9 @@ class Edit extends Component {
           if (this.props.data.disableNewBlocks) {
             return 'handled';
           }
-          this.props.onSelectBlock(
-            this.props.onAddBlock(
-              settings.defaultBlockType,
-              this.props.index + 1,
-            ),
-          );
+          this.props
+            .onAddBlock(settings.defaultBlockType, this.props.index + 1)
+            .then((id) => this.props.onSelectBlock(id));
           return 'handled';
         }}
         placeholder={placeholder}

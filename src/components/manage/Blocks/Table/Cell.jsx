@@ -153,12 +153,9 @@ class Cell extends Component {
               );
               const blockType = currentContentBlock.getType();
               if (!includes(settings.listBlockTypes, blockType)) {
-                this.props.onSelectBlock(
-                  this.props.onAddBlock(
-                    settings.defaultBlockType,
-                    this.props.index + 1,
-                  ),
-                );
+                this.props
+                  .onAddBlock('text', this.props.index + 1)
+                  .then((id) => this.props.onSelectBlock(id));
                 return 'handled';
               }
               return 'un-handled';

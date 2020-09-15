@@ -14,6 +14,7 @@ import { LeadImageSidebar, SidebarPortal } from '@plone/volto/components';
 import { flattenToAppURL } from '@plone/volto/helpers';
 
 import imageBlockSVG from '@plone/volto/components/manage/Blocks/Image/block-image.svg';
+import { FormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 
 const messages = defineMessages({
   ImageBlockInputPlaceholder: {
@@ -43,6 +44,7 @@ class Edit extends Component {
     onChangeBlock: PropTypes.func.isRequired,
     openObjectBrowser: PropTypes.func.isRequired,
   };
+  static contextType = FormStateContext;
 
   /**
    * Align block handler
@@ -65,7 +67,8 @@ class Edit extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
-    const { data, properties } = this.props;
+    const properties = this.context?.contextData?.formData || {};
+    const { data } = this.props;
     const placeholder =
       this.props.data.placeholder ||
       this.props.intl.formatMessage(messages.ImageBlockInputPlaceholder);
@@ -100,7 +103,7 @@ class Edit extends Component {
           />
         )}
         <SidebarPortal selected={this.props.selected}>
-          <LeadImageSidebar {...this.props} />
+          <LeadImageSidebar {...{ ...this.props, properties }} />
         </SidebarPortal>
       </div>
     );

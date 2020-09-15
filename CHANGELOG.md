@@ -6,6 +6,9 @@
 
 ### Feature
 
+- Separate the Form.jsx state in its own component exposed as a context. This enables clean multi-block editing from other blocks, exposes the form state to widgets and many other advanced scenarios. @tiberiuichim
+
+### Bugfix
 - Added Schema Editor within Dexterity Content-Types Controlpanel @rexalex @avoinea #1517
 - Added Blocks Layout Editor within Dexterity Content-Types Controlpanel @avoinea #1517
 - Added missing components for Email and Url widgets #1246 @rexalex

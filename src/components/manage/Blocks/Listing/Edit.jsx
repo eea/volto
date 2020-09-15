@@ -8,6 +8,7 @@ import {
   ListingBlockSidebar as ListingSidebar,
 } from '@plone/volto/components';
 import { getBaseUrl } from '@plone/volto/helpers';
+import { useFormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 
 const messages = defineMessages({
   results: {
@@ -20,15 +21,7 @@ const messages = defineMessages({
   },
 });
 
-const Edit = ({
-  data,
-  onChangeBlock,
-  block,
-  selected,
-  properties,
-  pathname,
-  intl,
-}) => {
+const Edit = ({ data, onChangeBlock, block, selected, pathname, intl }) => {
   // componentDidMount
   React.useEffect(() => {
     if (!data.query) {
@@ -41,6 +34,8 @@ const Edit = ({
     /* eslint-disable react-hooks/exhaustive-deps */
   }, []);
 
+  const { contextData } = useFormStateContext();
+  const { formData } = contextData;
   const placeholder =
     data.placeholder ||
     (data?.query?.length
@@ -52,7 +47,7 @@ const Edit = ({
       <p className="items-preview">{placeholder}</p>
       <ListingBody
         data={data}
-        properties={properties}
+        properties={formData}
         block={block}
         path={getBaseUrl(pathname)}
         isEditMode

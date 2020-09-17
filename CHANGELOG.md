@@ -12,6 +12,7 @@
 - Added Schema Editor within Dexterity Content-Types Controlpanel @rexalex @avoinea #1517
 - Added Blocks Layout Editor within Dexterity Content-Types Controlpanel @avoinea #1517
 - Added missing components for Email and Url widgets #1246 @rexalex
+- Add new components: BlocksForm, DragDropList and EditBlockWrapper @tiberiuichim
 
 ### Bugfix
 
@@ -33,6 +34,8 @@
 ### Bugfix
 
 - When dealing with authentication token expiration set to 0, auto-refresh token in one hour instead of logging out use @tiberiuichim
+- Fix the broken profile view in Toolbar @iFlameing
+
 - Fixed front-end field validation #1246 @rexalex
 - Fixed date only widget rendering #1246 @rexalex
 - Fix errors with SelectWidget when removing the only element @rexalex

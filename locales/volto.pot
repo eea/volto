@@ -2246,6 +2246,7 @@ msgstr ""
 
 #: components/manage/Blocks/Block/Edit
 #: components/theme/View/DefaultView
+#: helpers/Blocks/Blocks
 # defaultMessage: Unknown Block {block}
 msgid "Unknown Block"
 msgstr ""

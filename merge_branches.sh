@@ -12,6 +12,7 @@ git merge volto/form_context_clean_breaking_with_hoc
 git merge volto/safe_apply_config
 git merge volto/block_alignment
 git merge volto/login_on_hmr
+git merge volto/blocks_form
 
 #yarn i18n
 #git add .

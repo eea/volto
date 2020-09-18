@@ -9,7 +9,6 @@ git pull
 git merge volto/master
 git merge volto/export_components
 git merge volto/form_context_clean_breaking_with_hoc
-git merge volto/safe_apply_config
 git merge volto/block_alignment
 git merge volto/login_on_hmr
 git merge volto/blocks_form
@@ -39,6 +38,7 @@ git merge volto/blocks_form
 # git merge volto/addons_customize
 # git merge volto/eea-dx-fields-validation
 # git merge volto/eea-dx-cpanel-layout-and-metadata-clean
+# git merge volto/safe_apply_config
 #
 ## Moved to add-ons - https://github.com/eea/volto-object-widget
 #

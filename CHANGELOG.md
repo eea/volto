@@ -13,6 +13,8 @@
 
 ### Internal
 
+- Improve developer experience, don't logout on hot-reload @tiberiuichim
+
 ## 8.0.0 (2020-09-18)
 
 ### Breaking

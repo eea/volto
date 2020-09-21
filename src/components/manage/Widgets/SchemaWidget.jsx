@@ -394,7 +394,7 @@ const formatTextareaToChoices = (textarea, multiple) => {
  * @class SchemaWidget
  * @extends Component
  */
-class SchemaWidget extends Component {
+export class SchemaWidget extends Component {
   /**
    * Property types.
    * @property {Object} propTypes Property types.

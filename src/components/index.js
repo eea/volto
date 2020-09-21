@@ -21,6 +21,7 @@ export Pagination from '@plone/volto/components/theme/Pagination/Pagination';
 export Tags from '@plone/volto/components/theme/Tags/Tags';
 export OutdatedBrowser from '@plone/volto/components/theme/OutdatedBrowser/OutdatedBrowser';
 export LanguageSelector from '@plone/volto/components/theme/LanguageSelector/LanguageSelector';
+export RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
 
 export Error from '@plone/volto/components/theme/Error/Error';
 export NotFound from '@plone/volto/components/theme/NotFound/NotFound';
@@ -109,6 +110,9 @@ export ContentsTagsModal from '@plone/volto/components/manage/Contents/ContentsT
 export UsersControlpanelUser from '@plone/volto/components/manage/Controlpanels/UsersControlpanelUser';
 export UsersControlpanelGroups from '@plone/volto/components/manage/Controlpanels/UsersControlpanelGroups';
 export DiffField from '@plone/volto/components/manage/Diff/DiffField';
+export DragDropList from '@plone/volto/components/manage/DragDropList/DragDropList';
+export InlineForm from '@plone/volto/components/manage/Form/InlineForm';
+export BlocksForm from '@plone/volto/components/manage/Blocks/Block/BlocksForm';
 
 export FormFieldWrapper from '@plone/volto/components/manage/Widgets/FormFieldWrapper';
 export ArrayWidget from '@plone/volto/components/manage/Widgets/ArrayWidget';

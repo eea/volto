@@ -77,7 +77,17 @@ const messages = defineMessages({
   },
 });
 
-function getDefaultValues(choices, value) {
+/**
+ * From a value in the choices results a real value that should be put in the
+ * Select (it contains a label property and a value property).
+ * @param {any[]} choices
+ * @param {object} value
+ * @param {function} formatMessage
+ */
+function getDefaultOptions(choices, value, formatMessage) {
+  // if (choices.length === 0) value = 'no-value';
+
+  // console.log('choices & value', choices, value);
   if (!isObject(value) && isBoolean(value)) {
     // We have a boolean value, which means we need to provide a "No value"
     // option
@@ -91,7 +101,7 @@ function getDefaultValues(choices, value) {
   }
   if (value === 'no-value') {
     return {
-      label: this.props.intl.formatMessage(messages.no_value),
+      label: formatMessage(messages.no_value),
       value: 'no-value',
     };
   }
@@ -179,8 +189,18 @@ export class SelectWidget extends Component {
   state = {
     selectedOption: this.props.value
       ? { label: this.props.value.title, value: this.props.value.value }
-      : {},
+      : this.computeSelectedOption(),
   };
+
+  computeSelectedOption() {
+    return this.props.id === 'roles' || this.props.id === 'groups'
+      ? null
+      : getDefaultOptions(
+          this.props.choices,
+          this.props.value,
+          this.props.intl.formatMessage,
+        );
+  }
 
   /**
    * Component did mount
@@ -190,6 +210,10 @@ export class SelectWidget extends Component {
   componentDidMount() {
     if (!this.props.choices && this.props.vocabBaseUrl) {
       this.props.getVocabulary(this.props.vocabBaseUrl);
+    } else {
+      this.setState({
+        selectedOption: this.computeSelectedOption(),
+      });
     }
   }
 
@@ -243,6 +267,8 @@ export class SelectWidget extends Component {
   render() {
     const { id, choices, value, onChange } = this.props;
 
+    // console.dir(this.props);
+
     return (
       <FormFieldWrapper {...this.props}>
         {this.props.vocabBaseUrl ? (
@@ -290,12 +316,12 @@ export class SelectWidget extends Component {
             styles={customSelectStyles}
             theme={selectTheme}
             components={{ DropdownIndicator, Option }}
-            defaultValue={
-              id === 'roles' || id === 'groups'
-                ? null
-                : getDefaultValues(choices, value)
-            }
+            value={this.state.selectedOption}
+            defaultValue={this.computeSelectedOption()}
             onChange={(data) => {
+              this.setState({
+                selectedOption: this.computeSelectedOption(),
+              });
               let dataValue = [];
               if (Array.isArray(data)) {
                 for (let obj of data) {

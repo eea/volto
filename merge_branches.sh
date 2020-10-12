@@ -10,6 +10,7 @@ git merge volto/master
 git merge volto/export_components
 git merge volto/block_alignment
 git merge volto/blocks_form
+git merge volto/multi_selected_copy
 
 #yarn i18n
 #git add .

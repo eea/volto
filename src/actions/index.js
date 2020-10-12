@@ -103,5 +103,9 @@ export {
 } from '@plone/volto/actions/workflow/workflow';
 export { getQuerystring } from '@plone/volto/actions/querystring/querystring';
 export { getQueryStringResults } from '@plone/volto/actions/querystringsearch/querystringsearch';
-export { setSidebarTab } from '@plone/volto/actions/sidebar/sidebar';
+export { setSidebarTab, copyBlock } from '@plone/volto/actions/sidebar/sidebar';
 export { getTranslationLocator } from '@plone/volto/actions/translations/translations';
+export {
+  setBlocksClipboard,
+  resetBlocksClipboard,
+} from '@plone/volto/actions/blocksClipboard/blocksClipboard';

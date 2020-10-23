@@ -41,6 +41,7 @@ import {
   Segment,
   Tab,
 } from 'semantic-ui-react';
+import BlocksClipboard from './BlocksClipboard';
 import { v4 as uuid } from 'uuid';
 import { toast } from 'react-toastify';
 import { settings } from '~/config';
@@ -174,6 +175,7 @@ class Form extends Component {
           : null,
       placeholderProps: {},
       isClient: false,
+      multiSelected: [],
     };
     this.onChangeField = this.onChangeField.bind(this);
     this.onChangeBlock = this.onChangeBlock.bind(this);
@@ -371,9 +373,34 @@ class Form extends Component {
    * @param {string} id Id of the field
    * @returns {undefined}
    */
-  onSelectBlock(id) {
+  onSelectBlock(id, isMultipleSelection) {
+    let multiSelected = [];
+
+    if (isMultipleSelection) {
+      const blocksLayoutFieldname = getBlocksLayoutFieldname(
+        this.state.formData,
+      );
+
+      const blocks_layout = this.state.formData[blocksLayoutFieldname].items;
+
+      const anchor =
+        this.state.multiSelected.length > 0
+          ? blocks_layout.indexOf(this.state.multiSelected[0])
+          : blocks_layout.indexOf(this.state.selected);
+      const focus = blocks_layout.indexOf(id);
+
+      if (anchor === focus) {
+        multiSelected = [id];
+      } else if (focus > anchor) {
+        multiSelected = [...blocks_layout.slice(anchor, focus + 1)];
+      } else {
+        multiSelected = [...blocks_layout.slice(focus, anchor + 1)];
+      }
+    }
+
     this.setState({
       selected: id,
+      multiSelected,
     });
   }
 
@@ -551,7 +578,7 @@ class Form extends Component {
    * @param {node} blockNode The id of the current block
    * @returns {undefined}
    */
-  onFocusPreviousBlock(currentBlock, blockNode) {
+  onFocusPreviousBlock(currentBlock, blockNode, isMultipleSelection) {
     const blocksLayoutFieldname = getBlocksLayoutFieldname(this.state.formData);
     const currentIndex = this.state.formData[
       blocksLayoutFieldname
@@ -566,6 +593,7 @@ class Form extends Component {
 
     this.onSelectBlock(
       this.state.formData[blocksLayoutFieldname].items[newindex],
+      isMultipleSelection,
     );
   }
 
@@ -576,7 +604,7 @@ class Form extends Component {
    * @param {node} blockNode The id of the current block
    * @returns {undefined}
    */
-  onFocusNextBlock(currentBlock, blockNode) {
+  onFocusNextBlock(currentBlock, blockNode, isMultipleSelection) {
     const blocksLayoutFieldname = getBlocksLayoutFieldname(this.state.formData);
     const currentIndex = this.state.formData[
       blocksLayoutFieldname
@@ -595,6 +623,7 @@ class Form extends Component {
 
     this.onSelectBlock(
       this.state.formData[blocksLayoutFieldname].items[newindex],
+      isMultipleSelection,
     );
   }
 
@@ -619,12 +648,13 @@ class Form extends Component {
       disableArrowDown = false,
     } = {},
   ) {
+    const isMultipleSelection = e.shiftKey;
     if (e.key === 'ArrowUp' && !disableArrowUp) {
-      this.onFocusPreviousBlock(block, node);
+      this.onFocusPreviousBlock(block, node, isMultipleSelection);
       e.preventDefault();
     }
     if (e.key === 'ArrowDown' && !disableArrowDown) {
-      this.onFocusNextBlock(block, node);
+      this.onFocusNextBlock(block, node, isMultipleSelection);
       e.preventDefault();
     }
     if (e.key === 'Enter' && !disableEnter) {
@@ -781,6 +811,23 @@ class Form extends Component {
       // but draftJS don't like it much and the hydration gets messed up
       this.state.isClient && (
         <div className="ui container">
+          <BlocksClipboard
+            formData={this.state.formData}
+            selectedBlocks={this.state.multiSelected}
+            onSetSelectedBlocks={(blockIds) =>
+              this.setState({ multiSelected: blockIds })
+            }
+            onSelectBlock={this.onSelectBlock}
+            onChangeBlocks={(newBlockData) =>
+              this.setState({
+                formData: {
+                  ...formData,
+                  ...newBlockData,
+                },
+              })
+            }
+            selectedBlock={this.state.selected}
+          />
           <DragDropContext
             onDragEnd={this.onDragEnd}
             onDragStart={this.handleDragStart}
@@ -837,6 +884,9 @@ class Form extends Component {
                               pathname={this.props.pathname}
                               block={block}
                               selected={this.state.selected === block}
+                              multiSelected={this.state.multiSelected.includes(
+                                block,
+                              )}
                               manage={this.props.isAdminForm}
                             />
                           </div>

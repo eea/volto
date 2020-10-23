@@ -6,6 +6,8 @@
 
 ### Feature
 
+- Include `config.addonRoutes` in router configuration. This allows addons to
+  override route children defined for the `App` component.
 ### Bugfix
 
 ### Internal
@@ -617,10 +619,13 @@
 - Added internationalization for Romanian language @alecghica #1521
 - Support loading additional reducers from the `config.addonReducers` key,
   to allow addons to provide their own reducers @tiberiuichim
+- Added support for copy and pasting block in the same page and between page @iFlameing
 - Add a no brainer image sizing option, using scales. This will be vastly improved when
   we adopt srcsets. @sneridagh
 
 ### Bugfix
+
+- Removed a regex check in default view, we already have that check implemented in `toHTML.jsx` L173s @nileshgulia1
 
 - Removed a regex check in default view, we already have that check implemented in `toHTML.jsx` L173s @nileshgulia1
 - UX and UI improvements to `DateTimeWidget` @sneridagh

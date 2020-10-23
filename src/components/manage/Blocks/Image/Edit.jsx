@@ -14,7 +14,7 @@ import cx from 'classnames';
 import Dropzone from 'react-dropzone';
 
 import { Icon, ImageSidebar, SidebarPortal } from '@plone/volto/components';
-import { createContent } from '@plone/volto/actions';
+import { createContent, copyBlock } from '@plone/volto/actions';
 import {
   flattenToAppURL,
   getBaseUrl,
@@ -226,6 +226,15 @@ class Edit extends Component {
     this.setState({ dragging: false });
   };
 
+  /**
+   * Copy block handler
+   * @method onCopy
+   * @returns {undefined}
+   */
+  onCopy = () => {
+    this.props.copyBlock(this.props.data);
+  };
+
   node = React.createRef();
 
   /**
@@ -363,8 +372,12 @@ class Edit extends Component {
             </Dropzone>
           </div>
         )}
-        <SidebarPortal selected={this.props.selected}>
-          <ImageSidebar {...this.props} resetSubmitUrl={this.resetSubmitUrl} />
+        <SidebarPortal selected={this.props.selected} onCopy={this.onCopy}>
+          <ImageSidebar
+            {...this.props}
+            resetSubmitUrl={this.resetSubmitUrl}
+            onCopy={this.onCopy}
+          />
         </SidebarPortal>
       </div>
     );
@@ -378,6 +391,6 @@ export default compose(
       request: state.content.subrequests[ownProps.block] || {},
       content: state.content.subrequests[ownProps.block]?.data,
     }),
-    { createContent },
+    { createContent, copyBlock },
   ),
 )(Edit);

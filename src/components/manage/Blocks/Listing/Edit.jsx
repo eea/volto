@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
+import { useDispatch } from 'react-redux';
+import { copyBlock } from '@plone/volto/actions';
 
 import {
   SidebarPortal,
@@ -40,12 +42,22 @@ const Edit = ({
     }
     /* eslint-disable react-hooks/exhaustive-deps */
   }, []);
-
   const placeholder =
     data.placeholder ||
     (data?.query?.length
       ? intl.formatMessage(messages.results)
       : intl.formatMessage(messages.items));
+
+  const dispatch = useDispatch();
+
+  /**
+   * Copy block handler
+   * @function onCopy
+   * @returns {undefined}
+   */
+  const onCopy = () => {
+    dispatch(copyBlock(data));
+  };
 
   return (
     <>
@@ -62,6 +74,7 @@ const Edit = ({
           data={data}
           block={block}
           onChangeBlock={onChangeBlock}
+          onCopy={onCopy}
         />
       </SidebarPortal>
     </>

@@ -11,6 +11,8 @@
 
 ### Bugfix
 
+- Properly return 404 on SSR, when appropriate @tiberiuichim
+
 ### Internal
 
 ## 8.7.0 (2020-10-27)

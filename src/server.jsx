@@ -174,6 +174,23 @@ server
 
           if (context.url) {
             res.redirect(context.url);
+          } else if (context.error_code) {
+            res.set({
+              'Cache-Control': 'no-cache',
+            });
+
+            res.status(context.error_code).send(
+              `<!doctype html>
+                ${renderToString(
+                  <Html
+                    extractor={extractor}
+                    markup={markup}
+                    store={store}
+                    extractScripts={false}
+                  />,
+                )}
+              `,
+            );
           } else {
             res.status(200).send(
               `<!doctype html>

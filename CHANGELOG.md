@@ -9,6 +9,8 @@
 - Implement multi-block copy/paste @tiberiuichim
 - Allow reducers to be persisted using localstorage @tiberiuichim
 
+- added loading icon when doing actions in folder-contents @giuliaghisini
+
 ### Bugfix
 
 - Properly return 404, 401 and 403 on SSR, when appropriate @tiberiuichim

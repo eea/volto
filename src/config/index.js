@@ -86,6 +86,7 @@ let config = {
       ...sentryOptions,
     },
     contentIcons: contentIcons,
+    persistentReducers: ['blocksClipboard'],
   },
   widgets: {
     ...widgetMapping,

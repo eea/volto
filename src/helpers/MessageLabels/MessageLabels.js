@@ -170,4 +170,16 @@ export const messages = defineMessages({
     id: "Enter a username above to search or click 'Show All'",
     defaultMessage: "Enter a username above to search or click 'Show All'",
   },
+  copyBlocks: {
+    id: 'Copy blocks',
+    defaultMesages: 'Copy blocks',
+  },
+  cutBlocks: {
+    id: 'Cut blocks',
+    defaultMesages: 'Cut blocks',
+  },
+  pasteBlocks: {
+    id: 'Paste blocks',
+    defaultMesages: 'Paste blocks',
+  },
 });

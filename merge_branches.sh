@@ -8,5 +8,4 @@ git pull
 
 # git merge volto/master
 git merge volto/multi_block_copypaste
-git merge volto/ssr_errors
 git merge volto/is_backend_resource

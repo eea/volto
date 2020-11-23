@@ -75,3 +75,21 @@ This list is still incomplete, contributions are welcomed!
         Course: courseSVG,
     };
     ```
+
+## backendResourceMatch
+
+The Volto Express server, by default, pipes some requests from the backend, for
+example image and file transfers, denoted by paths such as `@@images` or
+`@download`. This setting enables adding additional such paths. This is a list
+of "matchers", functions that receive the Express server request and return
+true if the request should be piped to the backend server.
+
+For example, if we'd like to pipe a request such as
+`http://localhost:8080/Plone/something/@@ics`, we'd write a matcher like:
+
+```jsx
+settings.backendResourceMatch = [
+  ...backendResourceMatch,
+  (request) => request.path.match(/(.*)\/@@ics/)
+]
+```

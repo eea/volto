@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Plone\n"
-"POT-Creation-Date: 2020-11-10T14:47:42.132Z\n"
+"POT-Creation-Date: 2020-10-27T13:59:30.944Z\n"
 "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -354,16 +354,6 @@ msgstr ""
 msgid "Choose Target"
 msgstr ""
 
-#: components/manage/Widgets/FileWidget
-# defaultMessage: Choose a File/Image
-msgid "Choose a File/Image"
-msgstr ""
-
-#: components/manage/Blocks/HTML/Edit
-# defaultMessage: Clear
-msgid "Clear"
-msgstr ""
-
 #: components/theme/View/ImageView
 # defaultMessage: Click to download full sized image
 msgid "Click to download full sized image"
@@ -377,11 +367,6 @@ msgstr ""
 #: components/theme/Navigation/Navigation
 # defaultMessage: Close menu
 msgid "Close menu"
-msgstr ""
-
-#: components/manage/Blocks/HTML/Edit
-# defaultMessage: Code
-msgid "Code"
 msgstr ""
 
 #: components/manage/Toolbar/Toolbar
@@ -437,6 +422,11 @@ msgstr ""
 msgid "Content"
 msgstr ""
 
+#: components/manage/Multilingual/ManageTranslations
+# defaultMessage: Content linked
+msgid "Content linked"
+msgstr ""
+
 #: components/manage/Controlpanels/ContentTypes
 # defaultMessage: Content type created
 msgid "Content type created"
@@ -458,6 +448,11 @@ msgstr ""
 #: components/manage/Contents/ContentsItem
 # defaultMessage: Copy
 msgid "Copy"
+msgstr ""
+
+#: helpers/MessageLabels/MessageLabels
+# defaultMessage: undefined
+msgid "Copy blocks"
 msgstr ""
 
 #: components/theme/Footer/Footer
@@ -500,6 +495,11 @@ msgstr ""
 #: components/manage/Contents/ContentsItem
 # defaultMessage: Cut
 msgid "Cut"
+msgstr ""
+
+#: helpers/MessageLabels/MessageLabels
+# defaultMessage: undefined
+msgid "Cut blocks"
 msgstr ""
 
 #: components/manage/Widgets/RecurrenceWidget/RecurrenceWidget
@@ -671,21 +671,6 @@ msgstr ""
 msgid "Drag and drop files from your computer onto this area or click the “Browse” button."
 msgstr ""
 
-#: components/manage/Widgets/FileWidget
-# defaultMessage: Drag the new item to upload
-msgid "Drag the new item to upload"
-msgstr ""
-
-#: components/manage/Widgets/FileWidget
-# defaultMessage: Drag to replace the file item
-msgid "Drag to replace the file item"
-msgstr ""
-
-#: components/manage/Widgets/FileWidget
-# defaultMessage: Drop files here ....
-msgid "Drop files here ...."
-msgstr ""
-
 #: components/manage/Preferences/PersonalInformation
 #: components/theme/Register/Register
 # defaultMessage: E-mail
@@ -771,11 +756,6 @@ msgstr ""
 #: components/manage/AnchorPlugin/components/LinkButton/AddLinkForm
 # defaultMessage: Enter URL or select an item
 msgid "Enter URL or select an item"
-msgstr ""
-
-#: helpers/MessageLabels/MessageLabels
-# defaultMessage: Enter a username above to search or click 'Show All'
-msgid "Enter a username above to search or click 'Show All'"
 msgstr ""
 
 #: components/theme/Register/Register
@@ -1126,8 +1106,8 @@ msgid "Item(s) cut."
 msgstr ""
 
 #: components/manage/Contents/Contents
-# defaultMessage: Item(s) has been updated.
-msgid "Item(s) has been updated."
+# defaultMessage: Item(s) has been sorted.
+msgid "Item(s) has been sorted."
 msgstr ""
 
 #: components/manage/Actions/Actions
@@ -1532,6 +1512,11 @@ msgstr ""
 msgid "Paste"
 msgstr ""
 
+#: helpers/MessageLabels/MessageLabels
+# defaultMessage: undefined
+msgid "Paste blocks"
+msgstr ""
+
 #: components/manage/Preferences/PersonalInformation
 #: components/manage/Toolbar/Toolbar
 # defaultMessage: Personal Information
@@ -1606,19 +1591,9 @@ msgid "Preferences"
 msgstr ""
 
 #: components/manage/Blocks/HTML/Edit
-# defaultMessage: Prettify your code
-msgid "Prettify your code"
-msgstr ""
-
-#: components/manage/Blocks/HTML/Edit
 #: components/manage/Contents/ContentsUploadModal
 # defaultMessage: Preview
 msgid "Preview"
-msgstr ""
-
-#: components/manage/Blocks/Video/VideoSidebar
-# defaultMessage: Preview Image URL
-msgid "Preview Image URL"
 msgstr ""
 
 #: components/manage/Toolbar/PersonalTools
@@ -1724,11 +1699,6 @@ msgstr ""
 #: components/manage/Widgets/RecurrenceWidget/RecurrenceWidget
 # defaultMessage: Repeat on
 msgid "Repeat on"
-msgstr ""
-
-#: components/manage/Widgets/FileWidget
-# defaultMessage: Replace existing File/Image
-msgid "Replace existing File/Image"
 msgstr ""
 
 #: components/manage/Widgets/QuerystringWidget
@@ -1960,11 +1930,6 @@ msgstr ""
 #: components/theme/Pagination/Pagination
 # defaultMessage: Show
 msgid "Show"
-msgstr ""
-
-#: helpers/MessageLabels/MessageLabels
-# defaultMessage: Show All
-msgid "Show All"
 msgstr ""
 
 #: components/manage/Sidebar/Sidebar
@@ -2281,13 +2246,8 @@ msgid "Translate to {lang}"
 msgstr ""
 
 #: components/manage/Multilingual/ManageTranslations
-# defaultMessage: Translation linked
-msgid "Translation linked"
-msgstr ""
-
-#: components/manage/Multilingual/ManageTranslations
-# defaultMessage: Translation linking removed
-msgid "Translation linking removed"
+# defaultMessage: Translation deleted
+msgid "Translation deleted"
 msgstr ""
 
 #: components/manage/Controlpanels/ContentTypes
@@ -2572,11 +2532,6 @@ msgstr ""
 msgid "You can view the history of your item below."
 msgstr ""
 
-#: components/manage/Contents/Contents
-# defaultMessage: You can't paste this content here
-msgid "You can't paste this content here"
-msgstr ""
-
 #: components/theme/PasswordReset/RequestPasswordReset
 # defaultMessage: Your email is required for reset your password.
 msgid "Your email is required for reset your password."
@@ -2725,11 +2680,6 @@ msgstr ""
 #: config/Blocks
 # defaultMessage: Listing
 msgid "listing"
-msgstr ""
-
-#: components/manage/Contents/Contents
-# defaultMessage: Loading
-msgid "loading"
 msgstr ""
 
 #: components/theme/Unauthorized/Unauthorized

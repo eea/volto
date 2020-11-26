@@ -16,6 +16,7 @@ import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import { updateIntl } from 'react-intl-redux';
 import { resetServerContext } from 'react-beautiful-dnd';
+import compression from 'compression';
 
 import routes from '~/routes';
 import { settings } from '~/config';
@@ -49,6 +50,8 @@ if (settings) {
 const supported = new locale.Locales(keys(languages), 'en');
 
 const server = express();
+server.use(compression());
+
 // Internal proxy to bypass CORS while developing.
 if (__DEVELOPMENT__ && settings.devProxyToApiPath) {
   const apiPathURL = parseUrl(settings.apiPath);
